@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync.Upload
+namespace Microsoft.WindowsAzure.Commands.Sync.Upload
 {
     using System.IO;
     using Sync.Download;

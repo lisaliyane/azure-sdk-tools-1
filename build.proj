@@ -3,41 +3,43 @@
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
   ToolsVersion="4.0"
   DefaultTargets="Clean;BuildDebug;BuildReleaseSigned;BuildSetupDebug">
-  
+
   <!-- Define build properties -->
   <PropertyGroup>
-    <ManagementCmdletBinDirectory>.\WindowsAzurePowershell\src\Management\bin</ManagementCmdletBinDirectory>
-    <ManagementTestDirectory>.\WindowsAzurePowershell\src\Management.Test\bin</ManagementTestDirectory>
-    <ManagementTestAssemblyName>Microsoft.WindowsAzure.Management.Test.dll</ManagementTestAssemblyName>
+    <ManagementCmdletBinDirectory>.\WindowsAzurePowershell\src\Commands\bin</ManagementCmdletBinDirectory>
+    <ManagementTestDirectory>.\WindowsAzurePowershell\src\Commands.Test\bin</ManagementTestDirectory>
+    <ManagementTestAssemblyName>Microsoft.WindowsAzure.Commands.Test.dll</ManagementTestAssemblyName>
 
     <TestSettings>.\WindowsAzurePowershell\src\Local.testsettings</TestSettings>
     <ScenarioTestSettings>.\WindowsAzurePowershell\src\Scenario.testsettings</ScenarioTestSettings>
-    <ScenarioTestDebug>.\WindowsAzurePowershell\src\Management.ScenarioTest\bin\Debug\Microsoft.WindowsAzure.Management.ScenarioTest.dll</ScenarioTestDebug>
-    <AzureRTTestContainer>.\WindowsAzurePowershell\src\Management.ServiceManagement.Test\bin\Debug\Microsoft.WindowsAzure.Management.ServiceManagement.Test.dll</AzureRTTestContainer>
-    <StorageScenarioTestDebug>WindowsAzurePowershell\src\Management.Storage.ScenarioTest\bin\Debug\CLITest.dll</StorageScenarioTestDebug>
-    <ManagementTestDebug>.\WindowsAzurePowershell\src\Management.Test\bin\Debug\Microsoft.WindowsAzure.Management.Test.dll</ManagementTestDebug>
-    <ServiceManagementTestDebug>.\WindowsAzurePowershell\src\Management.ServiceManagement.Test\bin\Debug\Microsoft.WindowsAzure.Management.ServiceManagement.Test.dll</ServiceManagementTestDebug>
-    <SqlDatabaseTestDebug>.\WindowsAzurePowershell\src\Management.SqlDatabase.Test\bin\Debug\Microsoft.WindowsAzure.Management.SqlDatabase.Test.dll</SqlDatabaseTestDebug>
-    <StorageTestDebug>.\WindowsAzurePowershell\src\Management.Storage.Test\bin\Debug\Microsoft.WindowsAzure.Management.Storage.Test.dll</StorageTestDebug>
+    <AzureRTTestSettings>.\WindowsAzurePowershell\src\AzureRT.testsettings</AzureRTTestSettings>
+    <ScenarioTestDebug>.\WindowsAzurePowershell\src\Commands.ScenarioTest\bin\Debug\Microsoft.WindowsAzure.Commands.ScenarioTest.dll</ScenarioTestDebug>
+    <AzureRTTestContainer>.\WindowsAzurePowershell\src\Commands.ServiceManagement.Test\bin\Debug\Microsoft.WindowsAzure.Commands.ServiceManagement.Test.dll</AzureRTTestContainer>
+    <StorageScenarioTestDebug>WindowsAzurePowershell\src\Commands.Storage.ScenarioTest\bin\Debug\CLITest.dll</StorageScenarioTestDebug>
+    <ManagementTestDebug>.\WindowsAzurePowershell\src\Commands.Test\bin\Debug\Microsoft.WindowsAzure.Commands.Test.dll</ManagementTestDebug>
+    <ServiceManagementTestDebug>.\WindowsAzurePowershell\src\Commands.ServiceManagement.Test\bin\Debug\Microsoft.WindowsAzure.Commands.ServiceManagement.Test.dll</ServiceManagementTestDebug>
+    <SqlDatabaseTestDebug>.\WindowsAzurePowershell\src\Commands.SqlDatabase.Test\bin\Debug\Microsoft.WindowsAzure.Commands.SqlDatabase.Test.dll</SqlDatabaseTestDebug>
+    <StorageTestDebug>.\WindowsAzurePowershell\src\Commands.Storage.Test\bin\Debug\Microsoft.WindowsAzure.Commands.Storage.Test.dll</StorageTestDebug>
     <SetupDirectory>.\WindowsAzurePowershell\setup\build</SetupDirectory>
 
     <PublishDirectory>.\Publish</PublishDirectory>
     <PackageDirectory>.\Package</PackageDirectory>
     <BuildOutputDirectory>$(PublishDirectory)\Build</BuildOutputDirectory>
     <SetupOutputDirectory>$(PublishDirectory)\Setup</SetupOutputDirectory>
-    <TestFilter>"!Functional&#x26;!Scenario&#x26;!LongRunningTest"</TestFilter>
+    <TestFilter>"!Functional&#x26;!Scenario&#x26;!LongRunningTest&#x26;!Sequential&#x26;!PIRTest"</TestFilter>
     <ScenarioTestFilter>All</ScenarioTestFilter>
 	<OneSDKCITFilter>"OneSDK&#x26;CIT"</OneSDKCITFilter>
     <TestOutputDirectory>$(PublishDirectory)\TestResults</TestOutputDirectory>
 	<DebugBuildConfig>Configuration=Debug;Platform=Any CPU</DebugBuildConfig>
 	<ReleaseBuildConfig>Configuration=Release;Platform=Any CPU</ReleaseBuildConfig>
 	<ReleaseSignedBuildConfig>Configuration=ReleaseSigned;Platform=Any CPU</ReleaseSignedBuildConfig>
+	<TestName></TestName>
   </PropertyGroup>
   <ItemGroup>
     <CmdletSln Include=".\WindowsAzurePowershell\src\WindowsAzurePowershell.sln" />
     <SetupSln Include=".\WindowsAzurePowershell\setup\azurepowershell.sln" />
   </ItemGroup>
-  
+
   <!-- Clean the build in all configurations -->
   <Target Name="Clean">
     <!-- Clean the solutions -->
@@ -74,7 +76,7 @@
     <RemoveDir
       Directories="$(PublishDirectory)"
       ContinueOnError="false" />
-	  
+
 	<!-- Delete the package files -->
     <Message Importance="high" Text="Cleaning package files..." ContinueOnError="false" />
     <ItemGroup>
@@ -87,7 +89,7 @@
       Directories="$(PackageDirectory)"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Build all flavors of the Cmdlets -->
   <Target Name="BuildCmdlets">
     <Message Importance="high" Text="Building Cmdlets..." />
@@ -102,7 +104,7 @@
       Properties="$(ReleaseSignedBuildConfig)"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Build the Setup -->
   <Target Name="BuildSetupDebug">
     <Message
@@ -119,7 +121,7 @@
       Properties="$(DebugBuildConfig)"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Build the Setup -->
   <Target Name="BuildSetup">
     <Message
@@ -136,13 +138,13 @@
       Properties="$(ReleaseBuildConfig)"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Build the Cmdlets and Setup in all configurations -->
   <Target Name="Build" DependsOnTargets="BuildCmdlets;BuildSetup" />
-  
+
   <!-- Publish any build artificates to the Publish directory -->
   <Target Name="Publish" DependsOnTargets="Build">
-    
+
     <!-- Copy code artifacts -->
     <Message Importance="high" Text="Publishing Cmdlets..." ContinueOnError="false" />
     <ItemGroup>
@@ -166,7 +168,7 @@
       DestinationFiles="@(ReleaseFiles->'$(BuildOutputDirectory)\Release\%(RecursiveDir)%(Filename)%(Extension)')"
       SkipUnchangedFiles="true"
       ContinueOnError="false" />
-    
+
     <!-- Copy the Setup artifacts -->
     <Message Importance="high" Text="Publishing Setup..." ContinueOnError="false" />
     <ItemGroup>
@@ -178,34 +180,47 @@
       SkipUnchangedFiles="true"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Run the unit tests -->
   <Target Name="Test" DependsOnTargets="BuildDebug">
     <Message Importance="high" Text="Running tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
-    
+
     <Message Importance="high" Text="Debug tests:" />
+    <CallTarget Targets="TestManagement; TestServiceManagement; TestSqlDatabase; TestStorage" />
+  </Target>
+
+  <Target Name="TestManagement">
     <Exec
       Command="MSTest.exe /testcontainer:$(ManagementTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\ManagementDebug.trx"
       ContinueOnError="false" />
-	<Exec
-      Command="MSTest.exe /testcontainer:$(ServiceManagementTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\ServiceManagementDebug.trx"
-      ContinueOnError="false" />
-	<Exec
-      Command="MSTest.exe /testcontainer:$(SqlDatabaseTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\SqlDatabaseDebug.trx"
-      ContinueOnError="false" />
-	<Exec
-      Command="MSTest.exe /testcontainer:$(StorageTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\StorageDebug.trx"
-      ContinueOnError="false" />
   </Target>
-  
+
+  <Target Name="TestServiceManagement">
+    <Exec
+        Command="MSTest.exe /testcontainer:$(ServiceManagementTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\ServiceManagementDebug.trx"
+        ContinueOnError="false" />
+  </Target>
+
+  <Target Name="TestSqlDatabase">
+    <Exec
+        Command="MSTest.exe /testcontainer:$(SqlDatabaseTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\SqlDatabaseDebug.trx"
+        ContinueOnError="false" />
+  </Target>
+
+  <Target Name="TestStorage">
+    <Exec
+        Command="MSTest.exe /testcontainer:$(StorageTestDebug) /testsettings:$(TestSettings) /category:$(TestFilter) /resultsfile:$(TestOutputDirectory)\StorageDebug.trx"
+        ContinueOnError="false" />
+  </Target>
+
   <!-- Run the scenario tests -->
   <Target Name="ScenarioTest" DependsOnTargets="Clean;BuildDebug">
     <Message Importance="high" Text="Running scenario tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
-    
+
     <Message Importance="high" Text="Scenario tests:" />
     <Exec
       Command="MSTest.exe /testcontainer:$(ScenarioTestDebug) /testsettings:$(TestSettings) /category:$(ScenarioTestFilter) /resultsfile:$(TestOutputDirectory)\Debug.trx"
@@ -214,25 +229,25 @@
       Command="MSTest.exe /testcontainer:$(StorageScenarioTestDebug) /testsettings:$(TestSettings) /category:$(ScenarioTestFilter) /resultsfile:$(TestOutputDirectory)\StorageScenarioDebug.trx"
       ContinueOnError="false" />
   </Target>
-  
+
   <!-- Run the CITs -->
   <Target Name="RunOneSDKCIT" DependsOnTargets="Clean;BuildDebug">
     <Message Importance="high" Text="Running CITs..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
-    
+
     <Message Importance="high" Text="Scenario tests:" />
     <Exec
       Command="MSTest.exe /testcontainer:$(ScenarioTestDebug) /testsettings:$(TestSettings) /category:$(OneSDKCITFilter) /resultsfile:$(TestOutputDirectory)\Debug.trx"
       ContinueOnError="false" />
   </Target>
-  
-  <!-- Run the scenario tests -->
+
+  <!-- Run the AzureRT tests -->
   <Target Name="AzureRTScenarioTest2" DependsOnTargets="Clean;BuildDebug">
     <Message Importance="high" Text="Running scenario tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
-    
+
     <Message Importance="high" Text="Scenario tests:" />
     <Exec
       Command="MSTest.exe /testcontainer:$(ScenarioTestDebug) /testsettings:$(TestSettings) /category:ServiceManagement /resultsfile:$(TestOutputDirectory)\Debug.trx"
@@ -240,16 +255,16 @@
   </Target>
 
   <Target Name="AzureRTBVTs" DependsOnTargets="Clean;BuildDebug">
-    <Message Importance="high" Text="Running scenario tests..." />
+    <Message Importance="high" Text="Running AzureRT BVT tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
 
-    <Message Importance="high" Text="Scenario tests:" />
+    <Message Importance="high" Text="BVT tests:" />
     <Exec
-      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(TestSettings) /category:BVT /resultsfile:$(TestOutputDirectory)\RTBVTDebug.trx"
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:BVT /resultsfile:$(TestOutputDirectory)\RTBVTDebug.trx"
       ContinueOnError="false" />
   </Target>
-  
+
   <Target Name="AzureRTScenarios" DependsOnTargets="Clean;BuildDebug">
     <Message Importance="high" Text="Running scenario tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
@@ -257,37 +272,40 @@
 
     <Message Importance="high" Text="Scenario tests:" />
     <Exec
-      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(TestSettings) /category:Scenario /resultsfile:$(TestOutputDirectory)\RTScenarioDebug.trx"
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:Scenario /resultsfile:$(TestOutputDirectory)\RTScenarioDebug.trx"
+      ContinueOnError="false" />
+  </Target>
+  
+  <Target Name="AzureRTOneTest" DependsOnTargets="Clean;BuildDebug">
+    <Message Importance="high" Text="Running a specific tests..." />
+    <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
+    <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
+
+    <Message Importance="high" Text="Running tests:" />
+    <Exec
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /test:$(TestName) /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
       ContinueOnError="false" />
   </Target>
 
   <Target Name="AzureRTFunctionals" DependsOnTargets="Clean;BuildDebug">
-    <Message Importance="high" Text="Running scenario tests..." />
+    <Message Importance="high" Text="Running AzureRT functional tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
     <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
 
-    <Message Importance="high" Text="Scenario tests:" />
+    <Message Importance="high" Text="Functional tests:" />
+	<Exec
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(TestSettings) /category:Sequential /resultsfile:$(TestOutputDirectory)\RTAddVhdDebug.trx"
+      ContinueOnError="true" />
     <Exec
-      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(TestSettings) /category:Functional /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:Functional /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
       ContinueOnError="false" />
   </Target>
-  
-  <Target Name="AzureRTScenarioTest1" DependsOnTargets="Clean;BuildDebug">
-    <Message Importance="high" Text="Running AzureRT scenario tests..." />
-    <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
-    <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
 
-    <Message Importance="high" Text="Scenario tests:" />
-    <Exec
-	Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(ScenarioTestSettings) /category:Scenario /resultsfile:$(TestOutputDirectory)\Debug.trx"
-   	ContinueOnError="false" />
-  </Target> 
-  
   <!-- Do everything possible -->
   <Target
     Name="Full"
     DependsOnTargets="Clean;BuildDebug;BuildReleaseSigned;Test;BuildSetupDebug;BuildSetup" />
-  
+
   <!-- Run Full switch with scenario tests -->
   <Target
     Name="FullWithScenarioTests"

@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync.Threading
+namespace Microsoft.WindowsAzure.Commands.Sync.Threading
 {
     using System;
     using System.Collections.Generic;

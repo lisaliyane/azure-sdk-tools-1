@@ -1,4 +1,0 @@
-﻿For a list of all Azure cmdlets type 'help azure'.
-For Node.js cmdlets type 'help node-dev'.
-For PHP cmdlets type 'help php-dev'.
-For Python cmdlets type 'help python-dev'.

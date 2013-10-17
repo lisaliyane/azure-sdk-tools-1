@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Common.General
+namespace Microsoft.WindowsAzure.Commands.Tools.Common.General
 {
     using System;
     using System.Diagnostics;

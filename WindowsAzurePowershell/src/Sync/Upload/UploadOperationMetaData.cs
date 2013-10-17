@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------------
 
 
-namespace Microsoft.WindowsAzure.Management.Sync.Upload
+namespace Microsoft.WindowsAzure.Commands.Sync.Upload
 {
     using System;
     using System.Diagnostics;

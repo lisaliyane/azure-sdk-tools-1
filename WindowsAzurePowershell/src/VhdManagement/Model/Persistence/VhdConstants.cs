@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd.Model.Persistence
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd.Model.Persistence
 {
     public class VhdConstants
     {

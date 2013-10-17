@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Internal.Common
+namespace Microsoft.WindowsAzure.Commands.Internal.Common
 {
 
     public abstract class StandardOutputEvents

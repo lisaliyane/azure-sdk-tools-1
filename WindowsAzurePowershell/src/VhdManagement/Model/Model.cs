@@ -12,14 +12,14 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd.Model
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd.Model
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.Serialization;
-    using Tools.Common.General;
-    using Tools.Vhd.Model.Persistence;
+    using Commands.Tools.Common.General;
+    using Vhd.Model.Persistence;
 
     [Flags]
     public enum VhdValidationType

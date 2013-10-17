@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Service
+namespace Microsoft.WindowsAzure.Commands.Service
 {
     using System.Runtime.Serialization;
 

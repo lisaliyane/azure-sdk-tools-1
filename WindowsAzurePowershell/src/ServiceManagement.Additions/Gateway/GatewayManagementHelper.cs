@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Service.Gateway
+namespace Microsoft.WindowsAzure.Commands.Service.Gateway
 {
     using System;
     using System.Net;
@@ -22,7 +22,7 @@ namespace Microsoft.WindowsAzure.Management.Service.Gateway
     using System.ServiceModel.Channels;
     using System.ServiceModel.Web;
     using System.Xml;
-    using Microsoft.WindowsAzure.Management.Utilities.Common;
+    using Commands.Utilities.Common;
     using ServiceManagement;
 
     public static class GatewayManagementHelper

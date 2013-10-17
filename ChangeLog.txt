@@ -1,3 +1,23 @@
+2013.07.18 Version 0.6.17
+* Upgraded Windows Azure SDK dependency from 1.8 to 2.0.
+* SQL Azure databse CRUD cmdlets don't require SQL auth anymore if the user owns the belonging subscription.
+* Get-AzureSqlDatabaseServerQuota cmdlet to get the quota information for a specified Windows Azure SQL Database Server.
+* SQL Azure service objective support
+  * Get-AzureSqlDatabaseServiceObjective cmdlet to a service objective for the specified Windows Azure SQL Database Server.
+  * Added -ServiceObjective parameter to Set-AzureSqlDatabase to set the service objective of the specified Windows Azure SQL database.
+* Fixed a Get-AzureWebsite local caching issue. Now Get-AzureWebsite will always return the up-to-date web site information.
+
+2013.06.24 Version 0.6.16
+* Add-AzureEnvironment to add customized environment like Windows Azure Pack
+* Set-AzureEnvironment to set customized environment like Windows Azure Pack
+* Remove-AzureEnvironment to remove customized environment like Windows Azure Pack
+* Web Site cmdlets now support Windows Azure Pack
+* Service Bus cmdlets now support Windows Azure Pack
+* Added "WAPack" prefix to all the cmdlets which support Windows Azure Pack. Use "help WAPack" to see all the supported cmdlets
+* Added -NoWinRMEndpoint parameter to New-AzureQuickVM and Add-AzureProvisioningConfig
+* Added -AllowAllAzureSerivces parameter to New-AzureSqlDatabaseServerFirewallRule
+* Many bug fixes around VM, Cloud Services and Web Site diagnositcs
+
 2013.06.03 Version 0.6.15
 * Introduced the environment concept to support differnt Windows Azure environments
   * Get-AzureEnvironment cmdlet to return all the out-of-box Windows Azure environments

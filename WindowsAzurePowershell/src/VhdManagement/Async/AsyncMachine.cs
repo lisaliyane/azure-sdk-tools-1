@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------------
 
 
-namespace Microsoft.WindowsAzure.Management.Tools.Common.General
+namespace Microsoft.WindowsAzure.Commands.Tools.Common.General
 {
     using System.Diagnostics.CodeAnalysis;
     using System;

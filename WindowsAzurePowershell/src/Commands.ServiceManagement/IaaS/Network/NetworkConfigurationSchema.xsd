@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NetworkConfiguration" 
+  targetNamespace="http://schemas.microsoft.com/ServiceHosting/2011/07/NetworkConfiguration"
+  xmlns="http://schemas.microsoft.com/ServiceHosting/2011/07/NetworkConfiguration"
+  elementFormDefault="qualified"
+  xmlns:mstns="http://tempuri.org/XMLSchema.xsd"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:complexType name="Subnet">
+    <xs:sequence>
+      <xs:element name="AddressPrefix" type="xs:string" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Subnets">
+    <xs:sequence>
+      <xs:element name="Subnet" type="Subnet" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddressSpace">
+    <xs:sequence>
+      <xs:element name="AddressPrefix" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DnsServer">
+    <xs:attribute name="name" type="xs:ID" use="required" />
+    <xs:attribute name="IPAddress" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="DnsServers">
+    <xs:sequence>
+      <xs:element name="DnsServer" type="DnsServer" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Dns">
+    <xs:sequence>
+      <xs:element name="DnsServers" type="DnsServers" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LocalNetworkSite">
+    <xs:all>
+      <xs:element name="AddressSpace" type="AddressSpace" minOccurs="1" maxOccurs="1" />
+      <xs:element name="VPNGatewayAddress" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+    <xs:attribute name="name" type="xs:ID" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="LocalNetworkSites">
+    <xs:sequence>
+      <xs:element name="LocalNetworkSite" type="LocalNetworkSite" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ConnectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IPsec" />
+      <xs:enumeration value="Dedicated" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Connection">
+    <xs:attribute name="type" type="ConnectionType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="LocalNetworkSiteRef">
+    <xs:sequence>
+      <xs:element name="Connection" type="Connection" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:IDREF" />
+  </xs:complexType>
+
+  <xs:complexType name="ConnectionsToLocalNetwork">
+    <xs:sequence>
+      <xs:element name="LocalNetworkSiteRef" type="LocalNetworkSiteRef" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="GatewaySize">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Small" />
+      <xs:enumeration value="Medium" />
+      <xs:enumeration value="Large" />
+      <xs:enumeration value="ExtraLarge" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Gateway">
+    <xs:sequence>
+      <xs:element name="VPNClientAddressPool" type="AddressSpace" minOccurs="0" maxOccurs="1" />
+      <xs:element name="ConnectionsToLocalNetwork" type="ConnectionsToLocalNetwork" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="profile" type="GatewaySize" default="Small" />
+  </xs:complexType>
+
+  <xs:complexType name="InternetGatewayNetwork">
+    <xs:attribute name="name" type="xs:IDREF" />
+  </xs:complexType>
+
+  <xs:complexType name="DnsServerRef">
+    <xs:attribute name="name" type="xs:IDREF" />
+  </xs:complexType>
+
+  <xs:complexType name="DnsServersRef">
+    <xs:sequence>
+      <xs:element name="DnsServerRef" type="DnsServerRef" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VirtualNetworkSite">
+    <xs:all>
+      <xs:element name="AddressSpace" type="AddressSpace" minOccurs="1" maxOccurs="1" />
+      <xs:element name="Subnets" type="Subnets" minOccurs="0" maxOccurs="1" />
+      <xs:element name="DnsServersRef" type="DnsServersRef" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Gateway" type="Gateway" minOccurs="0" maxOccurs="1" />
+      <xs:element name="InternetGatewayNetwork" type="InternetGatewayNetwork" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="AffinityGroup" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="VirtualNetworkSites">
+    <xs:sequence>
+      <xs:element name="VirtualNetworkSite" type="VirtualNetworkSite" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VirtualNetworkConfiguration">
+    <xs:sequence>
+       <xs:element name="Dns" type="Dns" minOccurs="0" maxOccurs="1" />
+       <xs:element name="LocalNetworkSites" type="LocalNetworkSites" minOccurs="0" maxOccurs="1" />
+       <xs:element name="VirtualNetworkSites" type="VirtualNetworkSites" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NetworkConfiguration">
+    <xs:sequence>
+      <xs:element name="VirtualNetworkConfiguration" type="VirtualNetworkConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="NetworkConfiguration" type="NetworkConfiguration"/>
+</xs:schema>

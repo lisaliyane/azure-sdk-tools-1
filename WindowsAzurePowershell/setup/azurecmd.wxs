@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <?define productName="Windows Azure PowerShell - June 2013" ?>
+  <?define productName="Windows Azure PowerShell - July 2013" ?>
   <?define sourceDir="$(var.SolutionDir)..\..\Package\$(var.Configuration)" ?>
   <?define caSourceDir="$(var.SolutionDir)setup\bin\$(var.Configuration)" ?>
 
-  <?define version="0.6.15" ?>
-  <?define azureSdkVersion="1.8" ?>
+  <?define version="0.6.17" ?>
+  <?define azureSdkVersion="2.0" ?>
   <?define versionedStartMenuFolder="Windows Azure" ?>
 
   <Product Id="*"
@@ -32,8 +32,8 @@
       <RegistrySearch Id="POWERSHELLVERSION" Root="HKLM" Key="SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine" Name="PowerShellVersion" Type="raw" />
     </Property>
 
-    <Condition Message="PowerShell 3.0 must be installed before Windows Azure PowerShell installation.">
-      <![CDATA[Installed or (POWERSHELLVERSION = "3.0")]]>
+    <Condition Message="This setup requires the Windows PowerShell 3.0 or higher to be installed.">
+      <![CDATA[Installed or (POWERSHELLVERSION = "3.0") or (POWERSHELLVERSION = "4.0")]]>
     </Condition>
 
     <PropertyRef Id="NETFRAMEWORK40FULL" />

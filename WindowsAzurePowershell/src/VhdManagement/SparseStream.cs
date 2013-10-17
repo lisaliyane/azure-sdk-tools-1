@@ -12,12 +12,12 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Tools.Vhd.Model;
+    using Vhd.Model;
 
     /// <summary>
     /// A stream with additional extent information.

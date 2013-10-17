@@ -2,23 +2,22 @@
 <TestSettings name="Local" id="cdbdc350-d4c9-4e43-a4f9-37455108ceaa" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>These are default test settings for a local test run.</Description>
   <Deployment>
-    <DeploymentItem filename="Management.SqlDatabase.Test\Resources\" />
-    <DeploymentItem filename="Management.CloudService.Test\Resources\" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\dynamic_50_child02.vhd" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\Resources\" />
-    <DeploymentItem filename="Management.Test\Resources\" />
-    <DeploymentItem filename="Management.ServiceBus.Test\Resources\" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\dynamic_50_child01.vhd" />
-    <DeploymentItem filename="Management.CloudService\Resources\" />
-    <DeploymentItem filename="Management.SqlDatabase.Test\TestScripts\" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\fixed_50_child02.vhd" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\fixed_50.vhd" />
-    <DeploymentItem filename="Management.Test.Utilities\Resources\" />
+    <DeploymentItem filename="Commands.SqlDatabase.Test\Resources\" />
+    <DeploymentItem filename="Commands.CloudService.Test\Resources\" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\dynamic_50_child02.vhd" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\Resources\" />
+    <DeploymentItem filename="Commands.Test\Resources\" />
+    <DeploymentItem filename="Commands.ServiceBus.Test\Resources\" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\dynamic_50_child01.vhd" />
+    <DeploymentItem filename="Commands.CloudService\Resources\" />
+    <DeploymentItem filename="Commands.SqlDatabase.Test\TestScripts\" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\fixed_50_child02.vhd" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\fixed_50.vhd" />
+    <DeploymentItem filename="Commands.Test.Utilities\Resources\" />
     <DeploymentItem filename="..\..\Package\Debug" />
-    <DeploymentItem filename="CLITest\TestData.xml" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\dynamic_50.vhd" />
-    <DeploymentItem filename="Management.ScenarioTest\Resources\" />
-    <DeploymentItem filename="Management.ServiceManagement.Test\VhdFiles\fixed_50_child01.vhd" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\dynamic_50.vhd" />
+    <DeploymentItem filename="Commands.ScenarioTest\Resources\" />
+    <DeploymentItem filename="Commands.ServiceManagement.Test\VhdFiles\fixed_50_child01.vhd" />
   </Deployment>
   <Execution>
     <Timeouts testTimeout="3000000" />

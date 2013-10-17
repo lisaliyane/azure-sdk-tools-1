@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync.Download
+namespace Microsoft.WindowsAzure.Commands.Sync.Download
 {
     using System;
     using System.Diagnostics;

@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.CsUpload
+namespace Microsoft.WindowsAzure.Commands.Tools.CsUpload
 {
     using System.Collections.Generic;
 

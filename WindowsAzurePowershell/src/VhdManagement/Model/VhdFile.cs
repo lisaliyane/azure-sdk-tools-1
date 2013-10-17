@@ -12,13 +12,13 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd.Model
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd.Model
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using Tools.Vhd.Model.Persistence;
+    using Vhd.Model.Persistence;
 
     public class VhdFile : IDisposable
     {

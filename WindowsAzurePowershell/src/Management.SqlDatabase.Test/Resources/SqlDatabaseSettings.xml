@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SqlDatabaseSetting>
-	<ServerLocation>North Central US</ServerLocation>
-  <ManageUrl>https://ravipalonebx1.dev.mscds.com</ManageUrl>
-  <SqlAuthUserName>mylogin</SqlAuthUserName>
-  <SqlAuthPassword>Sql@zure</SqlAuthPassword>
-</SqlDatabaseSetting>

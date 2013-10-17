@@ -12,13 +12,13 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd.Model.Persistence
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd.Model.Persistence
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using Tools.Common.General;
+    using Commands.Tools.Common.General;
 
     public class VhdFileFactory
     {

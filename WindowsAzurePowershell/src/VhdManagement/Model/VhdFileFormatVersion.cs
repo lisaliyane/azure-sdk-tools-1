@@ -12,7 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd.Model
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd.Model
 {
 
     public class VhdFileFormatVersion

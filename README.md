@@ -1,16 +1,18 @@
 # Windows Azure PowerShell
 
-This repository contains a set of PowerShell cmdlets for developers and administrators to develop, deploy and manage 
-Windows Azure applications.
+This repository contains a set of PowerShell cmdlets for developers and administrators to develop, deploy and manage Windows Azure applications.
 
-For documentation on how to build and deploy applications to Windows Azure please see the [Windows Azure Developer Center](http://www.windowsazure.com/en-us/develop). For comprehensive documentation on the developer cmdlets see [How to use Windows Azure PowerShell](http://www.windowsazure.com/en-us/develop/nodejs/how-to-guides/powershell-cmdlets/). For comprehensive documentation on the full set of Windows Azure cmdlets see [Windows Azure Management Center](http://go.microsoft.com/fwlink/?linkID=254459&clcid=0x409).
+* For documentation on how to build and deploy applications to Windows Azure please see the [Windows Azure Developer Center](http://www.windowsazure.com/en-us/develop).
+* For comprehensive documentation on the developer cmdlets see [How to use Windows Azure PowerShell](http://www.windowsazure.com/en-us/develop/nodejs/how-to-guides/powershell-cmdlets/).
+* For comprehensive documentation on the full set of Windows Azure cmdlets see [Windows Azure Management Center](http://go.microsoft.com/fwlink/?linkID=254459&clcid=0x409).
 
 # Cmdlets Features
 
 * Account
   * Get and import Azure publish settings
 * Environment
-  * Get the differnet out-of-box Windows Azure environments (like AzureCloud and AzureChinaCloud)
+  * Get the differnet out-of-box Windows Azure environments
+  * Add/Set/Remove customized environments (like your Windows Azure Pack environments)
   * Get Azure publish settings for a particular environment
 * Subscription
   * Manage Azure subscription
@@ -37,7 +39,9 @@ For documentation on how to build and deploy applications to Windows Azure pleas
   * Manage storage table.
   * Manage storage queue.
 * SQL Azure
-  * CRUD support for database server, database and firewall rule
+  * CRUD support for database server, database and firewall rule.
+  * Get database server quota.
+  * Get/Set database server service objective.
 * Service Bus
   * Manage service bus namespaces.
 * VM
@@ -67,78 +71,134 @@ For detail descriptions and examples of the cmdlets, type
 * ```help node-dev``` to get all Node.js development related cmdlets.
 * ```help php-dev``` to get all PHP development related cmdlets.
 * ```help python-dev``` to get all Python development related cmdlets.
-* ```get-help <cmdlet name>``` to get the details of a specific cmdlet.
+* ```help <cmdlet name>``` to get the details of a specific cmdlet.
+
+# Supported Environments
+
+* [Windows Azure](http://www.windowsazure.com/)
+* [Windows Azure Pack](http://www.microsoft.com/en-us/server-cloud/windows-azure-pack.aspx)
+* [Windows Azure China](http://www.windowsazure.cn/)
 
 # Getting Started
 
-## Install from Microsoft Web Platform Installer
+## Microsoft Web Platform Installer
 
 1. Install [Microsoft Web Platform Installer](http://www.microsoft.com/web/downloads/platform.aspx).
 2. Open Microsoft Web Platform Installer and search for __Windows Azure PowerShell__.
 3. Install.
 
-You can also find the list of previous versions at [Downloads](https://github.com/WindowsAzure/azure-sdk-tools/wiki/Downloads)
+You can also find the standalone installers for all the versions at [Downloads](https://github.com/WindowsAzure/azure-sdk-tools/wiki/Downloads)
 
-## Download Source Code
+## Source Code
 
-To get the source code of the SDK via git just type:
-```git clone https://github.com/WindowsAzure/azure-sdk-tools.git<br/>cd ./azure-sdk-tools```
+1. Download the source code from GitHub repo
+2. Follow the [Windows Azure PowerShell Developer Guide](https://github.com/WindowsAzure/azure-sdk-tools/wiki/Windows-Azure-PowerShell-Developer-Guide)
 
-## Install Prerequisites
+## Supported PowerShell Versions
 
-* [Windows Azure SDK](http://www.microsoft.com/windowsazure/sdk/)
-* 0.6.9 or less
+* 0.6.9 or lower
   * [Windows PowerShell 2.0](http://technet.microsoft.com/en-us/scriptcenter/dd742419)
-* 0.6.10 or more
   * [Windows PowerShell 3.0](http://www.microsoft.com/en-us/download/details.aspx?id=34595)
-* [WiX](http://wix.sourceforge.net/) (Only needed if you want to build the setup project)
+* 0.6.10 to higher
+  * [Windows PowerShell 3.0](http://www.microsoft.com/en-us/download/details.aspx?id=34595)
 
-### Node.js Prerequisites (developer only)
+# Quick Start
 
-* [Node.js](http://nodejs.org/)
-* [IISNode](https://github.com/tjanczuk/iisnode)
+In general, following are the steps to start using Windows Azure PowerShell
 
-### PHP Prerequisites (developer only)
+1. Get the publish settings information of your subscription
+2. Import the information into Windows Azure PowerShell
+3. Use the cmdlets
 
-* [PHP](http://php.iis.net/)
+The first step can be different for different environment you are targeting. Following are detail instructions for each supported environment.
 
-## Configure PowerShell to automatically load commandlets
+## Windows Azure
 
-1. Create a folder inside your user's Documents folder and name it __WindowsPowerShell__
+```powershell
+# Download a file which contains the publish settings information of your subscription.
+# This will open a browser window and ask you to log in to get the file.
+Get-AzurePublishSettingsFile
 
-2. Inside that folder create a file called __Microsoft.PowerShell_profile.ps1__
+# Import the file you just downloaded.
+# Notice that the file contains credential of your subscription so you don't want to make it public
+# (like check in to source control, etc.).
+Import-AzurePublishSettingsFile "<file location>"
 
-3. Edit the file in a text editor and add the following contents
+# Use the cmdlets to manage your services/applications
+New-AzureWebsite -Name mywebsite -Location "West US"
+```
+## Windows Azure China
 
-   ```Import-Module PATH_TO_AZURE-SDK-TOOLS_CLONE\Package\Release\Azure.psd1```
+```powershell
+# Check the environment supported by your Windows Azure PowerShell installation.
+Get-AzureEnvironment
 
-4. After you build the commandlets project, you can then open a PowerShell window and you should be able to use the commandlets. Please note that if you want to rebuild the project, you have close the PowerShell window, and then reopen it.
+# Download a file which contains the publish settings information of your subscription.
+# Use the -Environment parameter to target Windows Azure China.
+# This will open a browser window and ask you to log in to get the file.
+Get-AzurePublishSettingsFile -Environment "AzureChinaCloud"
 
-# Quick start
+# Import the file you just downloaded.
+# Notice that the file contains credential of your subscription so you don't want to make it public
+# (like check in to source control, etc.).
+Import-AzurePublishSettingsFile "<file location>"
 
-1. Create an Azure hosted service called HelloWorld by typing
+# Use the cmdlets to manage your services/applications
+New-AzureWebsite -Name mywebsite -Location "China East"
+```
 
-   ```New-AzureServiceProject HelloWorld```
+## Windows Azure Pack
 
-2. Inside the HelloWorld folder, add a new Web Role by typing
+```powershell
+# Add your Windows Azure Pack environment to your Windows Azure PowerShell installation.
+# You will need to know the following information of your Windows Azure Pack environment.
+# 1. URL to download the publish settings file    Mandatory
+# 2. Management service endpoint                  Optional
+# 3. Management Portal URL                        Optional
+# 4. Storage service endpoint                     Optional
+Add-WAPackEnvironment -Name "MyWAPackEnv" `
+    -PublishSettingsFileUrl "URL to download the publish settings file>" `
+    -ServiceEndpoint "<Management service endpoint>" `
+    -ManagementPortalUrl "<Storage service endpoint>" `
+    -StorageEndpoint "<Management Portal URL>"
 
-   ```Add-AzureNodeWebRole``` or ```Add-AzurePHPWebRole```
+# Download a file which contains the publish settings information of your subscription.
+# Use the -Environment parameter to target your Windows Azure Pack environment.
+# This will open a browser window and ask you to log in to get the file.
+Get-WAPackPublishSettingsFile -Environment "MyWAPackEnv"
 
-3. Test out the application in the local emulator by typing
+# Import the file you just downloaded.
+# Notice that the file contains credential of your subscription so you don't want to make it public
+# (like check in to source control, etc.).
+Import-WAPackPublishSettingsFile "<file location>"
 
-   ```Start-AzureEmulator -Launch```
+# Use the cmdlets to manage your services/applications
+New-WAPackWebsite -Name mywebsite
+```
 
-4. You are now ready to publish to the cloud service. Go ahead and register for a Windows Azure account and make sure you have your credentials handy.
+# Find Your Way
 
-5. Get your account's publish settings and save them to a file by typing ```Get-AzurePublishSettingsFile```. It will by default target the public Azure. If you want to target environment like Azure in China, use `Get-AzureEnvironment` to see the environments we support and use `Get-AzurePublishSettingsFile -Environment` to get the publish settings for the paticular environment.
+All the cmdlets can be put into 3 categories:
 
-6. Now import the settings
+1. Cmdlets support both Windows Azure and Windows Azure Pack
+2. Cmdlets only support both Windows Azure
+3. Cmdlets only support Windows Azure Pack
 
-   ```Import-AzurePublishSettingsFile PATH_TO_PUBLISH_SETTINGS_FILE```
+* For category 1, we are using an "Azure" prefix in the cmdlet name and adding an alias with "WAPack" prefix.
+* For category 2, we are using an "Azure" prefix in the cmdlet name.
+* For category 2, we are using an "WAPack" prefix in the cmdlet name.
 
-7. You are now ready to publish to the cloud. Make sure you specify a unique name for your application to ensure there aren't any conflicts during the publish process. Then type
+So you can use the following cmdlet to find out all the cmdlets for your environment
 
-   ```Publish-AzureServiceProject -ServiceName UNIQUE_NAME -Launch```
+```powershell
+# Return all the cmdlets for Windows Azure
+Get-Command *Azure*
+
+# Return all the cmdlets for Windows Azure Pack
+Get-Command *WAPack*
+```
+
+If you want to migrate some scripts from Windows Azure to Windows Azure Pack or vice versa, as long as the cmdlets you are using are in category 1, you should be able to migrate smoothly.
 
 # Need Help?
 
