@@ -3988,6 +3988,19 @@ namespace Microsoft.WindowsAzure.Management.Compute.Models
             set { this._defaultWinRmCertificateThumbprint = value; }
         }
         
+        private bool? _provisionGuestAgent;
+        
+        /// <summary>
+        /// Restricted field.  This field can be set on hosted services within
+        /// authorized subscriptions that have early access to future versions
+        /// of Azure PaaS.
+        /// </summary>
+        public bool? ProvisionGuestAgent
+        {
+            get { return this._provisionGuestAgent; }
+            set { this._provisionGuestAgent = value; }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the Role class.
         /// </summary>
@@ -5086,6 +5099,19 @@ namespace Microsoft.WindowsAzure.Management.Compute.Models
         {
             get { return this._oSVirtualHardDisk; }
             set { this._oSVirtualHardDisk = value; }
+        }
+        
+        private bool? _provisionGuestAgent;
+        
+        /// <summary>
+        /// Restricted field.  This field can be set on hosted services within
+        /// authorized subscriptions that have early access to future versions
+        /// of Azure PaaS.
+        /// </summary>
+        public bool? ProvisionGuestAgent
+        {
+            get { return this._provisionGuestAgent; }
+            set { this._provisionGuestAgent = value; }
         }
         
         /// <summary>
@@ -16398,6 +16424,13 @@ namespace Microsoft.WindowsAzure.Management.Compute
                                     string defaultWinRmCertificateThumbprintInstance = defaultWinRmCertificateThumbprintElement.Value;
                                     roleInstance.DefaultWinRmCertificateThumbprint = defaultWinRmCertificateThumbprintInstance;
                                 }
+                                
+                                XElement provisionGuestAgentElement = roleListElement.Element(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
+                                if (provisionGuestAgentElement != null && string.IsNullOrEmpty(provisionGuestAgentElement.Value) == false)
+                                {
+                                    bool provisionGuestAgentInstance = bool.Parse(provisionGuestAgentElement.Value);
+                                    roleInstance.ProvisionGuestAgent = provisionGuestAgentInstance;
+                                }
                             }
                         }
                         
@@ -17509,6 +17542,13 @@ namespace Microsoft.WindowsAzure.Management.Compute
                                 {
                                     string defaultWinRmCertificateThumbprintInstance = defaultWinRmCertificateThumbprintElement.Value;
                                     roleInstance.DefaultWinRmCertificateThumbprint = defaultWinRmCertificateThumbprintInstance;
+                                }
+                                
+                                XElement provisionGuestAgentElement = roleListElement.Element(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
+                                if (provisionGuestAgentElement != null && string.IsNullOrEmpty(provisionGuestAgentElement.Value) == false)
+                                {
+                                    bool provisionGuestAgentInstance = bool.Parse(provisionGuestAgentElement.Value);
+                                    roleInstance.ProvisionGuestAgent = provisionGuestAgentInstance;
                                 }
                             }
                         }
@@ -24980,6 +25020,13 @@ namespace Microsoft.WindowsAzure.Management.Compute
                                         {
                                             string defaultWinRmCertificateThumbprintInstance = defaultWinRmCertificateThumbprintElement.Value;
                                             roleInstance.DefaultWinRmCertificateThumbprint = defaultWinRmCertificateThumbprintInstance;
+                                        }
+                                        
+                                        XElement provisionGuestAgentElement = roleListElement.Element(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
+                                        if (provisionGuestAgentElement != null && string.IsNullOrEmpty(provisionGuestAgentElement.Value) == false)
+                                        {
+                                            bool provisionGuestAgentInstance = bool.Parse(provisionGuestAgentElement.Value);
+                                            roleInstance.ProvisionGuestAgent = provisionGuestAgentInstance;
                                         }
                                     }
                                 }
@@ -35748,6 +35795,13 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     persistentVMRoleElement.Add(roleSizeElement);
                 }
                 
+                if (parameters.ProvisionGuestAgent != null)
+                {
+                    XElement provisionGuestAgentElement = new XElement(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
+                    provisionGuestAgentElement.Value = parameters.ProvisionGuestAgent.ToString().ToLower();
+                    persistentVMRoleElement.Add(provisionGuestAgentElement);
+                }
+                
                 requestContent = requestDoc.ToString();
                 httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
                 httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
@@ -36623,6 +36677,13 @@ namespace Microsoft.WindowsAzure.Management.Compute
                         XElement defaultWinRmCertificateThumbprintElement = new XElement(XName.Get("DefaultWinRmCertificateThumbprint", "http://schemas.microsoft.com/windowsazure"));
                         defaultWinRmCertificateThumbprintElement.Value = roleListItem.DefaultWinRmCertificateThumbprint;
                         roleElement.Add(defaultWinRmCertificateThumbprintElement);
+                    }
+                    
+                    if (roleListItem.ProvisionGuestAgent != null)
+                    {
+                        XElement provisionGuestAgentElement = new XElement(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
+                        provisionGuestAgentElement.Value = roleListItem.ProvisionGuestAgent.ToString().ToLower();
+                        roleElement.Add(provisionGuestAgentElement);
                     }
                 }
                 deploymentElement.Add(roleListSequenceElement);

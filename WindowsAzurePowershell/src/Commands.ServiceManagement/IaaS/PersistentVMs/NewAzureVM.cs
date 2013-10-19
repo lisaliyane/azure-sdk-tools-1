@@ -277,7 +277,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     AvailabilitySetName = persistentVMs[i].AvailabilitySetName,
                     OSVirtualHardDisk = persistentVMs[i].OSVirtualHardDisk,
                     RoleName = persistentVMs[i].RoleName,
-                    RoleSize = persistentVMs[i].RoleSize
+                    RoleSize = persistentVMs[i].RoleSize,
+                    ProvisionGuestAgent = true
                 };
 
                 persistentVMs[i].DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -335,7 +336,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 RoleSize = string.IsNullOrEmpty(persistentVM.RoleSize) ? null :
                            (VirtualMachineRoleSize?)Enum.Parse(typeof(VirtualMachineRoleSize), persistentVM.RoleSize, true),
                 RoleType = persistentVM.RoleType,
-                Label = persistentVM.Label
+                Label = persistentVM.Label,
+                ProvisionGuestAgent = true
             };
 
             if (persistentVM.DataVirtualHardDisks != null)

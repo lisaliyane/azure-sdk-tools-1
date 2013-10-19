@@ -427,6 +427,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                         OSVirtualHardDisk = Mapper.Map(vm.OSVirtualHardDisk, new Management.Compute.Models.OSVirtualHardDisk()),
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
+                        ProvisionGuestAgent = true
                     };
 
                     vm.DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -466,7 +467,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     SourceImageName = ImageName,
                     MediaLink = string.IsNullOrEmpty(MediaLocation) ? null : new Uri(MediaLocation),
                     HostCaching = HostCaching
-                }, new Management.Compute.Models.OSVirtualHardDisk())
+                }, new Management.Compute.Models.OSVirtualHardDisk()),
+                ProvisionGuestAgent = true,
             };
 
             if (vm.OSVirtualHardDisk.MediaLink == null && String.IsNullOrEmpty(vm.OSVirtualHardDisk.DiskName))
@@ -586,7 +588,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 WriteVerboseWithTimestamp(string.Format(Resources.QuickVMBeginOperation, CommandRuntime));
                 var response = this.ComputeClient.HostedServices.CheckNameAvailability(serviceName);
                 WriteVerboseWithTimestamp(string.Format(Resources.QuickVMCompletedOperation, CommandRuntime));
-                return response.IsAvailable;
+                return !response.IsAvailable;
             }
             catch (CloudException ex)
             {
