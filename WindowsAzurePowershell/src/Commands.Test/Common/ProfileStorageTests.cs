@@ -142,8 +142,8 @@ namespace Microsoft.WindowsAzure.Commands.Test.Common
                 Name = sourceEnv.Name,
                 PublishSettingsFileUrl = sourceEnv.PublishSettingsFileUrl,
                 ServiceEndpoint = sourceEnv.ServiceEndpoint,
-                AdTenantUrl = sourceEnv.AdTenantUrl,
-                CommonTenantId = sourceEnv.CommonTenantId,
+                ActiveDirectoryEndpoint = sourceEnv.AdTenantUrl,
+                ActiveDirectoryCommonTenantId = sourceEnv.CommonTenantId,
                 StorageEndpointSuffix = sourceEnv.StorageEndpointSuffix
             });
 

@@ -134,6 +134,10 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
             ActiveDirectoryUserId = newSubscription.ActiveDirectoryUserId ??
                 ActiveDirectoryUserId;
 
+            // Wipe out current access token - it will be reloaded from 
+            // token provider when needed to get new access/refresh tokens
+            accessToken = null;
+
             // Certificate - if present in new take it, else preserve
             Certificate = newSubscription.Certificate ??
                 Certificate;

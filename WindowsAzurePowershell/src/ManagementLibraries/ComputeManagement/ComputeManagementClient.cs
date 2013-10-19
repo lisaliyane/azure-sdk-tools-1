@@ -14383,7 +14383,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginChangingConfigurationBySlotAsync(serviceName, deploymentSlot, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -14732,7 +14732,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginChangingConfigurationByNameAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -15103,7 +15103,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginCreatingAsync(serviceName, deploymentSlot, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -15298,7 +15298,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginDeletingByNameAsync(serviceName, deploymentName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -15496,7 +15496,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginDeletingBySlotAsync(serviceName, deploymentSlot, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -18230,7 +18230,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginRebootingRoleInstanceByDeploymentNameAsync(serviceName, deploymentName, roleInstanceName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -18442,7 +18442,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginRebootingRoleInstanceByDeploymentSlotAsync(serviceName, deploymentSlot, roleInstanceName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -18658,7 +18658,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginReimagingRoleInstanceByDeploymentNameAsync(serviceName, deploymentName, roleInstanceName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -18870,7 +18870,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginReimagingRoleInstanceByDeploymentSlotAsync(serviceName, deploymentSlot, roleInstanceName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -19401,7 +19401,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginSwappingAsync(serviceName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -19633,7 +19633,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginUpdatingStatusByDeploymentNameAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -19861,7 +19861,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginUpdatingStatusByDeploymentSlotAsync(serviceName, deploymentSlot, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -20269,7 +20269,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginUpgradingBySlotAsync(serviceName, deploymentSlot, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -20681,7 +20681,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginUpgradingByNameAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -20956,7 +20956,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginWalkingUpgradeDomainByDeploymentNameAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -21227,7 +21227,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.Deployments.BeginWalkingUpgradeDomainByDeploymentSlotAsync(serviceName, deploymentSlot, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -22725,7 +22725,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.HostedServices.BeginAddingExtensionAsync(serviceName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -22922,7 +22922,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.HostedServices.BeginDeletingExtensionAsync(serviceName, extensionId, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -26993,7 +26993,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.ServiceCertificates.BeginCreatingAsync(serviceName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -27194,7 +27194,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.ServiceCertificates.BeginDeletingAsync(parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -35928,7 +35928,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginCreatingAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -36844,7 +36844,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginCreatingDeploymentAsync(serviceName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -37050,7 +37050,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginDeletingAsync(serviceName, deploymentName, virtualMachineName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -38090,7 +38090,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginRestartingAsync(serviceName, deploymentName, virtualMachineName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -38327,7 +38327,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginShutdownAsync(serviceName, deploymentName, virtualMachineName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -38565,7 +38565,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginShuttingDownRolesAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -38775,7 +38775,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginStartingAsync(serviceName, deploymentName, virtualMachineName, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -39004,7 +39004,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginStartingRolesAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -39824,7 +39824,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginUpdatingAsync(serviceName, deploymentName, virtualMachineName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -40182,7 +40182,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                 OperationResponse originalResponse = await client.VirtualMachines.BeginUpdatingLoadBalancedEndpointSetAsync(serviceName, deploymentName, parameters, cancellationToken).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputeOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
+                int delayInSeconds = 30;
                 while (result.Status == OperationStatus.InProgress)
                 {
                     cancellationToken.ThrowIfCancellationRequested();

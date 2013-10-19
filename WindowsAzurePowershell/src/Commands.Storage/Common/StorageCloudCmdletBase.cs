@@ -126,7 +126,7 @@ namespace Microsoft.WindowsAzure.Commands.Storage.Common
         internal virtual bool ShouldInitServiceChannel()
         {
             //Storage Context is empty and have already set the current storage account in subscription
-            if (Context == null && CurrentSubscription != null &&
+            if (Context == null && HasCurrentSubscription && CurrentSubscription != null &&
                 !String.IsNullOrEmpty(CurrentSubscription.CurrentStorageAccountName))
             {
                 return true;

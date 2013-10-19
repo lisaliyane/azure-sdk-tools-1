@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <?define productName="Windows Azure PowerShell - July 2013" ?>
+  <?define productName="Windows Azure PowerShell - October 2013" ?>
   <?define sourceDir="$(var.SolutionDir)..\..\Package\$(var.Configuration)" ?>
   <?define caSourceDir="$(var.SolutionDir)setup\bin\$(var.Configuration)" ?>
 
-  <?define version="0.6.17" ?>
-  <?define azureSdkVersion="2.0" ?>
+  <?define version="0.7.0" ?>
   <?define versionedStartMenuFolder="Windows Azure" ?>
 
   <Product Id="*"

@@ -9,12 +9,6 @@ BY USING THE SOFTWARE, YOU ACCEPT THESE TERMS. IF YOU DO NOT ACCEPT THEM, DO NOT
 
 -----------------START OF LICENSE--------------------------
 
-SECTION A
-
-Except as otherwise provided in Section B, the software is licensed under the terms of the Apache 2.0 license set out below.
-
-
-
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -190,54 +184,15 @@ Except as otherwise provided in Section B, the software is licensed under the te
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
--------------------END OF LICENSE--------------------------------
+-------------------END OF LICENSE-------------------------------
 
--------------------START OF LICENSE------------------------------
+The software includes the AutoMapper library ("AutoMapper").  The MIT License set out below is provided for informational purposes only. It is not the license that governs any part of the software.
 
-SECTION B
-
-The software includes the AutoMapper library ("AutoMapper"). Microsoft licenses AutoMapper to you under the following terms and conditions. 
-
-1.	INSTALLATION AND USE RIGHTS. 
-a.	Installation and Use. You may install and use any number of copies of the software on your devices.
-b.	Third Party Programs. The software may include third party programs that Microsoft, not the third party, licenses to you under this agreement. Notices, if any, for the third party program are included for your information only.
-
-2.	SCOPE OF LICENSE. The software is licensed, not sold. This agreement only gives you some rights to use the software. Microsoft reserves all other rights. Unless applicable law gives you more rights despite this limitation, you may use the software only as expressly permitted in this agreement. In doing so, you must comply with any technical limitations in the software that only allow you to use it in certain ways. You may not
-•	work around any technical limitations in the software;
-•	reverse engineer, decompile or disassemble the software, except and only to the extent that applicable law expressly permits, despite this limitation;
-•	publish the software for others to copy; or
-•	rent, lease or lend the software.
-
-3.	EXPORT RESTRICTIONS. The software is subject to United States export laws and regulations. You must comply with all domestic and international export laws and regulations that apply to the software. These laws include restrictions on destinations, end users and end use. For additional information, see www.microsoft.com/exporting.
-
-4.	SUPPORT SERVICES. Because this software is “as is,” we may not provide support services for it.
-
-5.	ENTIRE AGREEMENT. This agreement is the entire agreement for the software and support services.
-
-6.	APPLICABLE LAW.
-a.	United States. If you acquired the software in the United States, Washington state law governs the interpretation of this agreement and applies to claims for breach of it, regardless of conflict of laws principles. The laws of the state where you live govern all other claims, including claims under state consumer protection laws, unfair competition laws, and in tort.
-b.	Outside the United States. If you acquired the software in any other country, the laws of that country apply.
-
-7.	LEGAL EFFECT. This agreement describes certain legal rights. You may have other rights under the laws of your country. You may also have rights with respect to the party from whom you acquired the software. This agreement does not change your rights under the laws of your country if the laws of your country do not permit it to do so.
-
-8.	DISCLAIMER OF WARRANTY. THE SOFTWARE IS LICENSED “AS-IS.” YOU BEAR THE RISK OF USING IT. MICROSOFT GIVES NO EXPRESS WARRANTIES, GUARANTEES OR CONDITIONS. YOU MAY HAVE ADDITIONAL CONSUMER RIGHTS OR STATUTORY GUARANTEES UNDER YOUR LOCAL LAWS WHICH THIS AGREEMENT CANNOT CHANGE. TO THE EXTENT PERMITTED UNDER YOUR LOCAL LAWS, MICROSOFT EXCLUDES THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
-FOR AUSTRALIA – YOU HAVE STATUTORY GUARANTEES UNDER THE AUSTRALIAN CONSUMER LAW AND NOTHING IN THESE TERMS IS INTENDED TO AFFECT THOSE RIGHTS.
-
-9.	LIMITATION ON AND EXCLUSION OF REMEDIES AND DAMAGES. YOU CAN RECOVER FROM MICROSOFT AND ITS SUPPLIERS ONLY DIRECT DAMAGES UP TO U.S. $5.00. YOU CANNOT RECOVER ANY OTHER DAMAGES, INCLUDING CONSEQUENTIAL, LOST PROFITS, SPECIAL, INDIRECT OR INCIDENTAL DAMAGES.
-This limitation applies to
-•	anything related to the software, services, content (including code) on third party Internet sites, or third party programs; and
-•	claims for breach of contract, breach of warranty, guarantee or condition, strict liability, negligence, or other tort to the extent permitted by applicable law.
-It also applies even if Microsoft knew or should have known about the possibility of the damages. The above limitation or exclusion may not apply to you because your country may not allow the exclusion or limitation of incidental, consequential or other damages.
-
-----------------END OF LICENSE--------------------------------
-
-----------------START OF LICENSE------------------------------
-
-The MIT License set out below is provided for informational purposes only. It is not the license that governs any part of the software.
-
-================================
+----------------START OF LICENSE--------------------------------
 
 Provided for Informational Purposes Only
+
+AutoMapper
 
 The MIT License (MIT)
 
@@ -251,4 +206,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 -------------END OF LICENSE----------------------------------------
 
--------------END OF ALL LICENSES-----------------------------------

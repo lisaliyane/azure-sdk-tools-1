@@ -66,8 +66,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
             ServiceEndpoint = inMemoryEnvironment.ServiceEndpoint;
             ManagementPortalUrl = inMemoryEnvironment.ManagementPortalUrl;
             StorageEndpointSuffix = inMemoryEnvironment.StorageEndpointSuffix;
-            AdTenantUrl = inMemoryEnvironment.AdTenantUrl;
-            CommonTenantId = inMemoryEnvironment.CommonTenantId;
+            AdTenantUrl = inMemoryEnvironment.ActiveDirectoryEndpoint;
+            CommonTenantId = inMemoryEnvironment.ActiveDirectoryCommonTenantId;
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
                 ServiceEndpoint = this.ServiceEndpoint,
                 ManagementPortalUrl = this.ManagementPortalUrl,
                 StorageEndpointSuffix = this.StorageEndpointSuffix,
-                AdTenantUrl = this.AdTenantUrl,
-                CommonTenantId = this.CommonTenantId
+                ActiveDirectoryEndpoint = this.AdTenantUrl,
+                ActiveDirectoryCommonTenantId = this.CommonTenantId
             };
         }
 

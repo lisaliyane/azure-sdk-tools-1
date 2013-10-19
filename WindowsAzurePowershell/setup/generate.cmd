@@ -27,5 +27,17 @@ del %output%\System.Net.Http.Formatting.xml
 del %output%\System.Net.Http.xml
 del %output%\System.Spatial.xml
 del %output%\System.Net.Http.WebRequest.xml
+del %output%\AutoMapper.xml
+del %output%\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+del %output%\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+del %output%\Microsoft.Threading.Tasks.Extensions.xml
+del %output%\Microsoft.Threading.Tasks.xml
+del %output%\Moq.xml
+del %output%\System.IO.xml
+del %output%\System.Net.Http.Extensions.xml
+del %output%\System.Net.Http.Primitives.xml
+
+echo Delete config files for dlls from %output%
+del %output%\*.dll.config
 
 heat dir %output% -srd -gg -g1 -cg azurecmdfiles -sfrag -dr PowerShellFolder -var var.sourceDir -o azurecmdfiles.wxi

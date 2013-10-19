@@ -47,14 +47,14 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
         /// Url for the Active Directory tenant for this environment
         /// </summary>
         /// <remarks>If null, this environment does not support AD authentication</remarks>
-        public string AdTenantUrl { get; set; }
+        public string ActiveDirectoryEndpoint { get; set; }
 
         /// <summary>
         /// Name for the common tenant used as the first step
         /// in the AD authentication process for this environment.
         /// </summary>
         /// <remarks>If null, this environment does not support AD authentication</remarks>
-        public string CommonTenantId { get; set; }
+        public string ActiveDirectoryCommonTenantId { get; set; }
 
         private string storageEndpointSuffix;
 
@@ -169,7 +169,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
 
         public IEnumerable<WindowsAzureSubscription> AddAccount(ITokenProvider tokenProvider)
         {
-            if (AdTenantUrl == null)
+            if (ActiveDirectoryEndpoint == null)
             {
                 throw new Exception(string.Format(Resources.EnvironmentDoesNotSupportActiveDirectory, Name));
             }
@@ -185,7 +185,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
                 {
                     var azureSubscription = new WindowsAzureSubscription
                     {
-                        ActiveDirectoryEndpoint = AdTenantUrl,
+                        ActiveDirectoryEndpoint = ActiveDirectoryEndpoint,
                         ActiveDirectoryTenantId = subscription.ActiveDirectoryTenantId,
                         ActiveDirectoryUserId = mainToken.UserId,
                         SubscriptionId = subscription.SubscriptionId,
@@ -227,8 +227,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
                     ServiceEndpoint = WindowsAzureEnvironmentConstants.AzureServiceEndpoint,
                     ManagementPortalUrl = WindowsAzureEnvironmentConstants.AzureManagementPortalUrl,
                     // TODO: Get real endpoint for prod
-                    AdTenantUrl = "https://login.windows.net/",
-                    CommonTenantId = "common",
+                    ActiveDirectoryEndpoint = "https://login.windows.net/",
+                    ActiveDirectoryCommonTenantId = "common",
                     StorageEndpointSuffix = WindowsAzureEnvironmentConstants.AzureStorageEndpointSuffix
                 }
             },

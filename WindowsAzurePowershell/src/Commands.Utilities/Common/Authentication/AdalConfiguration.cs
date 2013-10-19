@@ -76,8 +76,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common.Authentication
         public AdalConfiguration(WindowsAzureEnvironment environment)
             : this()
         {
-            AdEndpoint = environment.AdTenantUrl;
-            AdDomain = environment.CommonTenantId;
+            AdEndpoint = environment.ActiveDirectoryEndpoint;
+            AdDomain = environment.ActiveDirectoryCommonTenantId;
         }
 
         public AdalConfiguration(WindowsAzureSubscription subscription)

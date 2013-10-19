@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAzure.Commands.Subscription
                 env.ServiceEndpoint = Value(ServiceEndpoint, env.ServiceEndpoint);
                 env.ManagementPortalUrl = Value(ManagementPortalUrl, env.ManagementPortalUrl);
                 env.StorageEndpointSuffix = Value(StorageEndpoint, env.StorageEndpointSuffix);
-                env.AdTenantUrl = Value(AdEndpointUrl, env.AdTenantUrl);
+                env.ActiveDirectoryEndpoint = Value(AdEndpointUrl, env.ActiveDirectoryEndpoint);
 
                 WindowsAzureProfile.Instance.UpdateEnvironment(env);
 

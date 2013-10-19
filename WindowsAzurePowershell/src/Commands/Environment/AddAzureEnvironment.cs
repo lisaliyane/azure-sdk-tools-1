@@ -41,7 +41,7 @@ namespace Microsoft.WindowsAzure.Commands.Subscription
         public string StorageEndpoint { get; set; }
 
         [Parameter(Position = 5, Mandatory = false, ValueFromPipelineByPropertyName = true, HelpMessage = "The URI for the Active Directory service for this environment")]
-        public string AdTenantUrl { get; set; }
+        public string ActiveDirectoryEndpoint { get; set; }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public override void ExecuteCmdlet()
@@ -53,7 +53,8 @@ namespace Microsoft.WindowsAzure.Commands.Subscription
                 ServiceEndpoint = ServiceEndpoint,
                 ManagementPortalUrl = ManagementPortalUrl,
                 StorageEndpointSuffix = StorageEndpoint,
-                AdTenantUrl = AdTenantUrl
+                ActiveDirectoryEndpoint = ActiveDirectoryEndpoint,
+                ActiveDirectoryCommonTenantId = "Common"
             };
 
             WindowsAzureProfile.Instance.AddEnvironment(newEnvironment);

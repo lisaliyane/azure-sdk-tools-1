@@ -57,6 +57,11 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
             }
         }
 
+        public bool HasCurrentSubscription
+        {
+            get { return currentSubscription != null || Profile.CurrentSubscription != null; }
+        }
+
         private WindowsAzureSubscription ThrowIfNull(WindowsAzureSubscription subscription)
         {
             if (subscription != null) return subscription;

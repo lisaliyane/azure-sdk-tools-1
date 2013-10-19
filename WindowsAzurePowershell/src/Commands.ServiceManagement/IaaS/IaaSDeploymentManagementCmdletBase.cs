@@ -92,10 +92,12 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
             {
                 WriteError(new ErrorRecord(ex, string.Empty, ErrorCategory.CloseError, null));
             }
-            finally
-            {
-                WriteDebug(HttpRestCallLogger.Flush());
-            }
+        }
+
+        protected override void EndProcessing()
+        {
+            base.EndProcessing();
+            WriteDebug(HttpRestCallLogger.Flush());
         }
 
         protected void WaitForRoleToBoot(string roleName)
