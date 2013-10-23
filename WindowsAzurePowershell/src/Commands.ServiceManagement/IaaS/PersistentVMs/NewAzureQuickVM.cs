@@ -16,16 +16,23 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Management.Automation;
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using System.Xml;
+    using System.Xml.Linq;
     using AutoMapper;
     using Common;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
+    using Management.Storage;
+    using Management.Storage.Models;
     using Properties;
     using Storage;
     using Utilities.Common;
@@ -253,6 +260,52 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
             set;
         }
 
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "Diagnostics Configuration")]
+        [ValidateNotNullOrEmpty]
+        public XmlDocument DiagnosticsConfiguration
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "Diagnostics Configuration File")]
+        [ValidateNotNullOrEmpty]
+        public string DiagnosticConfigurationFile
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "StorageAccountName")]
+        [ValidateNotNullOrEmpty]
+        public string StorageAccountName
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "StorageAccountKey")]
+        [ValidateNotNullOrEmpty]
+        public string StorageAccountKey
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "DisableGuestAgent")]
+        public SwitchParameter DisableGuestAgent
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "DisableDiagnosticsExtension")]
+        public SwitchParameter DisableDiagnosticsExtension
+        {
+            get;
+            set;
+        }
+
         public void NewAzureVMProcess()
         {
             WindowsAzureSubscription currentSubscription = CurrentSubscription;
@@ -413,7 +466,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 }
             }
 
-
             // Only create the VM when a new VM was added and it was not created during the deployment phase.
             if ((_createdDeployment == false))
             {
@@ -421,13 +473,24 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 {
                     var operationDescription = string.Format(Resources.QuickVMCreateVM, CommandRuntime, vm.RoleName);
 
+                    StringBuilder endpointStr = new StringBuilder();
+                    var storageService = this.StorageClient.StorageAccounts.Get(this.StorageAccountName);
+                    if (storageService != null)
+                    {
+                        endpointStr.AppendFormat("BlobEndpoint={0};", storageService.Properties.Endpoints[0]);
+                        endpointStr.AppendFormat("QueueEndpoint={0};", storageService.Properties.Endpoints[1]);
+                        endpointStr.AppendFormat("TableEndpoint={0}", storageService.Properties.Endpoints[2]);
+                        endpointStr.Replace("http://", "https://");
+                    }
+
                     var parameter = new VirtualMachineCreateParameters
                     {
                         AvailabilitySetName = vm.AvailabilitySetName,
                         OSVirtualHardDisk = Mapper.Map(vm.OSVirtualHardDisk, new Management.Compute.Models.OSVirtualHardDisk()),
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
-                        ProvisionGuestAgent = true
+                        ProvisionGuestAgent = !DisableGuestAgent.IsPresent,
+                        ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferences(!DisableDiagnosticsExtension.IsPresent, this.StorageAccountName, this.StorageAccountKey, endpointStr.ToString(), this.DiagnosticsConfiguration)
                     };
 
                     vm.DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -453,6 +516,16 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
 
         private Management.Compute.Models.Role CreatePersistenVMRole(CloudStorageAccount currentStorage)
         {
+            StringBuilder endpointStr = new StringBuilder();
+            var storageService = this.StorageClient.StorageAccounts.Get(this.StorageAccountName);
+            if (storageService != null)
+            {
+                endpointStr.AppendFormat("BlobEndpoint={0};", storageService.Properties.Endpoints[0]);
+                endpointStr.AppendFormat("QueueEndpoint={0};", storageService.Properties.Endpoints[1]);
+                endpointStr.AppendFormat("TableEndpoint={0}", storageService.Properties.Endpoints[2]);
+                endpointStr.Replace("http://", "https://");
+            }
+
             var vm = new Management.Compute.Models.Role
             {
                 AvailabilitySetName = AvailabilitySetName,
@@ -468,7 +541,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     MediaLink = string.IsNullOrEmpty(MediaLocation) ? null : new Uri(MediaLocation),
                     HostCaching = HostCaching
                 }, new Management.Compute.Models.OSVirtualHardDisk()),
-                ProvisionGuestAgent = true,
+                ProvisionGuestAgent = !DisableGuestAgent.IsPresent,
+                ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferences(!DisableDiagnosticsExtension.IsPresent, this.StorageAccountName, this.StorageAccountKey, endpointStr.ToString(), this.DiagnosticsConfiguration)
             };
 
             if (vm.OSVirtualHardDisk.MediaLink == null && String.IsNullOrEmpty(vm.OSVirtualHardDisk.DiskName))
@@ -664,6 +738,52 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
             if (String.IsNullOrEmpty(this.VNetName) == false && (String.IsNullOrEmpty(this.Location) && String.IsNullOrEmpty(this.AffinityGroup)))
             {
                 throw new ArgumentException(Resources.VNetNameCanBeSpecifiedOnlyOnInitialDeployment);
+            }
+            
+            // Validate DA Extension related parameters.
+            if (DisableGuestAgent.IsPresent)
+            {
+                if (DisableDiagnosticsExtension.IsPresent)
+                {
+                    throw new ArgumentException("DisableDiagnosticsExtension cannot be specified, if DisableGuestAgent is present.");
+                }
+
+                if (DiagnosticsConfiguration != null)
+                {
+                    throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if DisableGuestAgent is present.");
+                }
+
+                if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                {
+                    throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if DisableGuestAgent is present.");
+                }
+            }
+            else
+            {
+
+                if (DisableDiagnosticsExtension.IsPresent)
+                {
+                    if (DiagnosticsConfiguration != null)
+                    {
+                        throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if DisableDiagnosticsExtension is present.");
+                    }
+
+                    if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if DisableDiagnosticsExtension is present.");
+                    }
+                }
+                else
+                {
+                    if (DiagnosticsConfiguration != null && !string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified);
+                    }
+                    else if (DiagnosticsConfiguration == null && string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified);
+                    }
+                }
             }
         }
     }

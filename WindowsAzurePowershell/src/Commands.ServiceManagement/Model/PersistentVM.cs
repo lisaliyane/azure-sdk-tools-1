@@ -108,10 +108,21 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
             set;
         }
 
+        public bool? ProvisionGuestAgent
+        {
+            get;
+            set;
+        }
+
+        public ResourceExtensionReferenceList ResourceExtensionReferences
+        {
+            get;
+            set;
+        }
+
         public PersistentVM GetInstance()
         {
             return this;
         }
     }
 }
-

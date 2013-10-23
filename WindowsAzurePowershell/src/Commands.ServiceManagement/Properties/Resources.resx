@@ -558,4 +558,10 @@
   <data name="NetworkConfigurationCannotBeDeserialized" xml:space="preserve">
     <value>Network configuration cannot be deserialized.</value>
   </data>
+  <data name="EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified" xml:space="preserve">
+    <value>Diagnostics Configuration Xml or File Path, only one of them needs to be specified.</value>
+  </data>
+  <data name="EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified" xml:space="preserve">
+    <value>Either Diagnostics Configuration Xml or File Path must be specified.</value>
+  </data>
 </root>

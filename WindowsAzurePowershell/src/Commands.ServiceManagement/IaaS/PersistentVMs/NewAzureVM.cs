@@ -20,6 +20,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
     using System.Net;
     using AutoMapper;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;
@@ -278,7 +279,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     OSVirtualHardDisk = persistentVMs[i].OSVirtualHardDisk,
                     RoleName = persistentVMs[i].RoleName,
                     RoleSize = persistentVMs[i].RoleSize,
-                    ProvisionGuestAgent = true
+                    ProvisionGuestAgent = persistentVMs[i].ProvisionGuestAgent,
+                    ResourceExtensionReferences = persistentVMs[i].ResourceExtensionReferences
                 };
 
                 persistentVMs[i].DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -337,7 +339,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                            (VirtualMachineRoleSize?)Enum.Parse(typeof(VirtualMachineRoleSize), persistentVM.RoleSize, true),
                 RoleType = persistentVM.RoleType,
                 Label = persistentVM.Label,
-                ProvisionGuestAgent = true
+                ProvisionGuestAgent = persistentVM.ProvisionGuestAgent,
+                ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferences(persistentVM.ResourceExtensionReferences)
             };
 
             if (persistentVM.DataVirtualHardDisks != null)

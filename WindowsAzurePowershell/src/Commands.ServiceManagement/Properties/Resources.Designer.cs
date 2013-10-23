@@ -331,6 +331,24 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Diagnostics Configuration Xml or File Path, only one of them needs to be specified..
+        /// </summary>
+        internal static string EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified {
+            get {
+                return ResourceManager.GetString("EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Either Diagnostics Configuration Xml or File Path must be specified..
+        /// </summary>
+        internal static string EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified {
+            get {
+                return ResourceManager.GetString("EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location or AffinityGroup, only one of them needs to be specified..
         /// </summary>
         internal static string EitherLocationOrAffinityGroupBeSpecified {

@@ -38,6 +38,13 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
             set;
         }
 
+        [Parameter(Mandatory = false, HelpMessage = "Yo disable IaaS guest agent.")]
+        public SwitchParameter DisableGuestAgent
+        {
+            get;
+            set;
+        }
+
         internal void ExecuteCommand()
         {
             var role = VM.GetInstance();
@@ -88,6 +95,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                     role.X509Certificates.AddRange(this.X509Certificates);
                 }
                 role.NoExportPrivateKey = this.NoExportPrivateKey.IsPresent;
+
+                role.ProvisionGuestAgent = !DisableGuestAgent.IsPresent;
             }
 
             WriteObject(VM, true);

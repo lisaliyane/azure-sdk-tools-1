@@ -18,6 +18,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using System.Management.Automation;
     using AutoMapper;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;
@@ -102,6 +103,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                 RoleName = VM.RoleName,
                 RoleSize = string.IsNullOrEmpty(VM.RoleSize) ? null :
                            (VirtualMachineRoleSize?)Enum.Parse(typeof(VirtualMachineRoleSize), VM.RoleSize, true),
+                ProvisionGuestAgent = VM.ProvisionGuestAgent,
+                ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferences(VM.ResourceExtensionReferences)
             };
 
             if (VM.DataVirtualHardDisks != null)
