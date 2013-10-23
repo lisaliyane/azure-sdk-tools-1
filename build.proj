@@ -29,6 +29,7 @@
     <TestFilter>"!Functional&#x26;!Scenario&#x26;!LongRunningTest&#x26;!Sequential&#x26;!PIRTest"</TestFilter>
     <ScenarioTestFilter>All</ScenarioTestFilter>
 	<OneSDKCITFilter>"OneSDK&#x26;CIT"</OneSDKCITFilter>
+	<AzureRTAllTestFilter>"Functional|Scenario"</AzureRTAllTestFilter>
     <TestOutputDirectory>$(PublishDirectory)\TestResults</TestOutputDirectory>
 	<DebugBuildConfig>Configuration=Debug;Platform=Any CPU</DebugBuildConfig>
 	<ReleaseBuildConfig>Configuration=Release;Platform=Any CPU</ReleaseBuildConfig>
@@ -275,7 +276,7 @@
       Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:Scenario /resultsfile:$(TestOutputDirectory)\RTScenarioDebug.trx"
       ContinueOnError="false" />
   </Target>
-  
+
   <Target Name="AzureRTOneTest" DependsOnTargets="Clean;BuildDebug">
     <Message Importance="high" Text="Running a specific tests..." />
     <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
@@ -298,6 +299,20 @@
       ContinueOnError="true" />
     <Exec
       Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:Functional /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
+      ContinueOnError="false" />
+  </Target>
+
+  <Target Name="AzureRTAll" DependsOnTargets="Clean;BuildDebug">
+    <Message Importance="high" Text="Running AzureRT all tests..." />
+    <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
+    <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
+
+    <Message Importance="high" Text="All tests:" />
+	<Exec
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(TestSettings) /category:Sequential /resultsfile:$(TestOutputDirectory)\RTAddVhdDebug.trx"
+      ContinueOnError="true" />
+    <Exec
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /category:$(AzureRTAllTestFilter) /resultsfile:$(TestOutputDirectory)\RTDebug.trx"
       ContinueOnError="false" />
   </Target>
 

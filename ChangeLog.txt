@@ -13,7 +13,7 @@
          * Removed -DefaultSubscription and -NoDefaultSubscription parameters. Go to Select-AzureSubscription with -Default and -NoDefault parameters.
      * New-AzureSqlDatabaseServerContext
          * Replaced the -SubscriptionData parameter with -SubscriptionName parameter
- * Upgraded Windows Azure SDK dependency from 1.8 to 2.0
+ * Upgraded Windows Azure SDK dependency from 1.8 to 2.2
  * Added support for a new virtual machine high memory SKU (A5)
 
 2013.08.22 Version 0.6.19
