@@ -26,9 +26,10 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             var role = VM.GetInstance();
             if (role.ResourceExtensionReferences != null)
             {
-                role.ResourceExtensionReferences.RemoveAll(r => r.Publisher == VMDiagnosticsExtensionHelper.ExtensionPublisher &&
-                                                                r.Name == VMDiagnosticsExtensionHelper.ExtensionName);
+                role.ResourceExtensionReferences.RemoveAll(r => r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionPublisher &&
+                                                                r.Name == VMDiagnosticsExtensionBuilder.ExtensionName);
             }
+            WriteObject(role);
         }
 
         protected override void ProcessRecord()

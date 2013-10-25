@@ -15,6 +15,7 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Management.Automation;
     using System.Net;
@@ -340,7 +341,21 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 RoleType = persistentVM.RoleType,
                 Label = persistentVM.Label,
                 ProvisionGuestAgent = persistentVM.ProvisionGuestAgent,
-                ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferences(persistentVM.ResourceExtensionReferences)
+                ResourceExtensionReferences = persistentVM.ResourceExtensionReferences == null ? null : persistentVM.ResourceExtensionReferences.Select(
+                r => new ResourceExtensionReference
+                {
+                    Name = r.Name,
+                    Publisher = r.Publisher,
+                    ReferenceName = r.ReferenceName,
+                    Version = r.Version,
+                    ResourceExtensionParameterValues = r.ResourceExtensionParameterValues == null ? null : r.ResourceExtensionParameterValues.Select(
+                        p => new ResourceExtensionParameterValue
+                        {
+                            Key = p.Key,
+                            Value = p.Value
+                        }
+                    ).ToList()
+                }).ToList()
             };
 
             if (persistentVM.DataVirtualHardDisks != null)

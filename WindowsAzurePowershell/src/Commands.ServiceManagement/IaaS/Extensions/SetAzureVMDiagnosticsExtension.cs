@@ -18,12 +18,14 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
     using System.Management.Automation;
     using System.Xml;
     using Model;
+    using Model.PersistentVMModel;
+    using Properties;
 
-    [Cmdlet(VerbsCommon.Set, "AzureVMDiagnosticsExtension"), OutputType(typeof(IPersistentVM))]
+    [Cmdlet(VerbsCommon.Set, "AzureVMDiagnosticsExtension", DefaultParameterSetName = "EnableExtension"), OutputType(typeof(IPersistentVM))]
     public class SetAzureVMDiagnosticsExtensionCommand : VirtualMachineConfigurationCmdletBase
     {
 
-        [Parameter(Mandatory = true, HelpMessage = "Diagnostics Configuration")]
+        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Diagnostics Configuration")]
         [ValidateNotNullOrEmpty]
         public XmlDocument DiagnosticsConfiguration
         {
@@ -31,7 +33,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = false, HelpMessage = "Diagnostics Configuration File")]
+        [Parameter(Mandatory = false, ParameterSetName = "EnableExtension", HelpMessage = "Diagnostics Configuration File")]
         [ValidateNotNullOrEmpty]
         public string DiagnosticConfigurationFile
         {
@@ -39,7 +41,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = true, HelpMessage = "Storage Account Name")]
+        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Storage Account Name")]
         [ValidateNotNullOrEmpty]
         public string StorageAccountName
         {
@@ -47,7 +49,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = true, HelpMessage = "Storage Account Key")]
+        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Storage Account Key")]
         [ValidateNotNullOrEmpty]
         public string StorageAccountKey
         {
@@ -55,7 +57,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = false, HelpMessage = "To Disable Diagnostics Extension")]
+        [Parameter(Mandatory = false, ParameterSetName = "DisableExtension", HelpMessage = "To Disable Diagnostics Extension")]
         public SwitchParameter Disabled
         {
             get;
@@ -69,24 +71,78 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                 throw new ArgumentException("ProvisionGuestAgent must be enabled for setting diagnostics extensions on the VM.");
             }
 
-            VM.GetInstance().ResourceExtensionReferences = VMDiagnosticsExtensionHelper.GetResourceReferenceList(
-                !Disabled.IsPresent,
+            var newExtRefList = new ResourceExtensionReferenceList();
+            newExtRefList.Add(new VMDiagnosticsExtensionBuilder(
                 this.StorageAccountName,
                 this.StorageAccountKey,
                 null,
-                DiagnosticsConfiguration);
+                DiagnosticsConfiguration,
+                !Disabled.IsPresent).GetResourceReference());
+            VM.GetInstance().ResourceExtensionReferences = newExtRefList;
+            WriteObject(VM);
         }
 
         protected override void ProcessRecord()
         {
+            ServiceManagementProfile.Initialize();
             try
             {
+                ValidateParameters();
                 base.ProcessRecord();
                 ExecuteCommand();
             }
             catch (Exception ex)
             {
                 WriteError(new ErrorRecord(ex, string.Empty, ErrorCategory.CloseError, null));
+            }
+        }
+
+        private void ValidateParameters()
+        {
+            // Validate DA Extension related parameters.
+            if (VM.GetInstance().ProvisionGuestAgent == null || !VM.GetInstance().ProvisionGuestAgent.Value)
+            {
+                if (Disabled.IsPresent)
+                {
+                    throw new ArgumentException("Disabled cannot be specified, if DisableGuestAgent is present.");
+                }
+
+                if (DiagnosticsConfiguration != null)
+                {
+                    throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if DisableGuestAgent is present.");
+                }
+
+                if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                {
+                    throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if DisableGuestAgent is present.");
+                }
+            }
+            else
+            {
+
+                if (Disabled.IsPresent)
+                {
+                    if (DiagnosticsConfiguration != null)
+                    {
+                        throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if Disabled is present.");
+                    }
+
+                    if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if Disabled is present.");
+                    }
+                }
+                else
+                {
+                    if (DiagnosticsConfiguration != null && !string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified);
+                    }
+                    else if (DiagnosticsConfiguration == null && string.IsNullOrEmpty(DiagnosticConfigurationFile))
+                    {
+                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified);
+                    }
+                }
             }
         }
     }

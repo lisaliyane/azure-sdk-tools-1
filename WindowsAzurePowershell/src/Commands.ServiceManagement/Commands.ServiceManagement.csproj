@@ -199,7 +199,8 @@
     <Compile Include="AffinityGroups\NewAzureAffinityGroup.cs" />
     <Compile Include="AffinityGroups\RemoveAzureAffinityGroup.cs" />
     <Compile Include="IaaS\Extensions\GetAzureVMDiagnosticsExtension.cs" />
-    <Compile Include="IaaS\Extensions\VMDiagnosticsExtensionHelper.cs" />
+    <Compile Include="IaaS\Extensions\VMDiagnosticsExtensionBuilder.cs" />
+    <Compile Include="IaaS\Extensions\VMDiagnosticsExtensionContext.cs" />
     <Compile Include="IaaS\Extensions\RemoveAzureVMDiagnosticsExtension.cs" />
     <Compile Include="IaaS\Extensions\SetAzureVMDiagnosticsExtension.cs" />
     <Compile Include="IaaS\Network\NetworkConfigurationSchema.cs">

@@ -8404,19 +8404,6 @@ namespace Microsoft.WindowsAzure.Management.Compute.Models
             set { this._oSVirtualHardDisk = value; }
         }
         
-        private bool? _provisionGuestAgent;
-        
-        /// <summary>
-        /// Restricted field.  This field can be set on hosted services within
-        /// authorized subscriptions that have early access to future versions
-        /// of Azure PaaS.
-        /// </summary>
-        public bool? ProvisionGuestAgent
-        {
-            get { return this._provisionGuestAgent; }
-            set { this._provisionGuestAgent = value; }
-        }
-        
         /// <summary>
         /// Initializes a new instance of the VirtualMachineUpdateParameters
         /// class.
@@ -23122,7 +23109,7 @@ namespace Microsoft.WindowsAzure.Management.Compute
                         Tracing.ReceiveResponse(invocationId, httpResponse);
                     }
                     HttpStatusCode statusCode = httpResponse.StatusCode;
-                    if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Accepted)
+                    if (statusCode != HttpStatusCode.Accepted && statusCode != HttpStatusCode.OK)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
                         CloudException ex = CloudException.CreateFromXml(httpRequest, null, httpResponse, await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false));
@@ -40250,13 +40237,6 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     XElement roleSizeElement = new XElement(XName.Get("RoleSize", "http://schemas.microsoft.com/windowsazure"));
                     roleSizeElement.Value = parameters.RoleSize.ToString();
                     persistentVMRoleElement.Add(roleSizeElement);
-                }
-                
-                if (parameters.ProvisionGuestAgent != null)
-                {
-                    XElement provisionGuestAgentElement = new XElement(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
-                    provisionGuestAgentElement.Value = parameters.ProvisionGuestAgent.ToString().ToLower();
-                    persistentVMRoleElement.Add(provisionGuestAgentElement);
                 }
                 
                 requestContent = requestDoc.ToString();
