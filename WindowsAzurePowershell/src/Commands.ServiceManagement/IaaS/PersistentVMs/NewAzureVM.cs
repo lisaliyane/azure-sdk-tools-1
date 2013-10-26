@@ -341,7 +341,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 RoleType = persistentVM.RoleType,
                 Label = persistentVM.Label,
                 ProvisionGuestAgent = persistentVM.ProvisionGuestAgent,
-                ResourceExtensionReferences = Mapper.Map<List<ResourceExtensionReference>>(persistentVM.ResourceExtensionReferences.AsEnumerable())
+                ResourceExtensionReferences = Mapper.Map<List<ResourceExtensionReference>>(persistentVM.ResourceExtensionReferences)
             };
 
             if (persistentVM.DataVirtualHardDisks != null)
