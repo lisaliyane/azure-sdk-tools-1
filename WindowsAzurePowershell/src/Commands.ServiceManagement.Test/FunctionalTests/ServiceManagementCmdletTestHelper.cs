@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                 try
                 {
                     var operation = (ManagementOperationContext)result[0].BaseObject;
-                    Console.WriteLine("Operation ID: {0}", operation.OperationId);
+                    Console.WriteLine("Operation ID: {0} \nOperation Status: {1}\n", operation.OperationId, operation.OperationStatus);
                 }
                 catch
                 {
@@ -80,7 +80,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             try
             {
                 var operation = (ManagementOperationContext)result[0].BaseObject;
-                Console.WriteLine("Operation ID: {0}", operation.OperationId);
+                Console.WriteLine("Operation ID: {0} \nOperation Status: {1}\n", operation.OperationId, operation.OperationStatus);
             }
             catch
             {

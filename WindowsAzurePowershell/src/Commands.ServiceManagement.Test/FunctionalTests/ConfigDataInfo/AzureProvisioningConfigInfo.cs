@@ -14,36 +14,61 @@
 
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests.ConfigDataInfo
 {
+    using System;
+    using System.Security.Cryptography.X509Certificates;
     using Model;
     using Model.PersistentVMModel;
 
     public class AzureProvisioningConfigInfo
     {
+        public string WindowsDomain = "WindowsDomain";
+
         public OS OS;
+        public string Option = null;
+
         public readonly string Password;
         public CertificateSettingList Certs =  new CertificateSettingList();
-        public string LinuxUser = (string) null;
-        public string AdminUsername = (string)null;
-        public string Option = (string) null;
-        public string JoinDomain = (string)null;
-        public string Domain = (string)null;
-        public string DomainUserName = (string)null;
-        public string DomainPassword = (string)null;
+        public string LinuxUser = null;
+        public string AdminUsername = null;
+
+        public string JoinDomain = null;
+        public string Domain = null;
+        public string DomainUserName = null;
+        public string DomainPassword = null;
+        public string MachineObjectOU = null;
+
         public bool Reset = false;
         public bool DisableAutomaticUpdate = false;
         public bool DisableSSH = false;
+
+        public bool DisableWinRMHttps = false;
+        public bool EnableWinRMHttp = false;
+        public bool NoWinRMEndpoint = false;
+        public X509Certificate2 WinRMCertificate = null;
+        public X509Certificate2[] X509Certificates = null;
+
+        public bool NoExportPrivateKey = false;
         public bool NoRDPEndpoint = false;
         public bool NoSSHEndpoint = false;
 
-        public AzureProvisioningConfigInfo(string option, string joinDomain, string domain, string domainUserName, string domainPassword,  string password, bool resetPasswordFirstLogon)
+        public LinuxProvisioningConfigurationSet.SSHKeyPairList SSHKeyPairs = null;
+        public LinuxProvisioningConfigurationSet.SSHPublicKeyList SshPublicKeys = null;
+        public string TimeZone = null;
+
+        // WindowsDomain paramenter set
+        public AzureProvisioningConfigInfo(string option, string user, string password, string joinDomain, string domain, string domainUserName, string domainPassword, string objectOU = null)
         {
-            this.Option = option;
-            this.Password = password;
-            this.Domain = domain;
-            this.JoinDomain = joinDomain;
-            this.DomainUserName = domainUserName;
-            this.DomainPassword = domainPassword;
-            this.Reset = resetPasswordFirstLogon;
+            if (string.Compare(option, WindowsDomain, StringComparison.CurrentCultureIgnoreCase) == 0)
+            {
+                this.Option = WindowsDomain;
+                this.AdminUsername = user;
+                this.Password = password;
+                this.Domain = domain;
+                this.JoinDomain = joinDomain;
+                this.DomainUserName = domainUserName;
+                this.DomainPassword = domainPassword;
+                this.MachineObjectOU = objectOU;
+            }
         }
 
         public AzureProvisioningConfigInfo(OS os, string user, string password)

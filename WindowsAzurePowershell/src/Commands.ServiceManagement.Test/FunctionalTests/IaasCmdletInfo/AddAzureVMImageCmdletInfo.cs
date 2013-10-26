@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             cmdletParams.Add(new CmdletParam("MediaLocation", mediaLocation));
             cmdletParams.Add(new CmdletParam("OS", os.ToString()));
                 
-            if (string.IsNullOrEmpty(label))
+            if (!string.IsNullOrEmpty(label))
             {
                 cmdletParams.Add(new CmdletParam("Label", label));
             }

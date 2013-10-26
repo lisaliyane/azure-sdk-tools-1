@@ -77,9 +77,13 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                     }
                 }
 
+                powershell.AddParameter("Debug");
+
                 PrintPSCommand(powershell);
 
                 result = powershell.Invoke();
+
+                Console.WriteLine(string.Join("", powershell.Streams.Debug));
 
                 if (powershell.Streams.Error.Count > 0)
                 {

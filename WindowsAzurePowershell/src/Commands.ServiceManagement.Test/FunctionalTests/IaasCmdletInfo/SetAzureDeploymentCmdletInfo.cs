@@ -91,31 +91,31 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
 
             cmdletParams.Add(new CmdletParam("ServiceName", serviceName));
 
-            if (string.IsNullOrEmpty(packagePath))
+            if (!string.IsNullOrEmpty(packagePath))
             {
                 cmdletParams.Add(new CmdletParam("Package", packagePath));
             }
-            if (string.IsNullOrEmpty(configPath))
+            if (!string.IsNullOrEmpty(configPath))
             {
                 cmdletParams.Add(new CmdletParam("Configuration", configPath));
             }
-            if (string.IsNullOrEmpty(mode))
+            if (!string.IsNullOrEmpty(mode))
             {
                 cmdletParams.Add(new CmdletParam("Mode", mode));
             }
-            if (string.IsNullOrEmpty(newStatus))
+            if (!string.IsNullOrEmpty(newStatus))
             {
                 cmdletParams.Add(new CmdletParam("NewStatus", newStatus));
             }
-            if (string.IsNullOrEmpty(slot))
+            if (!string.IsNullOrEmpty(slot))
             {
                 cmdletParams.Add(new CmdletParam("Slot", slot));
             }
-            if (string.IsNullOrEmpty(label))
+            if (!string.IsNullOrEmpty(label))
             {
                 cmdletParams.Add(new CmdletParam("Label", label));
             }
-            if (string.IsNullOrEmpty(roleName))
+            if (!string.IsNullOrEmpty(roleName))
             {
                 cmdletParams.Add(new CmdletParam("RoleName", roleName));
             }

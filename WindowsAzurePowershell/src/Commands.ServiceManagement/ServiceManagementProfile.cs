@@ -265,6 +265,31 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
                   .ForMember(c => c.OperationId, o => o.MapFrom(r => r.Id))
                   .ForMember(c => c.OperationStatus, o => o.MapFrom(r => r.Status.ToString()));
 
+            // DomainJoinSettings mapping for IaaS
+            Mapper.CreateMap<NSM.DomainJoinCredentials, PVM.WindowsProvisioningConfigurationSet.DomainJoinCredentials>()
+                  .ForMember(c => c.Domain, o => o.MapFrom(r => r.Domain))
+                  .ForMember(c => c.Username, o => o.MapFrom(r => r.UserName))
+                  .ForMember(c => c.Password, o => o.MapFrom(r => r.Password));
+            Mapper.CreateMap<NSM.DomainJoinProvisioning, PVM.WindowsProvisioningConfigurationSet.DomainJoinProvisioning>()
+                  .ForMember(c => c.AccountData, o => o.MapFrom(r => r.AccountData));
+            Mapper.CreateMap<NSM.DomainJoinSettings, PVM.WindowsProvisioningConfigurationSet.DomainJoinSettings>()
+                  .ForMember(c => c.Credentials, o => o.MapFrom(r => r.Credentials))
+                  .ForMember(c => c.JoinDomain, o => o.MapFrom(r => r.DomainToJoin))
+                  .ForMember(c => c.MachineObjectOU, o => o.MapFrom(r => r.LdapMachineObjectOU))
+                  .ForMember(c => c.Provisioning, o => o.MapFrom(r => r.Provisioning));
+
+            Mapper.CreateMap<PVM.WindowsProvisioningConfigurationSet.DomainJoinCredentials, NSM.DomainJoinCredentials>()
+                  .ForMember(c => c.Domain, o => o.MapFrom(r => r.Domain))
+                  .ForMember(c => c.UserName, o => o.MapFrom(r => r.Username))
+                  .ForMember(c => c.Password, o => o.MapFrom(r => r.Password));
+            Mapper.CreateMap<PVM.WindowsProvisioningConfigurationSet.DomainJoinProvisioning, NSM.DomainJoinProvisioning>()
+                  .ForMember(c => c.AccountData, o => o.MapFrom(r => r.AccountData));
+            Mapper.CreateMap<PVM.WindowsProvisioningConfigurationSet.DomainJoinSettings, NSM.DomainJoinSettings>()
+                  .ForMember(c => c.Credentials, o => o.MapFrom(r => r.Credentials))
+                  .ForMember(c => c.DomainToJoin, o => o.MapFrom(r => r.JoinDomain))
+                  .ForMember(c => c.LdapMachineObjectOU, o => o.MapFrom(r => r.MachineObjectOU))
+                  .ForMember(c => c.Provisioning, o => o.MapFrom(r => r.Provisioning));
+
             // New SM to Model
             Mapper.CreateMap<IList<NSM.StoredCertificateSettings>, PVM.CertificateSettingList>();
             Mapper.CreateMap<NSM.StoredCertificateSettings, PVM.CertificateSetting>();
