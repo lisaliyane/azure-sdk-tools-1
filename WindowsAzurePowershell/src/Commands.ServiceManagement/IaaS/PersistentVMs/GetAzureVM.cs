@@ -15,30 +15,26 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
     using System.Management.Automation;
     using System.Net;
     using AutoMapper;
     using Helpers;
-    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;
     using Properties;
     using DataVirtualHardDisk = Model.PersistentVMModel.DataVirtualHardDisk;
     using OSVirtualHardDisk = Model.PersistentVMModel.OSVirtualHardDisk;
+    using PVM = Model.PersistentVMModel;
     using RoleInstance = Management.Compute.Models.RoleInstance;
 
     [Cmdlet(VerbsCommon.Get, "AzureVM"), OutputType(typeof(List<PersistentVMRoleContext>), typeof(PersistentVMRoleListContext))]
     public class GetAzureVMCommand : IaaSDeploymentManagementCmdletBase
     {
-        public GetAzureVMCommand()
-        {
-        }
-
         [Parameter(Position = 0, Mandatory = false, ValueFromPipelineByPropertyName = true, HelpMessage = "Service name.")]
         [ValidateNotNullOrEmpty]
         public override string ServiceName
@@ -122,7 +118,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                             RoleType = vm.RoleType,
                             DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint,
                             ProvisionGuestAgent = vm.ProvisionGuestAgent,
-                            ResourceExtensionReferences = VMDiagnosticsExtensionBuilder.GetResourceExtensionReferenceList(vm.ResourceExtensionReferences)
+                            ResourceExtensionReferences = new PVM.ResourceExtensionReferenceList(Mapper.Map<IEnumerable<PVM.ResourceExtensionReference>>(vm.ResourceExtensionReferences))
                         }
                     };
 

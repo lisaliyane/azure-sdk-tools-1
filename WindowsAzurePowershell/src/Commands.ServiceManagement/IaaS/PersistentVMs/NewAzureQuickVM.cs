@@ -260,7 +260,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
             set;
         }
 
-        [Parameter(Mandatory = false, ParameterSetName = "Windows", HelpMessage = "DisableGuestAgent")]
+        [Parameter(Mandatory = true, ParameterSetName = "Windows", HelpMessage = "To enable IaaS provision guest agent.")]
         public bool EnableGuestAgent
         {
             get;

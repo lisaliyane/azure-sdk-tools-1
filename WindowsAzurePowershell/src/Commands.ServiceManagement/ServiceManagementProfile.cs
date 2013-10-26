@@ -300,18 +300,41 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
 
             // Resource Reference Mapping
             Mapper.CreateMap<NSM.ResourceExtensionParameterValue, PVM.ResourceExtensionParameterValue>();
-            Mapper.CreateMap<List<NSM.ResourceExtensionParameterValue>, PVM.ResourceExtensionParameterValueList>();
             Mapper.CreateMap<IList<NSM.ResourceExtensionParameterValue>, PVM.ResourceExtensionParameterValueList>();
-            Mapper.CreateMap<NSM.ResourceExtensionReference, PVM.ResourceExtensionReference>();
-            Mapper.CreateMap<List<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
+            Mapper.CreateMap<IEnumerable<NSM.ResourceExtensionParameterValue>, PVM.ResourceExtensionParameterValueList>();
+            Mapper.CreateMap<List<NSM.ResourceExtensionParameterValue>, PVM.ResourceExtensionParameterValueList>();
+            Mapper.CreateMap<NSM.ResourceExtensionReference, PVM.ResourceExtensionReference>()
+                  .ForMember(c => c.ResourceExtensionParameterValues, o => o.MapFrom(
+                      r => new PVM.ResourceExtensionParameterValueList(r.ResourceExtensionParameterValues.Select(
+                          p => Mapper.Map<PVM.ResourceExtensionParameterValue>(p)))));
+            Mapper.CreateMap<IList<NSM.ResourceExtensionReference>, List<PVM.ResourceExtensionReference>>()
+                  .Include<IList<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
+            Mapper.CreateMap<IEnumerable<NSM.ResourceExtensionReference>, List<PVM.ResourceExtensionReference>>()
+                  .Include<IEnumerable<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
+            Mapper.CreateMap<List<NSM.ResourceExtensionReference>, List<PVM.ResourceExtensionReference>>()
+                  .Include<List<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
             Mapper.CreateMap<IList<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
+            Mapper.CreateMap<IEnumerable<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
+            Mapper.CreateMap<List<NSM.ResourceExtensionReference>, PVM.ResourceExtensionReferenceList>();
 
             Mapper.CreateMap<PVM.ResourceExtensionParameterValue, NSM.ResourceExtensionParameterValue>();
-            Mapper.CreateMap<PVM.ResourceExtensionParameterValueList, List<NSM.ResourceExtensionParameterValue>>();
             Mapper.CreateMap<PVM.ResourceExtensionParameterValueList, IList<NSM.ResourceExtensionParameterValue>>();
+            Mapper.CreateMap<PVM.ResourceExtensionParameterValueList, IEnumerable<NSM.ResourceExtensionParameterValue>>();
+            Mapper.CreateMap<PVM.ResourceExtensionParameterValueList, List<NSM.ResourceExtensionParameterValue>>();
+            Mapper.CreateMap<PVM.ResourceExtensionReference, NSM.ResourceExtensionReference>()
+                  .ForMember(c => c.ResourceExtensionParameterValues, o => o.MapFrom(
+                      r => new List<NSM.ResourceExtensionParameterValue>(r.ResourceExtensionParameterValues.Select(
+                          p => Mapper.Map<NSM.ResourceExtensionParameterValue>(p)))));
             Mapper.CreateMap<PVM.ResourceExtensionReference, NSM.ResourceExtensionReference>();
-            Mapper.CreateMap<PVM.ResourceExtensionReferenceList, List<NSM.ResourceExtensionReference>>();
+            Mapper.CreateMap<List<PVM.ResourceExtensionReference>, IList<NSM.ResourceExtensionReference>>()
+                  .Include<PVM.ResourceExtensionReferenceList, IList<NSM.ResourceExtensionReference>>();
+            Mapper.CreateMap<List<PVM.ResourceExtensionReference>, IEnumerable<NSM.ResourceExtensionReference>>()
+                  .Include<PVM.ResourceExtensionReferenceList, IEnumerable<NSM.ResourceExtensionReference>>();
+            Mapper.CreateMap<List<PVM.ResourceExtensionReference>, List<NSM.ResourceExtensionReference>>()
+                  .Include<PVM.ResourceExtensionReferenceList, List<NSM.ResourceExtensionReference>>();
             Mapper.CreateMap<PVM.ResourceExtensionReferenceList, IList<NSM.ResourceExtensionReference>>();
+            Mapper.CreateMap<PVM.ResourceExtensionReferenceList, IEnumerable<NSM.ResourceExtensionReference>>();
+            Mapper.CreateMap<PVM.ResourceExtensionReferenceList, List<NSM.ResourceExtensionReference>>();
 
             // SM to Model
             Mapper.CreateMap<WindowsAzure.ServiceManagement.LoadBalancerProbe,                                           PVM.LoadBalancerProbe>();

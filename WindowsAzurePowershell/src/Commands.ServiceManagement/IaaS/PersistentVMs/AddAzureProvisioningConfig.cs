@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
             set;
         }
 
-        [Parameter(Mandatory = true, HelpMessage = "To enable IaaS guest agent.")]
+        [Parameter(Mandatory = true, HelpMessage = "To enable IaaS provision guest agent.")]
         public bool EnableGuestAgent
         {
             get;

@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
     using System.Management.Automation;
     using Model.PersistentVMModel;
 
-    [Cmdlet(VerbsCommon.Get, "AzureVMDiagnosticsExtension"), OutputType(typeof(IEnumerable<VMDiagnosticExtensionContext>))]
+    [Cmdlet(VerbsCommon.Get, "AzureVMDiagnosticsExtension"), OutputType(typeof(IEnumerable<VMDiagnosticsExtensionContext>))]
     public class GetAzureVMDiagnosticsExtensionCommand : VirtualMachineConfigurationCmdletBase
     {
         internal void ExecuteCommand()
@@ -33,12 +33,12 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                     r => r.Name == VMDiagnosticsExtensionBuilder.ExtensionName && r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionPublisher);
             }
 
-            IEnumerable<VMDiagnosticExtensionContext> daExtContexts = daExtRefList == null ? null : daExtRefList.Select(
+            IEnumerable<VMDiagnosticsExtensionContext> daExtContexts = daExtRefList == null ? null : daExtRefList.Select(
                 r =>
                 {
                     var extensionKeyValPair = r.ResourceExtensionParameterValues.Find(p => p.Key == VMDiagnosticsExtensionBuilder.ExtensionReferenceKeyStr);
                     var daExtensionBuilder = extensionKeyValPair == null ? null : new VMDiagnosticsExtensionBuilder(extensionKeyValPair.Value);
-                    return new VMDiagnosticExtensionContext
+                    return new VMDiagnosticsExtensionContext
                     {
                         Name = r.Name,
                         Publisher = r.Publisher,

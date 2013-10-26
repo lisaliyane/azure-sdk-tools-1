@@ -15,6 +15,7 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
@@ -23,9 +24,11 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using Helpers;
     using IaaS.Extensions;
     using Model;
+    using Model.PersistentVMModel;
     using Properties;
     using DataVirtualHardDisk = Model.PersistentVMModel.DataVirtualHardDisk;
     using OSVirtualHardDisk = Model.PersistentVMModel.OSVirtualHardDisk;
+    using PVM = Model.PersistentVMModel;
 
     [Cmdlet(VerbsData.Export, "AzureVM")]
     public class ExportAzureVMCommand : IaaSDeploymentManagementCmdletBase
@@ -103,7 +106,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                         RoleType = vm.RoleType,
                         DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint,
                         ProvisionGuestAgent = vm.ProvisionGuestAgent,
-                        ResourceExtensionReferences = VMDiagnosticsExtensionBuilder.GetResourceExtensionReferenceList(vm.ResourceExtensionReferences)
+                        ResourceExtensionReferences = new PVM.ResourceExtensionReferenceList(Mapper.Map<IEnumerable<PVM.ResourceExtensionReference>>(vm.ResourceExtensionReferences))
                     }
                 };
                 PersistentVMHelper.SaveStateToFile(vmContext.VM, Path);

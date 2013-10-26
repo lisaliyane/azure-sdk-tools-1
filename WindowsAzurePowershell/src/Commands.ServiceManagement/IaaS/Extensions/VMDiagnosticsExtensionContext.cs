@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 {
     using System.Xml;
 
-    public class VMDiagnosticExtensionContext
+    public class VMDiagnosticsExtensionContext
     {
         public string Name { get; set; }
 

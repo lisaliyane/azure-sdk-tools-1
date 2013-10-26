@@ -79,17 +79,24 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
-        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
-        [ValidateNotNullOrEmpty]
-        public Uri[] Endpoints
+        [Parameter(Mandatory = true, ParameterSetName = DisableExtensionParameterSet, HelpMessage = "Disable Diagnostics Extension")]
+        public SwitchParameter Disabled
+        {
+            get;
+            set;
+        }
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Endpoint Uri Suffix for storage services, e.g. \"core.windows.net\".")]
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Endpoint Uri Suffix for storage services, e.g. \"core.windows.net\".")]
+        public string EndpointSuffix
         {
             get;
             set;
         }
 
-        [Parameter(Mandatory = true, ParameterSetName = DisableExtensionParameterSet, HelpMessage = "Disable Diagnostics Extension")]
-        public SwitchParameter Disabled
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
+        [ValidateNotNullOrEmpty]
+        private Uri[] Endpoints
         {
             get;
             set;
@@ -146,6 +153,16 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                 this.StorageAccountName = this.StorageAccountContext.StorageAccountName;
                 // must be in this order: blob, queue, table endpoints
                 this.Endpoints = this.StorageAccountContext.Endpoints == null ? null : this.StorageAccountContext.Endpoints.Select(e => new Uri(e)).ToArray();
+            }
+            else if (ParameterSetName == EnableExtensionUsingXmlDocumentParameterSet ||
+                     ParameterSetName == EnableExtensionUsingXmlFilePathParameterSet)
+            {
+                string endpointFormat = "https://{0}.{1}.{2}";
+                if (!string.IsNullOrEmpty(this.EndpointSuffix))
+                {
+                    this.Endpoints = new string[3] { "blob", "queue", "table" }.Select(
+                        s => new Uri(string.Format(endpointFormat, this.StorageAccountName, s, this.EndpointSuffix))).ToArray();
+                }
             }
         }
     }

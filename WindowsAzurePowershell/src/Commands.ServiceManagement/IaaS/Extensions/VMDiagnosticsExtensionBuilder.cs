@@ -143,56 +143,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             }
         }
 
-        public static ResourceExtensionReferenceList GetResourceExtensionReferenceList(IList<Management.Compute.Models.ResourceExtensionReference> refList)
-        {
-            ResourceExtensionReferenceList extRefs = new ResourceExtensionReferenceList();
-            if (refList != null)
-            {
-                foreach (var r in refList)
-                {
-                    extRefs.Add(new Model.PersistentVMModel.ResourceExtensionReference
-                    {
-                        Name = r.Name,
-                        Publisher = r.Publisher,
-                        ReferenceName = r.ReferenceName,
-                        Version = r.Version,
-                        ResourceExtensionParameterValues = r.ResourceExtensionParameterValues.Select(p => new Model.PersistentVMModel.ResourceExtensionParameterValue
-                        {
-                            Key = p.Key,
-                            Value = p.Value
-                        }).ToList() as ResourceExtensionParameterValueList
-                    });
-                }
-            }
-
-            return extRefs;
-        }
-
-        public static List<Management.Compute.Models.ResourceExtensionReference> GetListOfGetResourceReference(ResourceExtensionReferenceList refList)
-        {
-            List<Management.Compute.Models.ResourceExtensionReference> extRefs = new List<Management.Compute.Models.ResourceExtensionReference>();
-            if (refList != null)
-            {
-                foreach (var r in refList)
-                {
-                    extRefs.Add(new Management.Compute.Models.ResourceExtensionReference
-                    {
-                        Name = r.Name,
-                        Publisher = r.Publisher,
-                        ReferenceName = r.ReferenceName,
-                        Version = r.Version,
-                        ResourceExtensionParameterValues = r.ResourceExtensionParameterValues.Select(p => new Management.Compute.Models.ResourceExtensionParameterValue
-                        {
-                            Key = p.Key,
-                            Value = p.Value
-                        }).ToList()
-                    });
-                }
-            }
-
-            return extRefs;
-        }
-
         private static string GetDiagnosticsAgentConfig(bool enabled, string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument wadCfg)
         {
             XDocument publicCfg = null;
