@@ -19,10 +19,10 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
     using System.Linq;
     using System.Xml;
     using System.Xml.Linq;
-    using Management.Compute.Models;
-    using Management.Storage;
     using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Auth;
     using Model.PersistentVMModel;
+    using Utilities.Common;
 
     public class VMDiagnosticsExtensionBuilder
     {
@@ -32,33 +32,66 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
         public const string CurrentExtensionVersion = "0.1";
         public const string ExtensionReferenceKeyStr = "DiagnosticsAgentConfigParameter";
 
+        private const string ConfigurationElem = "Configuration";
+        private const string EnabledElem = "Enabled";
+        private const string PublicElem = "Public";
+        private const string PublicConfigElem = "PublicConfig";
+        private const string WadCfgElem = "WadCfg";
+        private const string StorageAccountConnectionStringElem = "StorageAccountConnectionString";
+
+        private const string DefaultEndpointsProtocol = "https";
+        private const string StorageConnectionStringFormat = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2};{3}";
+
+        private string storageConnectionString;
         private string storageAccountName;
         private string storageAccountKey;
-        private string endpointStr;
-        XmlDocument wadCfg;
+        private Uri[] endpoints;
+        private XmlDocument wadCfg;
         private bool enabled;
 
-        public VMDiagnosticsExtensionBuilder(string storageAccountName, string storageAccountKey, string endpointStr, XmlDocument wadCfg, bool enabled)
+        public VMDiagnosticsExtensionBuilder()
         {
-            if (enabled && string.IsNullOrEmpty(storageAccountName))
+            this.enabled = false;
+        }
+
+        public VMDiagnosticsExtensionBuilder(string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument wadCfg)
+        {
+            if (string.IsNullOrEmpty(storageAccountName))
             {
-                throw new ArgumentNullException(storageAccountName);
+                throw new ArgumentNullException("storageAccountName");
             }
 
-            if (enabled && string.IsNullOrEmpty(storageAccountKey))
+            if (string.IsNullOrEmpty(storageAccountKey))
             {
-                throw new ArgumentNullException(storageAccountName);
+                throw new ArgumentNullException("storageAccountKey");
+            }
+
+            if (endpoints != null && endpoints.Length != 3)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "endpoints",
+                    "The parameter endpoints must be null or must contain three items: the blob, queue, and table endpoints.");
+            }
+
+            if (wadCfg == null)
+            {
+                throw new ArgumentNullException("wadCfg");
             }
 
             this.storageAccountName = storageAccountName;
             this.storageAccountKey = storageAccountKey;
-            this.endpointStr = endpointStr;
+            this.endpoints = endpoints;
             this.wadCfg = wadCfg;
-            this.enabled = enabled;
+            this.enabled = true;
         }
 
         public VMDiagnosticsExtensionBuilder(string extensionCfg)
         {
+            if (string.IsNullOrEmpty(extensionCfg))
+            {
+                throw new ArgumentNullException("extensionCfg");
+            }
+
             LoadFrom(extensionCfg);
         }
 
@@ -67,6 +100,22 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             get
             {
                 return this.storageAccountName;
+            }
+        }
+
+        public string StorageAccountKey
+        {
+            get
+            {
+                return this.storageAccountKey;
+            }
+        }
+
+        public Uri[] Endpoints
+        {
+            get
+            {
+                return this.endpoints;
             }
         }
 
@@ -84,6 +133,39 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             {
                 return this.wadCfg;
             }
+        }
+
+        public string StorageConnectionString
+        {
+            get
+            {
+                return this.storageConnectionString;
+            }
+        }
+
+        public static ResourceExtensionReferenceList GetResourceExtensionReferenceList(IList<Management.Compute.Models.ResourceExtensionReference> refList)
+        {
+            ResourceExtensionReferenceList extRefs = new ResourceExtensionReferenceList();
+            if (refList != null)
+            {
+                foreach (var r in refList)
+                {
+                    extRefs.Add(new Model.PersistentVMModel.ResourceExtensionReference
+                    {
+                        Name = r.Name,
+                        Publisher = r.Publisher,
+                        ReferenceName = r.ReferenceName,
+                        Version = r.Version,
+                        ResourceExtensionParameterValues = r.ResourceExtensionParameterValues.Select(p => new Model.PersistentVMModel.ResourceExtensionParameterValue
+                        {
+                            Key = p.Key,
+                            Value = p.Value
+                        }).ToList() as ResourceExtensionParameterValueList
+                    });
+                }
+            }
+
+            return extRefs;
         }
 
         public static List<Management.Compute.Models.ResourceExtensionReference> GetListOfGetResourceReference(ResourceExtensionReferenceList refList)
@@ -111,42 +193,39 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             return extRefs;
         }
 
-        private static string GetDiagnosticsAgentConfig(bool enabled, string storageAccoutName, string storageAccountKey, string endpointStr, XmlDocument wadCfg)
+        private static string GetDiagnosticsAgentConfig(bool enabled, string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument wadCfg)
         {
-            string storageConnectionStr = "DefaultEndpointsProtocol=https;AccountName=" + storageAccoutName + ";AccountKey=" + storageAccountKey;
-            if (!string.IsNullOrEmpty(endpointStr))
-            {
-                storageConnectionStr += ";" + endpointStr;
-            }
-
             XDocument publicCfg = null;
-
             if (enabled)
             {
                 XNamespace configNameSpace = "http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration";
                 publicCfg = new XDocument(
                     new XDeclaration("1.0", "utf-8", null),
-                    new XElement("Configuration",
-                        new XElement("Enabled", enabled.ToString().ToLower()),
-                        new XElement("Public",
-                            new XElement(configNameSpace + "PublicConfig",
-                                new XElement(configNameSpace + "WadCfg", string.Empty),
-                                new XElement(configNameSpace + "StorageAccountConnectionString", string.Empty)
+                    new XElement(ConfigurationElem,
+                        new XElement(EnabledElem, enabled.ToString().ToLower()),
+                        new XElement(PublicElem,
+                            new XElement(configNameSpace + PublicConfigElem,
+                                new XElement(configNameSpace + WadCfgElem, string.Empty),
+                                new XElement(configNameSpace + StorageAccountConnectionStringElem, string.Empty)
                             )
                         )
                     )
                 );
 
-                SetConfigValue(publicCfg, "WadCfg", wadCfg);
-                SetConfigValue(publicCfg, "StorageAccountConnectionString", storageConnectionStr);
+                var cloudStorageCredential = new StorageCredentials(storageAccountName, storageAccountKey);
+                var cloudStorageAccount = endpoints == null ? new CloudStorageAccount(cloudStorageCredential, true)
+                                                            : new CloudStorageAccount(cloudStorageCredential, endpoints[0], endpoints[1], endpoints[2]); // {blob, queue, table}
+                var storageConnectionStr = cloudStorageAccount.ToString(true);
+
+                SetConfigValue(publicCfg, WadCfgElem, wadCfg);
+                SetConfigValue(publicCfg, StorageAccountConnectionStringElem, storageConnectionStr);
             }
             else
             {
-                XNamespace configNameSpace = "http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration";
                 publicCfg = new XDocument(
                     new XDeclaration("1.0", "utf-8", null),
-                    new XElement("Configuration",
-                        new XElement("Enabled", bool.FalseString.ToLower())
+                    new XElement(ConfigurationElem,
+                        new XElement(EnabledElem, enabled.ToString().ToLower())
                     )
                 );
             }
@@ -202,27 +281,31 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                 Publisher = ExtensionPublisher,
                 Name = ExtensionName,
                 Version = CurrentExtensionVersion,
-                ResourceExtensionParameterValues = new ResourceExtensionParameterValueList(new int[1].Select(j => new Model.PersistentVMModel.ResourceExtensionParameterValue
+                ResourceExtensionParameterValues = new ResourceExtensionParameterValueList(new int[1].Select(i => new Model.PersistentVMModel.ResourceExtensionParameterValue
                 {
                     Key = ExtensionReferenceKeyStr,
-                    Value = GetDiagnosticsAgentConfig(enabled, storageAccountName, storageAccountKey, endpointStr, wadCfg)
+                    Value = GetDiagnosticsAgentConfig(
+                        this.enabled,
+                        this.storageAccountName,
+                        this.storageAccountKey,
+                        this.endpoints,
+                        this.wadCfg)
                 }))
             };
         }
 
         private void LoadFrom(string extensionCfg)
         {
-            string connStr = GetConfigValue(extensionCfg, "StorageAccountConnectionString");
-            var cloudStorageAccount = CloudStorageAccount.Parse(connStr);
-
+            this.storageConnectionString = GetConfigValue(extensionCfg, StorageAccountConnectionStringElem);
+            var cloudStorageAccount = CloudStorageAccount.Parse(this.storageConnectionString);
             if (cloudStorageAccount != null)
             {
-                this.storageAccountName = cloudStorageAccount.Credentials.AccountName;
+                this.storageAccountName = cloudStorageAccount.Credentials == null ? null : cloudStorageAccount.Credentials.AccountName;
             }
 
-            this.enabled = bool.Parse(GetConfigValue(extensionCfg, "Enabled"));
+            this.enabled = bool.Parse(GetConfigValue(extensionCfg, EnabledElem));
             this.wadCfg = new XmlDocument();
-            wadCfg.LoadXml(GetConfigValue(extensionCfg, "WadCfg"));
+            wadCfg.LoadXml(GetConfigValue(extensionCfg, WadCfgElem));
         }
     }
 }

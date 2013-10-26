@@ -23,6 +23,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using System.Net;
     using AutoMapper;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;
@@ -119,7 +120,9 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                             RoleName = vm.RoleName,
                             RoleSize = vm.RoleSize.ToString(),
                             RoleType = vm.RoleType,
-                            DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint
+                            DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint,
+                            ProvisionGuestAgent = vm.ProvisionGuestAgent,
+                            ResourceExtensionReferences = VMDiagnosticsExtensionBuilder.GetResourceExtensionReferenceList(vm.ResourceExtensionReferences)
                         }
                     };
 

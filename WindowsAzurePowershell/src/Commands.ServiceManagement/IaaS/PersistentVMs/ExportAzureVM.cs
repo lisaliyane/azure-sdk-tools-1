@@ -21,6 +21,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using System.Management.Automation;
     using AutoMapper;
     using Helpers;
+    using IaaS.Extensions;
     using Model;
     using Properties;
     using DataVirtualHardDisk = Model.PersistentVMModel.DataVirtualHardDisk;
@@ -100,7 +101,9 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize.ToString(),
                         RoleType = vm.RoleType,
-                        DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint
+                        DefaultWinRmCertificateThumbprint = vm.DefaultWinRmCertificateThumbprint,
+                        ProvisionGuestAgent = vm.ProvisionGuestAgent,
+                        ResourceExtensionReferences = VMDiagnosticsExtensionBuilder.GetResourceExtensionReferenceList(vm.ResourceExtensionReferences)
                     }
                 };
                 PersistentVMHelper.SaveStateToFile(vmContext.VM, Path);

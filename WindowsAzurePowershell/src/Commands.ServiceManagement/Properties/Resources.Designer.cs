@@ -736,6 +736,15 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provision Guest Agent must be enabled on the VM object before setting IaaS Diagnostics Extension..
+        /// </summary>
+        internal static string ProvisionGuestAgentMustBeEnabledBeforeSettingIaaSDiagnosticsExtension {
+            get {
+                return ResourceManager.GetString("ProvisionGuestAgentMustBeEnabledBeforeSettingIaaSDiagnosticsExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculating MD5 Hash.
         /// </summary>
         internal static string PSSyncOutputEventsCalculatingMD5Hash {

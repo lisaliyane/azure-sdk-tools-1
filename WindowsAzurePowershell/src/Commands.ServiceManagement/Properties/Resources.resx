@@ -564,4 +564,7 @@
   <data name="EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified" xml:space="preserve">
     <value>Either Diagnostics Configuration Xml or File Path must be specified.</value>
   </data>
+  <data name="ProvisionGuestAgentMustBeEnabledBeforeSettingIaaSDiagnosticsExtension" xml:space="preserve">
+    <value>Provision Guest Agent must be enabled on the VM object before setting IaaS Diagnostics Extension.</value>
+  </data>
 </root>

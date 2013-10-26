@@ -15,17 +15,25 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 {
     using System;
+    using System.Linq;
     using System.Management.Automation;
     using System.Xml;
     using Model;
     using Model.PersistentVMModel;
     using Properties;
+    using Utilities.Common;
 
-    [Cmdlet(VerbsCommon.Set, "AzureVMDiagnosticsExtension", DefaultParameterSetName = "EnableExtension"), OutputType(typeof(IPersistentVM))]
+    [Cmdlet(VerbsCommon.Set, "AzureVMDiagnosticsExtension", DefaultParameterSetName = EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext), OutputType(typeof(IPersistentVM))]
     public class SetAzureVMDiagnosticsExtensionCommand : VirtualMachineConfigurationCmdletBase
     {
+        public const string EnableExtensionUsingXmlDocumentParameterSet = "EnableExtensionUsingXmlDocument";
+        public const string EnableExtensionUsingXmlFilePathParameterSet = "EnableExtensionUsingXmlFilePath";
+        public const string EnableExtensionUsingXmlDocumentParameterSetUsingStorageContext = "EnableExtensionUsingXmlDocumentUsingStorageContext";
+        public const string EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext = "EnableExtensionUsingXmlFilePathUsingStorageContext";
+        public const string DisableExtensionParameterSet = "DisableExtension";
 
-        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Diagnostics Configuration")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Diagnostics Configuration")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSetUsingStorageContext, HelpMessage = "Diagnostics Configuration")]
         [ValidateNotNullOrEmpty]
         public XmlDocument DiagnosticsConfiguration
         {
@@ -33,15 +41,26 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = false, ParameterSetName = "EnableExtension", HelpMessage = "Diagnostics Configuration File")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Diagnostics Configuration File")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext, HelpMessage = "Diagnostics Configuration File")]
         [ValidateNotNullOrEmpty]
-        public string DiagnosticConfigurationFile
+        public string DiagnosticsConfigurationFile
         {
             get;
             set;
         }
 
-        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Storage Account Name")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSetUsingStorageContext, HelpMessage = "Storage Account Context")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext, HelpMessage = "Storage Account Context")]
+        [ValidateNotNullOrEmpty]
+        public StorageServicePropertiesOperationContext StorageAccountContext
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Storage Account Name")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Storage Account Name")]
         [ValidateNotNullOrEmpty]
         public string StorageAccountName
         {
@@ -49,7 +68,10 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = true, ParameterSetName = "EnableExtension", HelpMessage = "Storage Account Key")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Storage Account Key")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Storage Account Key")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSetUsingStorageContext, HelpMessage = "Storage Account Key")]
+        [Parameter(Mandatory = true, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext, HelpMessage = "Storage Account Key")]
         [ValidateNotNullOrEmpty]
         public string StorageAccountKey
         {
@@ -57,7 +79,16 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             set;
         }
 
-        [Parameter(Mandatory = false, ParameterSetName = "DisableExtension", HelpMessage = "To Disable Diagnostics Extension")]
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlDocumentParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
+        [Parameter(Mandatory = false, ParameterSetName = EnableExtensionUsingXmlFilePathParameterSet, HelpMessage = "Blob/Queue/Table Endpoint Uri for storage services, e.g. {\"http://foo.blob.core.windows.net\", \"http://foo.queue.core.windows.net\", \"http://foo.table.core.windows.net\"}.")]
+        [ValidateNotNullOrEmpty]
+        public Uri[] Endpoints
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Mandatory = true, ParameterSetName = DisableExtensionParameterSet, HelpMessage = "Disable Diagnostics Extension")]
         public SwitchParameter Disabled
         {
             get;
@@ -66,19 +97,13 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 
         internal void ExecuteCommand()
         {
-            if (VM.GetInstance().ProvisionGuestAgent == null || !VM.GetInstance().ProvisionGuestAgent.Value)
-            {
-                throw new ArgumentException("ProvisionGuestAgent must be enabled for setting diagnostics extensions on the VM.");
-            }
-
-            var newExtRefList = new ResourceExtensionReferenceList();
-            newExtRefList.Add(new VMDiagnosticsExtensionBuilder(
-                this.StorageAccountName,
-                this.StorageAccountKey,
-                null,
-                DiagnosticsConfiguration,
-                !Disabled.IsPresent).GetResourceReference());
-            VM.GetInstance().ResourceExtensionReferences = newExtRefList;
+            VM.GetInstance().ResourceExtensionReferences = new ResourceExtensionReferenceList(
+                new int[1].Select(i => (Disabled.IsPresent ? new VMDiagnosticsExtensionBuilder()
+                                                           : new VMDiagnosticsExtensionBuilder(
+                                                              this.StorageAccountName,
+                                                              this.StorageAccountKey,
+                                                              this.Endpoints,
+                                                              DiagnosticsConfiguration)).GetResourceReference()));
             WriteObject(VM);
         }
 
@@ -99,50 +124,28 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 
         private void ValidateParameters()
         {
-            // Validate DA Extension related parameters.
+            // GA must be enabled before setting WAD
             if (VM.GetInstance().ProvisionGuestAgent == null || !VM.GetInstance().ProvisionGuestAgent.Value)
             {
-                if (Disabled.IsPresent)
-                {
-                    throw new ArgumentException("Disabled cannot be specified, if DisableGuestAgent is present.");
-                }
+                throw new ArgumentException(Resources.ProvisionGuestAgentMustBeEnabledBeforeSettingIaaSDiagnosticsExtension);
+            }
 
-                if (DiagnosticsConfiguration != null)
+            // Validate DA Extension related parameters.
+            if (ParameterSetName != DisableExtensionParameterSet)
+            {
+                if (!string.IsNullOrEmpty(DiagnosticsConfigurationFile))
                 {
-                    throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if DisableGuestAgent is present.");
-                }
-
-                if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
-                {
-                    throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if DisableGuestAgent is present.");
+                    DiagnosticsConfiguration = new XmlDocument();
+                    DiagnosticsConfiguration.LoadXml(General.GetConfiguration(DiagnosticsConfigurationFile));
                 }
             }
-            else
+
+            if (ParameterSetName == EnableExtensionUsingXmlDocumentParameterSetUsingStorageContext ||
+                ParameterSetName == EnableExtensionUsingXmlFilePathParameterSetUsingStorageContext)
             {
-
-                if (Disabled.IsPresent)
-                {
-                    if (DiagnosticsConfiguration != null)
-                    {
-                        throw new ArgumentException("DiagnosticsConfiguration cannot be specified, if Disabled is present.");
-                    }
-
-                    if (!string.IsNullOrEmpty(DiagnosticConfigurationFile))
-                    {
-                        throw new ArgumentException("DiagnosticConfigurationFile cannot be specified, if Disabled is present.");
-                    }
-                }
-                else
-                {
-                    if (DiagnosticsConfiguration != null && !string.IsNullOrEmpty(DiagnosticConfigurationFile))
-                    {
-                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathBeSpecified);
-                    }
-                    else if (DiagnosticsConfiguration == null && string.IsNullOrEmpty(DiagnosticConfigurationFile))
-                    {
-                        throw new ArgumentException(Resources.EitherDiagnosticsConfigurationXmlOrFilePathMustBeSpecified);
-                    }
-                }
+                this.StorageAccountName = this.StorageAccountContext.StorageAccountName;
+                // must be in this order: blob, queue, table endpoints
+                this.Endpoints = this.StorageAccountContext.Endpoints == null ? null : this.StorageAccountContext.Endpoints.Select(e => new Uri(e)).ToArray();
             }
         }
     }
