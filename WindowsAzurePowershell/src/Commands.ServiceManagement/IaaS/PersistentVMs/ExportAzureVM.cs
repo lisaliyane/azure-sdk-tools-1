@@ -22,9 +22,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using System.Management.Automation;
     using AutoMapper;
     using Helpers;
-    using IaaS.Extensions;
     using Model;
-    using Model.PersistentVMModel;
     using Properties;
     using DataVirtualHardDisk = Model.PersistentVMModel.DataVirtualHardDisk;
     using OSVirtualHardDisk = Model.PersistentVMModel.OSVirtualHardDisk;
