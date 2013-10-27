@@ -27,24 +27,23 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.UnitTests.Cmdle
     public class IaaSExtensionTests
     {
         const string daCfgContent = @"<DiagnosticMonitorConfiguration configurationChangePollInterval=""PT10M""  overallQuotaInMB=""4096"">" +
-                                     @"<DiagnosticInfrastructureLogs  scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100"" scheduledTransferPeriod=""PT1M""/>" +
-                                     @"<Directories  bufferQuotaInMB=""1000"" scheduledTransferPeriod=""PT1M"" >" +
-                                     @"<CrashDumps container=""crashdumpdir"" directoryQuotaInMB=""500""/>" +
-                                     @"<FailedRequestLogs container=""frldir"" directoryQuotaInMB=""100""/>" +
-                                     @"<IISLogs container=""iislogdir"" directoryQuotaInMB=""100""/>" +
-                                     @"</Directories>" +
-                                     @"<PerformanceCounters bufferQuotaInMB=""100""  scheduledTransferPeriod=""PT1M"" >" +
-                                     @"<PerformanceCounterConfiguration counterSpecifier=""\Processor(*)\% Processor Time"" sampleRate=""PT10S"" />" +
-                                     @"<PerformanceCounterConfiguration counterSpecifier=""\Network Interface(*)\Bytes Received/sec"" sampleRate=""PT10S""/>" +
-                                     @"</PerformanceCounters>" +
-                                     @"<WindowsEventLog scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100""  scheduledTransferPeriod=""PT1M"" >" +
-                                     @"<DataSource name=""Application!*""/>" +
-                                     @"<DataSource name=""Setup!*""/>" +
-                                     @"<DataSource name=""System!*""/>" +
-                                     @"</WindowsEventLog>" +
-                                     @"<Logs  scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100"" scheduledTransferPeriod=""PT1M""/>" +
-                                     @"</DiagnosticMonitorConfiguration>";
-
+                                    @"<DiagnosticInfrastructureLogs  scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100"" scheduledTransferPeriod=""PT1M""/>" +
+                                    @"<Directories  bufferQuotaInMB=""1000"" scheduledTransferPeriod=""PT1M"" >" +
+                                    @"<CrashDumps container=""crashdumpdir"" directoryQuotaInMB=""500""/>" +
+                                    @"<FailedRequestLogs container=""frldir"" directoryQuotaInMB=""100""/>" +
+                                    @"<IISLogs container=""iislogdir"" directoryQuotaInMB=""100""/>" +
+                                    @"</Directories>" +
+                                    @"<PerformanceCounters bufferQuotaInMB=""100""  scheduledTransferPeriod=""PT1M"" >" +
+                                    @"<PerformanceCounterConfiguration counterSpecifier=""\Processor(*)\% Processor Time"" sampleRate=""PT10S"" />" +
+                                    @"<PerformanceCounterConfiguration counterSpecifier=""\Network Interface(*)\Bytes Received/sec"" sampleRate=""PT10S""/>" +
+                                    @"</PerformanceCounters>" +
+                                    @"<WindowsEventLog scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100""  scheduledTransferPeriod=""PT1M"" >" +
+                                    @"<DataSource name=""Application!*""/>" +
+                                    @"<DataSource name=""Setup!*""/>" +
+                                    @"<DataSource name=""System!*""/>" +
+                                    @"</WindowsEventLog>" +
+                                    @"<Logs  scheduledTransferLogLevelFilter=""Verbose"" bufferQuotaInMB=""100"" scheduledTransferPeriod=""PT1M""/>" +
+                                    @"</DiagnosticMonitorConfiguration>";
 
         [TestMethod]
         public void VMDiagnosticsExtensionBuilderDisabledTest()
