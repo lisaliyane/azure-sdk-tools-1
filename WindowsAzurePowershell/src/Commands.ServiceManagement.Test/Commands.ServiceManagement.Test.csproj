@@ -343,6 +343,7 @@
     <Compile Include="UnitTests\Cmdlets\Certificates\AddAzureCertificateTests.cs" />
     <Compile Include="UnitTests\Cmdlets\Certificates\RemoveAzureCertificateTests.cs" />
     <Compile Include="UnitTests\Cmdlets\Certificates\GetAzureCertificateTests.cs" />
+    <Compile Include="UnitTests\Cmdlets\IaaS\Extensions\ExtensionTests.cs" />
     <Compile Include="UnitTests\Cmdlets\IaaS\PersistenVMs\GetAzureWinRMUriTests.cs" />
     <Compile Include="UnitTests\Cmdlets\HostedServices\MoveAzureDeploymentCommandTests.cs" />
     <Compile Include="UnitTests\Cmdlets\StorageServices\AddAzureVhdCommandTests.cs" />

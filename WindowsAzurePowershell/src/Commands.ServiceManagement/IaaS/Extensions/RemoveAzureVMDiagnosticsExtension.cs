@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             var role = VM.GetInstance();
             if (role.ResourceExtensionReferences != null)
             {
-                role.ResourceExtensionReferences.RemoveAll(r => r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionPublisher &&
-                                                                r.Name == VMDiagnosticsExtensionBuilder.ExtensionName);
+                role.ResourceExtensionReferences.RemoveAll(r => r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionDefaultPublisher &&
+                                                                r.Name == VMDiagnosticsExtensionBuilder.ExtensionDefaultName);
             }
             WriteObject(role);
         }

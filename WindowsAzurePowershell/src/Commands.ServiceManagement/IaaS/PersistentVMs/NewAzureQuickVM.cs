@@ -16,23 +16,16 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Management.Automation;
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
-    using System.Text;
-    using System.Xml;
-    using System.Xml.Linq;
     using AutoMapper;
     using Common;
     using Helpers;
-    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
-    using Management.Storage;
-    using Management.Storage.Models;
     using Properties;
     using Storage;
     using Utilities.Common;

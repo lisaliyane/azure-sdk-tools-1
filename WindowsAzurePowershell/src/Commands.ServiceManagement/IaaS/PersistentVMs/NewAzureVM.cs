@@ -21,7 +21,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
     using System.Net;
     using AutoMapper;
     using Helpers;
-    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;

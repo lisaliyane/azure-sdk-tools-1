@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             if (VM.GetInstance().ResourceExtensionReferences != null)
             {
                 daExtRefList = VM.GetInstance().ResourceExtensionReferences.FindAll(
-                    r => r.Name == VMDiagnosticsExtensionBuilder.ExtensionName && r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionPublisher);
+                    r => r.Name == VMDiagnosticsExtensionBuilder.ExtensionDefaultName && r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionDefaultPublisher);
             }
 
             IEnumerable<VMDiagnosticsExtensionContext> daExtContexts = daExtRefList == null ? null : daExtRefList.Select(
@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                         Version = r.Version,
                         Enabled = daExtensionBuilder == null ? false : daExtensionBuilder.Enabled,
                         StorageAccountName = daExtensionBuilder == null ? string.Empty : daExtensionBuilder.StorageAccountName,
-                        DiagnosticsConfiguration = daExtensionBuilder == null ? null : daExtensionBuilder.WadCfg
+                        DiagnosticsConfiguration = daExtensionBuilder == null ? null : daExtensionBuilder.DiagnosticsConfiguration
                     };
                 });
 

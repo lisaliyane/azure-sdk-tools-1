@@ -27,9 +27,11 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.HostedServices
     using Model;
     using Model.PersistentVMModel;
     using Properties;
+    using PVM = Model.PersistentVMModel;
     using Role = Management.Compute.Models.Role;
+    using RoleInstance = Management.Compute.Models.RoleInstance;
 
-    [Cmdlet(VerbsCommon.Get, "AzureRole"), OutputType(typeof(RoleContext))]
+    [Cmdlet(VerbsCommon.Get, "AzureRole"), OutputType(typeof(RoleContext), typeof(RoleInstanceContext))]
     public class GetAzureRoleCommand : ServiceManagementBaseCmdlet
     {
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = "The name of the hosted service.")]
@@ -67,7 +69,44 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.HostedServices
             var currentDeployment = this.GetCurrentDeployment(out getDeploymentOperation);
             if (currentDeployment != null)
             {
-                if (this.InstanceDetails.IsPresent == false)
+                if (this.InstanceDetails.IsPresent)
+                {
+                    Collection<RoleInstanceContext> instanceContexts = new Collection<RoleInstanceContext>();
+                    IList<RoleInstance> roleInstances = null;
+
+                    if (string.IsNullOrEmpty(this.RoleName))
+                    {
+                        roleInstances = currentDeployment.RoleInstances;
+                    }
+                    else
+                    {
+                        roleInstances = new List<RoleInstance>(currentDeployment.RoleInstances.Where(r => r.RoleName.Equals(this.RoleName, StringComparison.OrdinalIgnoreCase)));
+                    }
+
+                    foreach (var role in roleInstances)
+                    {
+                        instanceContexts.Add(new RoleInstanceContext()
+                        {
+                            ServiceName           = this.ServiceName,
+                            OperationId           = getDeploymentOperation.Id,
+                            OperationDescription  = this.CommandRuntime.ToString(),
+                            OperationStatus       = getDeploymentOperation.Status.ToString(),
+                            InstanceErrorCode     = role.InstanceErrorCode,
+                            InstanceFaultDomain   = role.InstanceFaultDomain,
+                            InstanceName          = role.InstanceName,
+                            InstanceSize          = role.InstanceSize.ToString(),
+                            InstanceStateDetails  = role.InstanceStateDetails,
+                            InstanceStatus        = role.InstanceStatus,
+                            InstanceUpgradeDomain = role.InstanceUpgradeDomain,
+                            RoleName              = role.RoleName,
+                            DeploymentID          = currentDeployment.PrivateId,
+                            InstanceEndpoints     = Mapper.Map<PVM.InstanceEndpointList>(role.InstanceEndpoints)
+                        });
+                    }
+
+                    WriteObject(instanceContexts, true);
+                }
+                else
                 {
                     var roleContexts = new Collection<RoleContext>();
                     IList<Role> roles = null;
@@ -82,57 +121,19 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.HostedServices
 
                     foreach (var r in roles.Select(role => new RoleContext
                     {
-                        InstanceCount = currentDeployment.RoleInstances.Count(ri => ri.RoleName.Equals(role.RoleName, StringComparison.OrdinalIgnoreCase)),
-                        RoleName = role.RoleName,
+                        InstanceCount        = currentDeployment.RoleInstances.Count(ri => ri.RoleName.Equals(role.RoleName, StringComparison.OrdinalIgnoreCase)),
+                        RoleName             = role.RoleName,
                         OperationDescription = this.CommandRuntime.ToString(),
-                        OperationStatus = getDeploymentOperation.Status.ToString(),
-                        OperationId = getDeploymentOperation.Id,
-                        ServiceName = this.ServiceName,
-                        DeploymentID = currentDeployment.PrivateId
+                        OperationStatus      = getDeploymentOperation.Status.ToString(),
+                        OperationId          = getDeploymentOperation.Id,
+                        ServiceName          = this.ServiceName,
+                        DeploymentID         = currentDeployment.PrivateId
                     }))
                     {
                         roleContexts.Add(r);
                     }
 
                     WriteObject(roleContexts, true);
-                }
-                else
-                {
-                    Collection<RoleInstanceContext> instanceContexts = new Collection<RoleInstanceContext>();
-                    IList<Management.Compute.Models.RoleInstance> roleInstances = null;
-
-                    if (string.IsNullOrEmpty(this.RoleName))
-                    {
-                        roleInstances = currentDeployment.RoleInstances;
-                    }
-                    else
-                    {
-                        roleInstances = new List<Management.Compute.Models.RoleInstance>(currentDeployment.RoleInstances.Where(r => r.RoleName.Equals(this.RoleName, StringComparison.OrdinalIgnoreCase)));
-                    }
-
-                    foreach (var role in roleInstances)
-                    {
-                        instanceContexts.Add(new RoleInstanceContext()
-                        {
-                            ServiceName = this.ServiceName,
-                            OperationId = getDeploymentOperation.Id,
-                            OperationDescription = this.CommandRuntime.ToString(),
-                            OperationStatus = getDeploymentOperation.Status.ToString(),
-                            InstanceErrorCode = role.InstanceErrorCode,
-                            InstanceFaultDomain = role.InstanceFaultDomain,
-                            InstanceName = role.InstanceName,
-                            InstanceSize = role.InstanceSize.ToString(),
-                            InstanceStateDetails = role.InstanceStateDetails,
-                            InstanceStatus = role.InstanceStatus,
-                            InstanceUpgradeDomain = role.InstanceUpgradeDomain,
-                            RoleName = role.RoleName,
-                            DeploymentID = currentDeployment.PrivateId,
-                            InstanceEndpoints = role.InstanceEndpoints == null ? null : Mapper.Map<Model.PersistentVMModel.InstanceEndpointList>((from ep in role.InstanceEndpoints
-                                                                                                                                                  select Mapper.Map<Model.PersistentVMModel.InstanceEndpoint>(ep)).ToList())
-                        });
-                    }
-
-                    WriteObject(instanceContexts, true);
                 }
             }
         }
@@ -145,14 +146,15 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.HostedServices
 
         private DeploymentGetResponse GetCurrentDeployment(out OperationStatusResponse operation)
         {
-            DeploymentSlot slot = string.IsNullOrEmpty(this.Slot) ?
-                                  DeploymentSlot.Production :
-                                  (DeploymentSlot)Enum.Parse(typeof(DeploymentSlot), this.Slot, true);
+            DeploymentSlot slot = string.IsNullOrEmpty(this.Slot) ? DeploymentSlot.Production :
+                                                                   (DeploymentSlot)Enum.Parse(typeof(DeploymentSlot), this.Slot, true);
 
             WriteVerboseWithTimestamp(Resources.GetDeploymentBeginOperation);
+
             DeploymentGetResponse deploymentGetResponse = null;
             InvokeInOperationContext(() => deploymentGetResponse = this.ComputeClient.Deployments.GetBySlot(this.ServiceName, slot));
             operation = GetOperationNewSM(deploymentGetResponse.RequestId);
+
             WriteVerboseWithTimestamp(Resources.GetDeploymentCompletedOperation);
 
             return deploymentGetResponse;

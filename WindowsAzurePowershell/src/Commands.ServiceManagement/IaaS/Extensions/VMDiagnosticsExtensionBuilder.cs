@@ -15,7 +15,6 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Xml;
     using System.Xml.Linq;
@@ -27,8 +26,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
     public class VMDiagnosticsExtensionBuilder
     {
         public const string ExtensionDefaultReferenceName = "MyDiagnosticsAgent";
-        public const string ExtensionPublisher = "Microsoft.Compute";
-        public const string ExtensionName = "DiagnosticsAgent";
+        public const string ExtensionDefaultPublisher = "Microsoft.Compute";
+        public const string ExtensionDefaultName = "DiagnosticsAgent";
         public const string CurrentExtensionVersion = "0.1";
         public const string ExtensionReferenceKeyStr = "DiagnosticsAgentConfigParameter";
 
@@ -37,21 +36,15 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
         private const string PublicElem = "Public";
         private const string PublicConfigElem = "PublicConfig";
         private const string WadCfgElem = "WadCfg";
+        private const string DiagnosticMonitorConfigurationElem = "DiagnosticMonitorConfiguration";
         private const string StorageAccountConnectionStringElem = "StorageAccountConnectionString";
 
         private const string DefaultEndpointsProtocol = "https";
         private const string StorageConnectionStringFormat = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2};{3}";
 
-        private string storageConnectionString;
-        private string storageAccountName;
-        private string storageAccountKey;
-        private Uri[] endpoints;
-        private XmlDocument wadCfg;
-        private bool enabled;
-
         public VMDiagnosticsExtensionBuilder()
         {
-            this.enabled = false;
+            this.Enabled = false;
         }
 
         public VMDiagnosticsExtensionBuilder(string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument wadCfg)
@@ -78,11 +71,11 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                 throw new ArgumentNullException("wadCfg");
             }
 
-            this.storageAccountName = storageAccountName;
-            this.storageAccountKey = storageAccountKey;
-            this.endpoints = endpoints;
-            this.wadCfg = wadCfg;
-            this.enabled = true;
+            this.StorageAccountName = storageAccountName;
+            this.StorageAccountKey = storageAccountKey;
+            this.Endpoints = endpoints;
+            this.DiagnosticsConfiguration = wadCfg;
+            this.Enabled = true;
         }
 
         public VMDiagnosticsExtensionBuilder(string extensionCfg)
@@ -97,53 +90,35 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 
         public string StorageAccountName
         {
-            get
-            {
-                return this.storageAccountName;
-            }
+            get;
+            private set;
         }
 
         public string StorageAccountKey
         {
-            get
-            {
-                return this.storageAccountKey;
-            }
+            get;
+            private set;
         }
 
         public Uri[] Endpoints
         {
-            get
-            {
-                return this.endpoints;
-            }
+            get;
+            private set;
         }
 
         public bool Enabled
         {
-            get
-            {
-                return this.enabled;
-            }
+            get;
+            private set;
         }
 
-        public XmlDocument WadCfg
+        public XmlDocument DiagnosticsConfiguration
         {
-            get
-            {
-                return this.wadCfg;
-            }
+            get;
+            private set;
         }
 
-        public string StorageConnectionString
-        {
-            get
-            {
-                return this.storageConnectionString;
-            }
-        }
-
-        private static string GetDiagnosticsAgentConfig(bool enabled, string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument wadCfg)
+        internal static string GetDiagnosticsAgentConfig(bool enabled, string storageAccountName, string storageAccountKey, Uri[] endpoints, XmlDocument diagnosticsCfg)
         {
             XDocument publicCfg = null;
             if (enabled)
@@ -167,7 +142,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                                                             : new CloudStorageAccount(cloudStorageCredential, endpoints[0], endpoints[1], endpoints[2]); // {blob, queue, table}
                 var storageConnectionStr = cloudStorageAccount.ToString(true);
 
-                SetConfigValue(publicCfg, WadCfgElem, wadCfg);
+                SetConfigValue(publicCfg, WadCfgElem, diagnosticsCfg);
                 SetConfigValue(publicCfg, StorageAccountConnectionStringElem, storageConnectionStr);
             }
             else
@@ -209,6 +184,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                         {
                             e.SetValue(value.ToString());
                         }
+                        break;
                     }
                 };
             }
@@ -228,34 +204,54 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             return new Model.PersistentVMModel.ResourceExtensionReference
             {
                 ReferenceName = ExtensionDefaultReferenceName,
-                Publisher = ExtensionPublisher,
-                Name = ExtensionName,
+                Publisher = ExtensionDefaultPublisher,
+                Name = ExtensionDefaultName,
                 Version = CurrentExtensionVersion,
                 ResourceExtensionParameterValues = new ResourceExtensionParameterValueList(new int[1].Select(i => new Model.PersistentVMModel.ResourceExtensionParameterValue
                 {
                     Key = ExtensionReferenceKeyStr,
                     Value = GetDiagnosticsAgentConfig(
-                        this.enabled,
-                        this.storageAccountName,
-                        this.storageAccountKey,
-                        this.endpoints,
-                        this.wadCfg)
+                        this.Enabled,
+                        this.StorageAccountName,
+                        this.StorageAccountKey,
+                        this.Endpoints,
+                        this.DiagnosticsConfiguration)
                 }))
             };
         }
 
         private void LoadFrom(string extensionCfg)
         {
-            this.storageConnectionString = GetConfigValue(extensionCfg, StorageAccountConnectionStringElem);
-            var cloudStorageAccount = CloudStorageAccount.Parse(this.storageConnectionString);
-            if (cloudStorageAccount != null)
+            this.Enabled = bool.Parse(GetConfigValue(extensionCfg, EnabledElem).ToLower());
+
+            var storageConnectionString = GetConfigValue(extensionCfg, StorageAccountConnectionStringElem);
+            var cloudStorageAccount = string.IsNullOrEmpty(storageConnectionString) ? null : CloudStorageAccount.Parse(storageConnectionString);
+            if (cloudStorageAccount != null && cloudStorageAccount.Credentials != null)
             {
-                this.storageAccountName = cloudStorageAccount.Credentials == null ? null : cloudStorageAccount.Credentials.AccountName;
+                this.StorageAccountName = cloudStorageAccount.Credentials.AccountName;
+                var exportedKey = cloudStorageAccount.Credentials.ExportKey();
+                this.StorageAccountKey = exportedKey == null ? null : Convert.ToBase64String(exportedKey);
+                this.Endpoints = new Uri[3] { cloudStorageAccount.BlobEndpoint, cloudStorageAccount.QueueEndpoint, cloudStorageAccount.TableEndpoint };
+            }
+            else
+            {
+                this.StorageAccountName = this.StorageAccountKey = null;
+                this.Endpoints = null;
             }
 
-            this.enabled = bool.Parse(GetConfigValue(extensionCfg, EnabledElem));
-            this.wadCfg = new XmlDocument();
-            wadCfg.LoadXml(GetConfigValue(extensionCfg, WadCfgElem));
+            var daCfgContent = GetConfigValue(extensionCfg, DiagnosticMonitorConfigurationElem);
+            if (!string.IsNullOrEmpty(daCfgContent))
+            {
+                XDocument daCfgDoc = XDocument.Parse(daCfgContent);
+                daCfgDoc.Descendants().Attributes().Where(x => x.IsNamespaceDeclaration).Remove();
+                daCfgDoc.Descendants().ForEach(e => e.Name = e.Name.LocalName);
+                this.DiagnosticsConfiguration = new XmlDocument();
+                this.DiagnosticsConfiguration.LoadXml(daCfgDoc.ToString());
+            }
+            else
+            {
+                this.DiagnosticsConfiguration = null;
+            }
         }
     }
 }

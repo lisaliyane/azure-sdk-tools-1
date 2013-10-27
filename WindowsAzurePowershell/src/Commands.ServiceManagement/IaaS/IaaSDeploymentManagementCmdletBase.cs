@@ -26,11 +26,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
     using Management.Models;
     using Properties;
     using Utilities.Common;
-    using System.Text;
-    using System.Xml.Linq;
-    using System.Xml;
-    using Management.Storage;
-    using Management.Storage.Models;
 
     public class IaaSDeploymentManagementCmdletBase : ServiceManagementBaseCmdlet
     {
