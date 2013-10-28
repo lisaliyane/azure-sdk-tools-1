@@ -21,6 +21,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
     using System.Net;
     using AutoMapper;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Model;
@@ -138,6 +139,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
             {
                 throw new ArgumentException(Resources.CurrentStorageAccountIsNotAccessible, ex);
             }
+
             if (currentStorage == null) // not set
             {
                 throw new ArgumentException(Resources.CurrentStorageAccountIsNotSet);
@@ -147,6 +149,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
             {
                 if (this.ParameterSetName.Equals("CreateService", StringComparison.OrdinalIgnoreCase))
                 {
+                    OperationResponse lastOperation = null;
+
                     var parameter = new HostedServiceCreateParameters
                     {
                         AffinityGroup = this.AffinityGroup,
@@ -156,10 +160,16 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                                         String.Format("Implicitly created hosted service{0}",DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm")),
                         Label = this.ServiceLabel ?? this.ServiceName
                     };
+
                     ExecuteClientActionNewSM(
                         parameter,
                         CommandRuntime + " - Create Cloud Service",
-                        () => this.ComputeClient.HostedServices.Create(parameter));
+                        () => lastOperation = this.ComputeClient.HostedServices.Create(parameter));
+
+                    if (lastOperation == null || lastOperation.StatusCode != HttpStatusCode.Created)
+                    {
+                        return;
+                    }
                 }
             }
             catch (CloudException ex)
@@ -260,6 +270,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 {
                     WriteWarning(Resources.VNetNameDnsSettingsDeploymentLabelDeploymentNameCanBeSpecifiedOnNewDeployments);
                 }
+
+                this.createdDeployment = false;
             }
 
             if (this.createdDeployment == false && CurrentDeploymentNewSM != null)

@@ -158,19 +158,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             else if (ParameterSetName == EnableExtensionUsingXmlDocumentParameterSet ||
                      ParameterSetName == EnableExtensionUsingXmlFilePathParameterSet)
             {
-                if (string.IsNullOrEmpty(this.EndpointSuffix))
-                {
-                    var svcEndpoint = WindowsAzureProfile.Instance.CurrentSubscription.ServiceEndpoint;
-                    if (svcEndpoint != null && !string.IsNullOrEmpty(svcEndpoint.DnsSafeHost))
-                    {
-                        int dotPos = string.IsNullOrEmpty(svcEndpoint.DnsSafeHost) ? 0 : svcEndpoint.DnsSafeHost.IndexOf('.');
-                        if (dotPos + 1 < svcEndpoint.DnsSafeHost.Length)
-                        {
-                            this.EndpointSuffix = svcEndpoint.DnsSafeHost.Substring(dotPos + 1);
-                        }
-                    }
-                }
-
                 if (!string.IsNullOrEmpty(this.EndpointSuffix))
                 {
                     string endpointFormat = "https://{0}.{1}.{2}";
