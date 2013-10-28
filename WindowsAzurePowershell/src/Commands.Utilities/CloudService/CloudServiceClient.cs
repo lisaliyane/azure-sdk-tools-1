@@ -471,11 +471,6 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.CloudService
                 storageServiceName = Subscription.CurrentStorageAccountName;
             }
 
-            // Use default location if not location and affinity group provided
-            location = string.IsNullOrEmpty(location) && string.IsNullOrEmpty(affinityGroup) ? 
-                GetDefaultLocation() : 
-                location;
-
             ServiceSettings serviceSettings = ServiceSettings.LoadDefault(
                 cloudServiceProject.Paths.Settings,
                 slot,
@@ -487,6 +482,11 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.CloudService
                 cloudServiceProject.ServiceName,
                 out serviceName
                 );
+
+            // Use default location if not location and affinity group provided
+            serviceSettings.Location = string.IsNullOrEmpty(serviceSettings.Location) && 
+                                       string.IsNullOrEmpty(serviceSettings.AffinityGroup) ?
+                                       GetDefaultLocation() : serviceSettings.Location;
 
             PublishContext context = new PublishContext(
                 serviceSettings,

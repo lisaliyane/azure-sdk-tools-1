@@ -49,6 +49,29 @@ function Test-UpdateCacheService
 	PublishAndUpdate-CloudService 1 {New-CacheCloudServiceProject $args[0]} {Verify-CacheApp $args[0].Url.ToString()} {Test-RemoteDesktop}
 }
 
+<#
+.SYNOPSIS
+Tests Publish-AzureServiceProject with using ServiceSettings.Location
+#>
+function Test-PublishUsesSettingsLocation
+{
+	# Setup
+	$name = Get-CloudServiceName
+	$locations = Get-AzureLocation
+	$location = $locations[1].Name
+	New-AzureServiceProject $name
+	Add-AzureNodeWebRole
+	Set-AzureServiceProject -Location $location
+
+	# Test
+	Publish-AzureServiceProject
+
+	# Assert
+	$service = Get-AzureService $name
+	$actual = $service.Location
+	Assert-AreEqual $location $actual
+}
+
 ########################################################################### Remove-AzureService Scenario Tests ###########################################################################
 
 <#

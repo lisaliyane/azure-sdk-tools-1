@@ -27,12 +27,12 @@ namespace Microsoft.WindowsAzure.Commands.Subscription
     [Cmdlet(VerbsCommon.Get, "AzureAccount")]
     public class GetAzureAccount : SubscriptionCmdletBase
     {
+        [Parameter(Position = 0, Mandatory = false, HelpMessage = "Name of account to get information for")]
+        public string Name { get; set; }
+
         public GetAzureAccount() : base(false)
         {
         }
-
-        [Parameter(Mandatory = false, HelpMessage = "Name of account to get information for")]
-        public string Name { get; set; }
 
         public override void ExecuteCmdlet()
         {

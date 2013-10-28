@@ -45,7 +45,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             runspace = RunspaceFactory.CreateRunspace(initialSessionState);
         }
 
-        public abstract Collection<PSObject> Run();
+        public abstract Collection<PSObject> Run(bool debug);
 
         protected void PrintPSCommand(PowerShell powershell)
         {

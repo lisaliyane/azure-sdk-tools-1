@@ -191,7 +191,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         /// This test covers Stop-AzureVM with both parameter sets.
         /// </summary>
         [TestMethod(), TestCategory("Functional"), TestProperty("Feature", "IAAS"), Priority(1), Owner("hylee"), Description("Test the cmdlet (Stop-AzureVM)")]
-        public void StopAzureVMDeprovisonedTest()
+        public void StopAzureVMDeprovisionedTest()
         {
 
             StartTest(MethodBase.GetCurrentMethod().Name, testStartTime);
@@ -267,7 +267,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         ///
         /// </summary>
         [TestMethod(), TestCategory("Functional"), TestProperty("Feature", "IAAS"), Priority(1), Owner("hylee"), Description("Test the cmdlet (Stop-AzureVM) using wildcard syntax")]
-        public void StopAzureVMsDeprovisonedTest()
+        public void StopAzureVMsDeprovisionedTest()
         {
 
             StartTest(MethodBase.GetCurrentMethod().Name, testStartTime);

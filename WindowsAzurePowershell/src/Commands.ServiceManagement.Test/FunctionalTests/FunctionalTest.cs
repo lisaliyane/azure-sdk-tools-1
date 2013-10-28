@@ -62,7 +62,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         [Ignore]
         public void ScriptTestSample()
         {
-            var result = vmPowershellCmdlets.RunPSScript("Get-Help Save-AzureVhd -full");
+            vmPowershellCmdlets.RunPSScript("Get-Help Save-AzureVhd -full");
         }  
 
         /// <summary>
@@ -1049,18 +1049,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             if ((cleanupIfPassed && pass) || (cleanupIfFailed && !pass))
             {
                 Console.WriteLine("Starting to clean up created VM and service.");
-
-                //try
-                //{
-
-                //    vmPowershellCmdlets.RemoveAzureVM(vmName, serviceName);
-                //    Console.WriteLine("VM, {0}, is deleted", vmName);
-                 
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine("Error during removing VM: {0}", e.ToString());
-                //}
 
                 try
                 {

@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             return result;
         }
 
-        public override Collection<PSObject> Run()
+        public override Collection<PSObject> Run(bool debug)
         {
             Collection<PSObject> result = null;
 
@@ -101,18 +101,32 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                     powershell.AddCommand(cmdlets[i].name);
                     if (cmdlets[i].parameters.Count > 0)
                     {
-                        Dictionary<string, object> paramDictionary = new Dictionary<string, object>();
+                        var paramDictionary = new Dictionary<string, object>();
                         foreach (CmdletParam cmdletparam in cmdlets[i].parameters)
                         {
                             paramDictionary.Add(cmdletparam.name, cmdletparam.value);
                         }
                         powershell.AddParameters(paramDictionary);
                     }
+
+                    if (debug)
+                    {
+                        powershell.AddParameter("Debug");
+                    }
+
+                    PrintPSCommand(powershell);
+
                     result = powershell.Invoke();
+
+                    if (debug)
+                    {
+                        Console.WriteLine(string.Join("", powershell.Streams.Debug));
+                    }
+
                     if (powershell.Streams.Error.Count > 0)
                     {
                         runspace.Close();
-                        List<Exception> exceptions = new List<Exception>();
+                        var exceptions = new List<Exception>();
                         foreach (ErrorRecord error in powershell.Streams.Error)
                         {
                             exceptions.Add(new Exception(error.Exception.Message));

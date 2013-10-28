@@ -53,5 +53,14 @@ namespace Microsoft.WindowsAzure.Commands.ScenarioTest.CloudServiceTests
         {
             RunPowerShellTest("Test-UpdateCacheService");
         }
+
+        [TestMethod]
+        [TestCategory(Category.All)]
+        [TestCategory(Category.CloudService)]
+        [TestCategory(Category.OneSDK)]
+        public void TestPublishUsesSettingsLocation()
+        {
+            RunPowerShellTest("Test-PublishUsesSettingsLocation");
+        }
     }
 }

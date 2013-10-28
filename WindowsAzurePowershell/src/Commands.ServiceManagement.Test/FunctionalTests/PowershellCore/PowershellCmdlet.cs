@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             this.cmdlet = cmdlet;
         }
 
-        public override Collection<PSObject> Run()
+        public override Collection<PSObject> Run(bool debug)
         {
             
             Collection<PSObject> result;
@@ -77,13 +77,19 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                     }
                 }
 
-                powershell.AddParameter("Debug");
+                if (debug)
+                {
+                    powershell.AddParameter("Debug");
+                }
 
                 PrintPSCommand(powershell);
 
                 result = powershell.Invoke();
 
-                Console.WriteLine(string.Join("", powershell.Streams.Debug));
+                if (debug)
+                {
+                    Console.WriteLine(string.Join("", powershell.Streams.Debug));
+                }
 
                 if (powershell.Streams.Error.Count > 0)
                 {

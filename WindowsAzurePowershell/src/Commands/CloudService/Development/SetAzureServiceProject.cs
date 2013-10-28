@@ -33,14 +33,11 @@ namespace Microsoft.WindowsAzure.Commands.CloudService.Development
         [Parameter(Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true)]
         public string Storage { get; set; }
 
-        [Parameter(Position = 3, Mandatory = false, ValueFromPipelineByPropertyName = true)]
-        public string Subscription { get; set; }
-
         [Parameter(Position = 4, Mandatory = false)]
         public SwitchParameter PassThru { get; set; }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public ServiceSettings SetAzureServiceProjectProcess(string newLocation, string newSlot, string newStorage, string newSubscription, string settingsPath)
+        public ServiceSettings SetAzureServiceProjectProcess(string newLocation, string newSlot, string newStorage, string settingsPath)
         {
             ServiceSettings settings = ServiceSettings.Load(settingsPath);
             if (newLocation != null)
@@ -58,12 +55,7 @@ namespace Microsoft.WindowsAzure.Commands.CloudService.Development
                 settings.StorageServiceName = newStorage;
             }
 
-            if (newSubscription != null)
-            {
-                settings.Subscription = newSubscription;
-            }
-
-            if (newLocation != null || newSlot != null || newStorage != null || newSubscription != null)
+            if (newLocation != null || newSlot != null || newStorage != null)
             {
                 settings.Save(settingsPath);
             }
@@ -84,7 +76,6 @@ namespace Microsoft.WindowsAzure.Commands.CloudService.Development
                 Location,
                 Slot,
                 Storage,
-                Subscription,
                 base.GetServiceSettingsPath(false));
         }
     }

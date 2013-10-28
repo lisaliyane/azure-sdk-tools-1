@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         {
             this.cmdlets.Add(cmdlet);
         }
-        public override Collection<PSObject> Run()
+        public override Collection<PSObject> Run(bool debug)
         {
             Collection<PSObject> result = null;
             runspace.Open();
@@ -65,15 +65,25 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                         powershell.AddScript(cmdlets[i]);
                     }
 
+                    if (debug)
+                    {
+                        powershell.AddParameter("Debug");
+                    }
+
                     PrintPSCommand(powershell);
 
                     result = powershell.Invoke();
+
+                    if (debug)
+                    {
+                        Console.WriteLine(string.Join("", powershell.Streams.Debug));
+                    }
 
                     if (powershell.Streams.Error.Count > 0)
                     {
                         runspace.Close();
 
-                        List<Exception> exceptions = new List<Exception>();
+                        var exceptions = new List<Exception>();
                         foreach (ErrorRecord error in powershell.Streams.Error)
                         {
                             exceptions.Add(new Exception(error.Exception.Message));

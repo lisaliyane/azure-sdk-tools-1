@@ -154,14 +154,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
             Validate.ValidateInternetConnection();
             InitChannelCurrentSubscription();
             base.ProcessRecord();
-            try
-            {
-                OnProcessRecord();
-            }
-            finally
-            {
-                WriteDebug(HttpRestCallLogger.Flush());
-            }
+            HttpRestCallLogger.CurrentCmdlet = this;
+            OnProcessRecord();
         }
 
         /// <summary>

@@ -14,32 +14,40 @@
 
 namespace Microsoft.WindowsAzure.Commands.Utilities.Common
 {
+    using System.Management.Automation;
+    using System.Management.Automation.Runspaces;
     using System.Net.Http;
-    using System.Text;
     using System.Threading;
 
     public class HttpRestCallLogger : MessageProcessingHandler
     {
-        private static StringBuilder HttpLog = new StringBuilder();
-
-        public static string Flush()
-        {
-            string logs = HttpLog.ToString();
-            HttpLog.Clear();
-            
-            return logs;
-        }
+        public static PSCmdlet CurrentCmdlet { get; set; }
 
         protected override HttpResponseMessage ProcessResponse(HttpResponseMessage response, CancellationToken cancellationToken)
         {
-            HttpLog.Append(General.GetLog(response));
+            WriteLog(General.GetLog(response));
             return response;
         }
 
         protected override HttpRequestMessage ProcessRequest(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            HttpLog.Append(General.GetLog(request));
+            WriteLog(General.GetLog(request));
             return request;
+        }
+
+        private void WriteLog(string log)
+        {
+            if (CurrentCmdlet.MyInvocation.BoundParameters.ContainsKey("Debug"))
+            {
+                using (PowerShell ps = PowerShell.Create())
+                {
+                    ps.Runspace = RunspaceFactory.CreateRunspace(CurrentCmdlet.Host);
+                    ps.Runspace.Open();
+                    ps.AddScript("$DebugPreference='Continue'");
+                    ps.AddScript(string.Format("Write-Debug '{0}'", log));
+                    ps.Invoke();
+                }
+            }
         }
     }
 
