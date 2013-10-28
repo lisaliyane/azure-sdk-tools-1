@@ -36045,6 +36045,70 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     persistentVMRoleElement.Add(availabilitySetNameElement);
                 }
                 
+                if (parameters.ResourceExtensionReferences != null)
+                {
+                    XElement resourceExtensionReferencesSequenceElement = new XElement(XName.Get("ResourceExtensionReferences", "http://schemas.microsoft.com/windowsazure"));
+                    foreach (ResourceExtensionReference resourceExtensionReferencesItem in parameters.ResourceExtensionReferences)
+                    {
+                        XElement resourceExtensionReferenceElement = new XElement(XName.Get("ResourceExtensionReference", "http://schemas.microsoft.com/windowsazure"));
+                        resourceExtensionReferencesSequenceElement.Add(resourceExtensionReferenceElement);
+                        
+                        if (resourceExtensionReferencesItem.ReferenceName != null)
+                        {
+                            XElement referenceNameElement = new XElement(XName.Get("ReferenceName", "http://schemas.microsoft.com/windowsazure"));
+                            referenceNameElement.Value = resourceExtensionReferencesItem.ReferenceName;
+                            resourceExtensionReferenceElement.Add(referenceNameElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Publisher != null)
+                        {
+                            XElement publisherElement = new XElement(XName.Get("Publisher", "http://schemas.microsoft.com/windowsazure"));
+                            publisherElement.Value = resourceExtensionReferencesItem.Publisher;
+                            resourceExtensionReferenceElement.Add(publisherElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Name != null)
+                        {
+                            XElement nameElement2 = new XElement(XName.Get("Name", "http://schemas.microsoft.com/windowsazure"));
+                            nameElement2.Value = resourceExtensionReferencesItem.Name;
+                            resourceExtensionReferenceElement.Add(nameElement2);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Version != null)
+                        {
+                            XElement versionElement = new XElement(XName.Get("Version", "http://schemas.microsoft.com/windowsazure"));
+                            versionElement.Value = resourceExtensionReferencesItem.Version;
+                            resourceExtensionReferenceElement.Add(versionElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.ResourceExtensionParameterValues != null)
+                        {
+                            XElement resourceExtensionParameterValuesSequenceElement = new XElement(XName.Get("ResourceExtensionParameterValues", "http://schemas.microsoft.com/windowsazure"));
+                            foreach (ResourceExtensionParameterValue resourceExtensionParameterValuesItem in resourceExtensionReferencesItem.ResourceExtensionParameterValues)
+                            {
+                                XElement resourceExtensionParameterValueElement = new XElement(XName.Get("ResourceExtensionParameterValue", "http://schemas.microsoft.com/windowsazure"));
+                                resourceExtensionParameterValuesSequenceElement.Add(resourceExtensionParameterValueElement);
+                                
+                                if (resourceExtensionParameterValuesItem.Key != null)
+                                {
+                                    XElement keyElement = new XElement(XName.Get("Key", "http://schemas.microsoft.com/windowsazure"));
+                                    keyElement.Value = resourceExtensionParameterValuesItem.Key;
+                                    resourceExtensionParameterValueElement.Add(keyElement);
+                                }
+                                
+                                if (resourceExtensionParameterValuesItem.Value != null)
+                                {
+                                    XElement valueElement = new XElement(XName.Get("Value", "http://schemas.microsoft.com/windowsazure"));
+                                    valueElement.Value = TypeConversion.ToBase64String(resourceExtensionParameterValuesItem.Value);
+                                    resourceExtensionParameterValueElement.Add(valueElement);
+                                }
+                            }
+                            resourceExtensionReferenceElement.Add(resourceExtensionParameterValuesSequenceElement);
+                        }
+                    }
+                    persistentVMRoleElement.Add(resourceExtensionReferencesSequenceElement);
+                }
+                
                 if (parameters.DataVirtualHardDisks != null)
                 {
                     XElement dataVirtualHardDisksSequenceElement = new XElement(XName.Get("DataVirtualHardDisks", "http://schemas.microsoft.com/windowsazure"));
@@ -36155,70 +36219,6 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     XElement provisionGuestAgentElement = new XElement(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
                     provisionGuestAgentElement.Value = parameters.ProvisionGuestAgent.ToString().ToLower();
                     persistentVMRoleElement.Add(provisionGuestAgentElement);
-                }
-                
-                if (parameters.ResourceExtensionReferences != null)
-                {
-                    XElement resourceExtensionReferencesSequenceElement = new XElement(XName.Get("ResourceExtensionReferences", "http://schemas.microsoft.com/windowsazure"));
-                    foreach (ResourceExtensionReference resourceExtensionReferencesItem in parameters.ResourceExtensionReferences)
-                    {
-                        XElement resourceExtensionReferenceElement = new XElement(XName.Get("ResourceExtensionReference", "http://schemas.microsoft.com/windowsazure"));
-                        resourceExtensionReferencesSequenceElement.Add(resourceExtensionReferenceElement);
-                        
-                        if (resourceExtensionReferencesItem.ReferenceName != null)
-                        {
-                            XElement referenceNameElement = new XElement(XName.Get("ReferenceName", "http://schemas.microsoft.com/windowsazure"));
-                            referenceNameElement.Value = resourceExtensionReferencesItem.ReferenceName;
-                            resourceExtensionReferenceElement.Add(referenceNameElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Publisher != null)
-                        {
-                            XElement publisherElement = new XElement(XName.Get("Publisher", "http://schemas.microsoft.com/windowsazure"));
-                            publisherElement.Value = resourceExtensionReferencesItem.Publisher;
-                            resourceExtensionReferenceElement.Add(publisherElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Name != null)
-                        {
-                            XElement nameElement2 = new XElement(XName.Get("Name", "http://schemas.microsoft.com/windowsazure"));
-                            nameElement2.Value = resourceExtensionReferencesItem.Name;
-                            resourceExtensionReferenceElement.Add(nameElement2);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Version != null)
-                        {
-                            XElement versionElement = new XElement(XName.Get("Version", "http://schemas.microsoft.com/windowsazure"));
-                            versionElement.Value = resourceExtensionReferencesItem.Version;
-                            resourceExtensionReferenceElement.Add(versionElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.ResourceExtensionParameterValues != null)
-                        {
-                            XElement resourceExtensionParameterValuesSequenceElement = new XElement(XName.Get("ResourceExtensionParameterValues", "http://schemas.microsoft.com/windowsazure"));
-                            foreach (ResourceExtensionParameterValue resourceExtensionParameterValuesItem in resourceExtensionReferencesItem.ResourceExtensionParameterValues)
-                            {
-                                XElement resourceExtensionParameterValueElement = new XElement(XName.Get("ResourceExtensionParameterValue", "http://schemas.microsoft.com/windowsazure"));
-                                resourceExtensionParameterValuesSequenceElement.Add(resourceExtensionParameterValueElement);
-                                
-                                if (resourceExtensionParameterValuesItem.Key != null)
-                                {
-                                    XElement keyElement = new XElement(XName.Get("Key", "http://schemas.microsoft.com/windowsazure"));
-                                    keyElement.Value = resourceExtensionParameterValuesItem.Key;
-                                    resourceExtensionParameterValueElement.Add(keyElement);
-                                }
-                                
-                                if (resourceExtensionParameterValuesItem.Value != null)
-                                {
-                                    XElement valueElement = new XElement(XName.Get("Value", "http://schemas.microsoft.com/windowsazure"));
-                                    valueElement.Value = TypeConversion.ToBase64String(resourceExtensionParameterValuesItem.Value);
-                                    resourceExtensionParameterValueElement.Add(valueElement);
-                                }
-                            }
-                            resourceExtensionReferenceElement.Add(resourceExtensionParameterValuesSequenceElement);
-                        }
-                    }
-                    persistentVMRoleElement.Add(resourceExtensionReferencesSequenceElement);
                 }
                 
                 requestContent = requestDoc.ToString();
@@ -40086,6 +40086,70 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     persistentVMRoleElement.Add(availabilitySetNameElement);
                 }
                 
+                if (parameters.ResourceExtensionReferences != null)
+                {
+                    XElement resourceExtensionReferencesSequenceElement = new XElement(XName.Get("ResourceExtensionReferences", "http://schemas.microsoft.com/windowsazure"));
+                    foreach (ResourceExtensionReference resourceExtensionReferencesItem in parameters.ResourceExtensionReferences)
+                    {
+                        XElement resourceExtensionReferenceElement = new XElement(XName.Get("ResourceExtensionReference", "http://schemas.microsoft.com/windowsazure"));
+                        resourceExtensionReferencesSequenceElement.Add(resourceExtensionReferenceElement);
+                        
+                        if (resourceExtensionReferencesItem.ReferenceName != null)
+                        {
+                            XElement referenceNameElement = new XElement(XName.Get("ReferenceName", "http://schemas.microsoft.com/windowsazure"));
+                            referenceNameElement.Value = resourceExtensionReferencesItem.ReferenceName;
+                            resourceExtensionReferenceElement.Add(referenceNameElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Publisher != null)
+                        {
+                            XElement publisherElement = new XElement(XName.Get("Publisher", "http://schemas.microsoft.com/windowsazure"));
+                            publisherElement.Value = resourceExtensionReferencesItem.Publisher;
+                            resourceExtensionReferenceElement.Add(publisherElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Name != null)
+                        {
+                            XElement nameElement2 = new XElement(XName.Get("Name", "http://schemas.microsoft.com/windowsazure"));
+                            nameElement2.Value = resourceExtensionReferencesItem.Name;
+                            resourceExtensionReferenceElement.Add(nameElement2);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.Version != null)
+                        {
+                            XElement versionElement = new XElement(XName.Get("Version", "http://schemas.microsoft.com/windowsazure"));
+                            versionElement.Value = resourceExtensionReferencesItem.Version;
+                            resourceExtensionReferenceElement.Add(versionElement);
+                        }
+                        
+                        if (resourceExtensionReferencesItem.ResourceExtensionParameterValues != null)
+                        {
+                            XElement resourceExtensionParameterValuesSequenceElement = new XElement(XName.Get("ResourceExtensionParameterValues", "http://schemas.microsoft.com/windowsazure"));
+                            foreach (ResourceExtensionParameterValue resourceExtensionParameterValuesItem in resourceExtensionReferencesItem.ResourceExtensionParameterValues)
+                            {
+                                XElement resourceExtensionParameterValueElement = new XElement(XName.Get("ResourceExtensionParameterValue", "http://schemas.microsoft.com/windowsazure"));
+                                resourceExtensionParameterValuesSequenceElement.Add(resourceExtensionParameterValueElement);
+                                
+                                if (resourceExtensionParameterValuesItem.Key != null)
+                                {
+                                    XElement keyElement = new XElement(XName.Get("Key", "http://schemas.microsoft.com/windowsazure"));
+                                    keyElement.Value = resourceExtensionParameterValuesItem.Key;
+                                    resourceExtensionParameterValueElement.Add(keyElement);
+                                }
+                                
+                                if (resourceExtensionParameterValuesItem.Value != null)
+                                {
+                                    XElement valueElement = new XElement(XName.Get("Value", "http://schemas.microsoft.com/windowsazure"));
+                                    valueElement.Value = TypeConversion.ToBase64String(resourceExtensionParameterValuesItem.Value);
+                                    resourceExtensionParameterValueElement.Add(valueElement);
+                                }
+                            }
+                            resourceExtensionReferenceElement.Add(resourceExtensionParameterValuesSequenceElement);
+                        }
+                    }
+                    persistentVMRoleElement.Add(resourceExtensionReferencesSequenceElement);
+                }
+                
                 if (parameters.DataVirtualHardDisks != null)
                 {
                     XElement dataVirtualHardDisksSequenceElement = new XElement(XName.Get("DataVirtualHardDisks", "http://schemas.microsoft.com/windowsazure"));
@@ -40193,70 +40257,6 @@ namespace Microsoft.WindowsAzure.Management.Compute
                     XElement provisionGuestAgentElement = new XElement(XName.Get("ProvisionGuestAgent", "http://schemas.microsoft.com/windowsazure"));
                     provisionGuestAgentElement.Value = parameters.ProvisionGuestAgent.ToString().ToLower();
                     persistentVMRoleElement.Add(provisionGuestAgentElement);
-                }
-                
-                if (parameters.ResourceExtensionReferences != null)
-                {
-                    XElement resourceExtensionReferencesSequenceElement = new XElement(XName.Get("ResourceExtensionReferences", "http://schemas.microsoft.com/windowsazure"));
-                    foreach (ResourceExtensionReference resourceExtensionReferencesItem in parameters.ResourceExtensionReferences)
-                    {
-                        XElement resourceExtensionReferenceElement = new XElement(XName.Get("ResourceExtensionReference", "http://schemas.microsoft.com/windowsazure"));
-                        resourceExtensionReferencesSequenceElement.Add(resourceExtensionReferenceElement);
-                        
-                        if (resourceExtensionReferencesItem.ReferenceName != null)
-                        {
-                            XElement referenceNameElement = new XElement(XName.Get("ReferenceName", "http://schemas.microsoft.com/windowsazure"));
-                            referenceNameElement.Value = resourceExtensionReferencesItem.ReferenceName;
-                            resourceExtensionReferenceElement.Add(referenceNameElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Publisher != null)
-                        {
-                            XElement publisherElement = new XElement(XName.Get("Publisher", "http://schemas.microsoft.com/windowsazure"));
-                            publisherElement.Value = resourceExtensionReferencesItem.Publisher;
-                            resourceExtensionReferenceElement.Add(publisherElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Name != null)
-                        {
-                            XElement nameElement2 = new XElement(XName.Get("Name", "http://schemas.microsoft.com/windowsazure"));
-                            nameElement2.Value = resourceExtensionReferencesItem.Name;
-                            resourceExtensionReferenceElement.Add(nameElement2);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.Version != null)
-                        {
-                            XElement versionElement = new XElement(XName.Get("Version", "http://schemas.microsoft.com/windowsazure"));
-                            versionElement.Value = resourceExtensionReferencesItem.Version;
-                            resourceExtensionReferenceElement.Add(versionElement);
-                        }
-                        
-                        if (resourceExtensionReferencesItem.ResourceExtensionParameterValues != null)
-                        {
-                            XElement resourceExtensionParameterValuesSequenceElement = new XElement(XName.Get("ResourceExtensionParameterValues", "http://schemas.microsoft.com/windowsazure"));
-                            foreach (ResourceExtensionParameterValue resourceExtensionParameterValuesItem in resourceExtensionReferencesItem.ResourceExtensionParameterValues)
-                            {
-                                XElement resourceExtensionParameterValueElement = new XElement(XName.Get("ResourceExtensionParameterValue", "http://schemas.microsoft.com/windowsazure"));
-                                resourceExtensionParameterValuesSequenceElement.Add(resourceExtensionParameterValueElement);
-                                
-                                if (resourceExtensionParameterValuesItem.Key != null)
-                                {
-                                    XElement keyElement = new XElement(XName.Get("Key", "http://schemas.microsoft.com/windowsazure"));
-                                    keyElement.Value = resourceExtensionParameterValuesItem.Key;
-                                    resourceExtensionParameterValueElement.Add(keyElement);
-                                }
-                                
-                                if (resourceExtensionParameterValuesItem.Value != null)
-                                {
-                                    XElement valueElement = new XElement(XName.Get("Value", "http://schemas.microsoft.com/windowsazure"));
-                                    valueElement.Value = TypeConversion.ToBase64String(resourceExtensionParameterValuesItem.Value);
-                                    resourceExtensionParameterValueElement.Add(valueElement);
-                                }
-                            }
-                            resourceExtensionReferenceElement.Add(resourceExtensionParameterValuesSequenceElement);
-                        }
-                    }
-                    persistentVMRoleElement.Add(resourceExtensionReferencesSequenceElement);
                 }
                 
                 requestContent = requestDoc.ToString();
