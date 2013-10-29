@@ -435,7 +435,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                         OSVirtualHardDisk = Mapper.Map(vm.OSVirtualHardDisk, new Management.Compute.Models.OSVirtualHardDisk()),
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
-                        ResourceExtensionReferences = EnableGuestAgent ? Mapper.Map<List<ResourceExtensionReference>>(new int[1].Select(i => new VMDiagnosticsExtensionBuilder().GetResourceReference()).ToList()) : null,
+                        ResourceExtensionReferences = null,
                         ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
                     };
 

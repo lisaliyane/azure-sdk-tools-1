@@ -100,16 +100,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                 }
                 role.NoExportPrivateKey = this.NoExportPrivateKey.IsPresent;
                 role.ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null;
-
-                if (EnableGuestAgent)
-                {
-                    role.ResourceExtensionReferences = new ResourceExtensionReferenceList();
-                    role.ResourceExtensionReferences.Add(new VMDiagnosticsExtensionBuilder().GetResourceReference());
-                }
-                else
-                {
-                    role.ResourceExtensionReferences = null;
-                }
             }
 
             WriteObject(VM, true);
