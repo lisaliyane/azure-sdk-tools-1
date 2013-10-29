@@ -17,6 +17,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
     using System;
     using System.Management.Automation;
     using Model;
+    using Model.PersistentVMModel;
 
     [Cmdlet(VerbsCommon.Remove, "AzureVMDiagnosticsExtension"), OutputType(typeof(IPersistentVM))]
     public class RemoveAzureVMDiagnosticsExtensionCommand : VirtualMachineConfigurationCmdletBase
@@ -28,7 +29,14 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
             {
                 role.ResourceExtensionReferences.RemoveAll(r => r.Publisher == VMDiagnosticsExtensionBuilder.ExtensionDefaultPublisher &&
                                                                 r.Name == VMDiagnosticsExtensionBuilder.ExtensionDefaultName);
+
+                if (role.ResourceExtensionReferences == null || role.ResourceExtensionReferences.Count == 0)
+                {
+                    role.ResourceExtensionReferences = new ResourceExtensionReferenceList();
+                    role.ResourceExtensionReferences.Add(new VMDiagnosticsExtensionBuilder().GetResourceReference());
+                }
             }
+
             WriteObject(VM);
         }
 

@@ -16,11 +16,14 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Management.Automation;
     using System.Security.Cryptography.X509Certificates;
     using Common;
     using Helpers;
+    using IaaS.Extensions;
     using Model;
+    using Model.PersistentVMModel;
     using Properties;
 
     /// <summary>
@@ -47,6 +50,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
 
         internal void ExecuteCommand()
         {
+            ServiceManagementProfile.Initialize();
             var role = VM.GetInstance();
             var configSetbuilder = new ConfigurationSetsBuilder(role.ConfigurationSets);
             if (Linux.IsPresent)
@@ -96,6 +100,16 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                 }
                 role.NoExportPrivateKey = this.NoExportPrivateKey.IsPresent;
                 role.ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null;
+
+                if (EnableGuestAgent)
+                {
+                    role.ResourceExtensionReferences = new ResourceExtensionReferenceList();
+                    role.ResourceExtensionReferences.Add(new VMDiagnosticsExtensionBuilder().GetResourceReference());
+                }
+                else
+                {
+                    role.ResourceExtensionReferences = null;
+                }
             }
 
             WriteObject(VM, true);

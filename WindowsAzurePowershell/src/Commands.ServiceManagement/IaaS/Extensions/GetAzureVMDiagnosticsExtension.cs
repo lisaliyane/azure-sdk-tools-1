@@ -46,6 +46,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
                         Version = r.Version,
                         Enabled = daExtensionBuilder == null ? false : daExtensionBuilder.Enabled,
                         StorageAccountName = daExtensionBuilder == null ? string.Empty : daExtensionBuilder.StorageAccountName,
+                        Endpoints = daExtensionBuilder == null ? null : daExtensionBuilder.Endpoints,
                         DiagnosticsConfiguration = daExtensionBuilder == null ? null : daExtensionBuilder.DiagnosticsConfiguration
                     };
                 });

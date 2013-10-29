@@ -16,6 +16,7 @@
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Management.Automation;
@@ -24,6 +25,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
     using AutoMapper;
     using Common;
     using Helpers;
+    using IaaS.Extensions;
     using Management.Compute;
     using Management.Compute.Models;
     using Properties;
@@ -433,7 +435,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                         OSVirtualHardDisk = Mapper.Map(vm.OSVirtualHardDisk, new Management.Compute.Models.OSVirtualHardDisk()),
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
-                        ResourceExtensionReferences = null,
+                        ResourceExtensionReferences = EnableGuestAgent ? Mapper.Map<List<ResourceExtensionReference>>(new int[1].Select(i => new VMDiagnosticsExtensionBuilder().GetResourceReference()).ToList()) : null,
                         ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
                     };
 

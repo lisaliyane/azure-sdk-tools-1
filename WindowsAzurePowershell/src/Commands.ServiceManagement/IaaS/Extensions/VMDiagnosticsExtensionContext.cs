@@ -14,6 +14,7 @@
 
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
 {
+    using System;
     using System.Xml;
 
     public class VMDiagnosticsExtensionContext
@@ -29,6 +30,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions
         public XmlDocument DiagnosticsConfiguration { get; set; }
 
         public string StorageAccountName { get; set; }
+
+        public Uri[] Endpoints { get; set; }
 
         public bool Enabled { get; set; }
     }
