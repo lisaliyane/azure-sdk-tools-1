@@ -105,7 +105,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                 RoleSize = string.IsNullOrEmpty(VM.RoleSize) ? null :
                            (VirtualMachineRoleSize?)Enum.Parse(typeof(VirtualMachineRoleSize), VM.RoleSize, true),
                 ProvisionGuestAgent = VM.ProvisionGuestAgent,
-                ResourceExtensionReferences = Mapper.Map<List<ResourceExtensionReference>>(VM.ResourceExtensionReferences)
+                ResourceExtensionReferences = VM.ProvisionGuestAgent.Value ? Mapper.Map<List<ResourceExtensionReference>>(VM.ResourceExtensionReferences) : null
             };
 
             if (VM.DataVirtualHardDisks != null)

@@ -433,7 +433,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                         OSVirtualHardDisk = Mapper.Map(vm.OSVirtualHardDisk, new Management.Compute.Models.OSVirtualHardDisk()),
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
-                        ProvisionGuestAgent = EnableGuestAgent
+                        ResourceExtensionReferences = null,
+                        ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
                     };
 
                     vm.DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -474,7 +475,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     MediaLink = string.IsNullOrEmpty(MediaLocation) ? null : new Uri(MediaLocation),
                     HostCaching = HostCaching
                 }, new Management.Compute.Models.OSVirtualHardDisk()),
-                ProvisionGuestAgent = EnableGuestAgent
+                ResourceExtensionReferences = null,
+                ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
             };
 
             if (vm.OSVirtualHardDisk.MediaLink == null && String.IsNullOrEmpty(vm.OSVirtualHardDisk.DiskName))
