@@ -44,7 +44,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
                     ps.Runspace = RunspaceFactory.CreateRunspace(CurrentCmdlet.Host);
                     ps.Runspace.Open();
                     ps.AddScript("$DebugPreference='Continue'");
-                    ps.AddScript(string.Format("Write-Debug '{0}'", log));
+                    ps.AddScript(string.Format("Write-Debug @'\n{0}\n'@", log));
                     ps.Invoke();
                 }
             }
