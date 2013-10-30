@@ -42,8 +42,12 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
             //SM to NewSM mapping
             Mapper.CreateMap<PVM.LoadBalancerProbe, NSM.LoadBalancerProbe>()
                   .ForMember(c => c.Protocol, o => o.MapFrom(r => r.Protocol));
+            Mapper.CreateMap<PVM.AccessControlListRule, NSM.AccessControlListRule>();
+            Mapper.CreateMap<PVM.EndpointAccessControlList, NSM.AccessControlList>()
+                  .ForMember(c => c.Rules, o => o.MapFrom(r => r.Rules.ToList()));
             Mapper.CreateMap<PVM.InputEndpoint, NSM.InputEndpoint>()
-                  .ForMember(c => c.VirtualIPAddress, o => o.MapFrom(r => r.Vip != null ? IPAddress.Parse(r.Vip) : null));
+                  .ForMember(c => c.VirtualIPAddress, o => o.MapFrom(r => r.Vip != null ? IPAddress.Parse(r.Vip) : null))
+                  .ForMember(c => c.AccessControlList, o => o.MapFrom(r => r.EndpointAccessControlList));
             Mapper.CreateMap<PVM.DataVirtualHardDisk, NSM.DataVirtualHardDisk>()
                   .ForMember(c => c.LogicalUnitNumber, o => o.MapFrom(r => r.Lun));
             Mapper.CreateMap<PVM.OSVirtualHardDisk, NSM.OSVirtualHardDisk>()
@@ -88,8 +92,12 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
             //NewSM to SM mapping
             Mapper.CreateMap<NSM.LoadBalancerProbe, PVM.LoadBalancerProbe>()
                   .ForMember(c => c.Protocol, o => o.MapFrom(r => r.Protocol.ToString().ToLower()));
+            Mapper.CreateMap<NSM.AccessControlListRule, PVM.AccessControlListRule>();
+            Mapper.CreateMap<NSM.AccessControlList, PVM.EndpointAccessControlList>()
+                  .ForMember(c => c.Rules, o => o.MapFrom(r => r.Rules));
             Mapper.CreateMap<NSM.InputEndpoint, PVM.InputEndpoint>()
-                  .ForMember(c => c.Vip, o => o.MapFrom(r => r.VirtualIPAddress != null ? r.VirtualIPAddress.ToString() : null));
+                  .ForMember(c => c.Vip, o => o.MapFrom(r => r.VirtualIPAddress != null ? r.VirtualIPAddress.ToString() : null))
+                  .ForMember(c => c.EndpointAccessControlList, o => o.MapFrom(r => r.AccessControlList));
             Mapper.CreateMap<NSM.DataVirtualHardDisk, PVM.DataVirtualHardDisk>()
                   .ForMember(c => c.Lun, o => o.MapFrom(r => r.LogicalUnitNumber));
             Mapper.CreateMap<NSM.OSVirtualHardDisk, PVM.OSVirtualHardDisk>()
@@ -343,12 +351,32 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
                   .ForMember(c => c.Provisioning, o => o.MapFrom(r => r.Provisioning));
 
             // New SM to Model
-            Mapper.CreateMap<IList<NSM.StoredCertificateSettings>, PVM.CertificateSettingList>();
             Mapper.CreateMap<NSM.StoredCertificateSettings, PVM.CertificateSetting>();
+            Mapper.CreateMap<IList<NSM.StoredCertificateSettings>, PVM.CertificateSettingList>()
+                  .AfterMap((c, s) =>
+                  {
+                      if (c != null && s != null)
+                      {
+                          foreach (var t in c)
+                          {
+                              s.Add(Mapper.Map<PVM.CertificateSetting>(t));
+                          }
+                      }
+                  });
 
             // Model to New SM
-            Mapper.CreateMap<PVM.CertificateSettingList, IList<NSM.StoredCertificateSettings>>();
             Mapper.CreateMap<PVM.CertificateSetting, NSM.StoredCertificateSettings>();
+            Mapper.CreateMap<PVM.CertificateSettingList, IList<NSM.StoredCertificateSettings>>()
+                  .AfterMap((c, s) =>
+                  {
+                      if (c != null && s != null)
+                      {
+                          foreach (var t in c)
+                          {
+                              s.Add(Mapper.Map<NSM.StoredCertificateSettings>(t));
+                          }
+                      }
+                  });
 
             // Resource Reference Mapping - NSM to PVM
             Mapper.CreateMap<NSM.ResourceExtensionParameterValue, PVM.ResourceExtensionParameterValue>();

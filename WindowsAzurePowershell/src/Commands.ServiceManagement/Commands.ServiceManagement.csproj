@@ -203,9 +203,6 @@
     <Compile Include="IaaS\Extensions\VMDiagnosticsExtensionContext.cs" />
     <Compile Include="IaaS\Extensions\RemoveAzureVMDiagnosticsExtension.cs" />
     <Compile Include="IaaS\Extensions\SetAzureVMDiagnosticsExtension.cs" />
-    <Compile Include="IaaS\Network\NetworkConfigurationSchema.cs">
-      <DependentUpon>NetworkConfigurationSchema.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Model\PersistentVMRoleTypes.cs" />
     <Compile Include="ServiceManagementProfile.cs" />
     <Compile Include="AffinityGroups\SetAzureAffinityGroup.cs" />
@@ -405,9 +402,6 @@
     <Compile Include="StorageServices\StorageCredentialsFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IaaS\Network\NetworkConfigurationSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="MSSharedLibKey.snk" />
     <None Include="packages.config" />
   </ItemGroup>

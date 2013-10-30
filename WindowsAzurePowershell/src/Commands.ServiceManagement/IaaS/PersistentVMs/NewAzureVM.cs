@@ -433,26 +433,5 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                 }
             }
         }
-
-        protected bool DoesCloudServiceExist(string serviceName)
-        {
-            try
-            {
-                WriteVerboseWithTimestamp(string.Format(Resources.AzureVMBeginOperation, CommandRuntime));
-                var response = this.ComputeClient.HostedServices.CheckNameAvailability(serviceName);
-                WriteVerboseWithTimestamp(string.Format(Resources.AzureVMCompletedOperation, CommandRuntime));
-                return response.IsAvailable;
-            }
-            catch (CloudException ex)
-            {
-                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return false;
-                }
-                this.WriteExceptionDetails(ex);
-            }
-
-            return false;
-        }
     }
 }
