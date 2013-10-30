@@ -436,7 +436,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                         RoleName = vm.RoleName,
                         RoleSize = vm.RoleSize,
                         ResourceExtensionReferences = null,
-                        ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
+                        ProvisionGuestAgent = EnableGuestAgent
                     };
 
                     vm.DataVirtualHardDisks.ForEach(c => parameter.DataVirtualHardDisks.Add(c));
@@ -478,7 +478,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.PersistentVMs
                     HostCaching = HostCaching
                 }, new Management.Compute.Models.OSVirtualHardDisk()),
                 ResourceExtensionReferences = null,
-                ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null
+                ProvisionGuestAgent = EnableGuestAgent
             };
 
             if (vm.OSVirtualHardDisk.MediaLink == null && String.IsNullOrEmpty(vm.OSVirtualHardDisk.DiskName))

@@ -99,7 +99,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS
                     role.X509Certificates.AddRange(this.X509Certificates);
                 }
                 role.NoExportPrivateKey = this.NoExportPrivateKey.IsPresent;
-                role.ProvisionGuestAgent = EnableGuestAgent ? (bool?)EnableGuestAgent : (bool?)null;
+                role.ProvisionGuestAgent = EnableGuestAgent;
             }
 
             WriteObject(VM, true);
