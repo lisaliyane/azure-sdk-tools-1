@@ -12845,57 +12845,37 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
       </maml:navigationLink>
     </maml:relatedLinks>
   </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">   
+  <!-- v 1.3.0.36 -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
     <command:details>
-      <command:name>Set-AzureEndpoint</command:name>
+      <command:name>
+        Set-AzureEndpoint
+      </command:name>
       <maml:description>
-        <maml:para>Updates an existing endpoint assigned to a Windows Azure virtual machine.</maml:para>
+        <maml:para>The Set-AzureInputEndpoint cmdlet updates an existing endpoint assigned to a virtual machine. You can specify updates to an endpoint that is not load balanced, which only a single virtual machine uses.</maml:para>
       </maml:description>
       <maml:copyright>
-        <maml:para />
+        <maml:para></maml:para>
       </maml:copyright>
       <command:verb>Set</command:verb>
       <command:noun>AzureEndpoint</command:noun>
-      <dev:version />
+      <dev:version></dev:version>
     </command:details>
     <maml:description>
-      <maml:para>
-        The Set-AzureInputEndpoint cmdlet updates an existing endpoint assigned to a virtual machine. You can specify updates to an endpoint that is not load balanced, which only a single virtual machine uses, or you can specify updates to a load-balanced endpoint, which other virtual machines running in the same cloud service can share to load-balance traffic.
-        When updating a load-balanced endpoint, you can also specify parameters for an endpoint probe. The probe will be used to check the health of endpoints and endpoint resources, probing for response every 15 seconds, and taking a resource out of rotation if no response is received within 31 seconds.
-      </maml:para>
+      <maml:para></maml:para>
     </maml:description>
+    <!-- Cmdlet syntax section-->
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Set-AzureEndpoint</maml:name>
-        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="">
-          <maml:name>Name</maml:name>
-          <maml:description>
-            <maml:para>Specifies the name of the endpoint. Either LBSetName or Name must be specified, but not both.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="">
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
           <maml:name>Protocol</maml:name>
           <maml:description>
-            <maml:para>Specifies the protocol of the endpoint. Acceptable values are “http” or “tcp”.</maml:para>
+            <maml:para>Specifies the protocol of the endpoint. Acceptable values are &quot;tcp&quot; or &quot;udp&quot;.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3" aliases="">
-          <maml:name>LocalPort</maml:name>
-          <maml:description>
-            <maml:para>Specifies the local (private) port that will be used for the endpoint. Applications within the virtual machine listen to this port to service input requests over the endpoint.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named" aliases="">
-          <maml:name>PublicPort</maml:name>
-          <maml:description>
-            <maml:para>Specifies the public port that the endpoint will use. If not specified, Windows Azure will assign an available free port.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="InputObject">
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="named">
           <maml:name>VM</maml:name>
           <maml:description>
             <maml:para>Specifies the virtual machine object for which the endpoint will be created.</maml:para>
@@ -12905,96 +12885,26 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
         <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
           <maml:name>ACL</maml:name>
           <maml:description>
-            <maml:para>An ACL to apply to the endpoint on update.</maml:para>
+            <maml:para>An ACL to apply to the endpoint on update. </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">NetworkAclObject</command:parameterValue>
         </command:parameter>
         <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
           <maml:name>DirectServerReturn</maml:name>
           <maml:description>
-            <maml:para>Enable/Disable Direct Server Return.</maml:para>
+            <maml:para>Enable/Disable Direct Server Return </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">bool</command:parameterValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
+    <!-- Cmdlet parameter section  -->
     <command:parameters>
-      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3" aliases="">
-        <maml:name>LocalPort</maml:name>
-        <maml:description>
-          <maml:para>Specifies the local (private) port that will be used for the endpoint. Applications within the virtual machine listen to this port to service input requests over the endpoint.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        <dev:type>
-          <maml:name>Int32</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="">
-        <maml:name>Name</maml:name>
-        <maml:description>
-          <maml:para>Specifies the name of the endpoint.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="">
-        <maml:name>Protocol</maml:name>
-        <maml:description>
-          <maml:para>Specifies the protocol of the endpoint. Acceptable values are “http” or “tcp”.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named" aliases="">
-        <maml:name>PublicPort</maml:name>
-        <maml:description>
-          <maml:para>Specifies the public port that the endpoint will use. If not specified, Windows Azure will assign an available free port.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        <dev:type>
-          <maml:name>Int32</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="InputObject">
-        <maml:name>VM</maml:name>
-        <maml:description>
-          <maml:para>Specifies the virtual machine object for which the endpoint will be created.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">IPersistentVM</command:parameterValue>
-        <dev:type>
-          <maml:name>IPersistentVM</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-        <maml:name>DirectServerReturn</maml:name>
-        <maml:description>
-          <maml:para>Enable/Disable Direct Server Return</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">bool</command:parameterValue>
-        <dev:type>
-          <maml:name>bool</maml:name>
-          <maml:uri/>
-        </dev:type>
-        <dev:defaultValue></dev:defaultValue>
-      </command:parameter>
       <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
         <maml:name>ACL</maml:name>
         <maml:description>
-          <maml:para>An ACL to apply to the endpoint on update.</maml:para>
+          <maml:para>An ACL to apply to the endpoint on update. </maml:para>
+
         </maml:description>
         <command:parameterValue required="true" variableLength="false">NetworkAclObject</command:parameterValue>
         <dev:type>
@@ -13003,65 +12913,169 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
         </dev:type>
         <dev:defaultValue></dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>DirectServerReturn</maml:name>
+        <maml:description>
+          <maml:para>Enable/Disable Direct Server Return </maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">bool</command:parameterValue>
+        <dev:type>
+          <maml:name>bool</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="" variableLength="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>LocalPort</maml:name>
+        <maml:description>
+          <maml:para>Specifies the local (private) port that will be used for the endpoint. Applications within the virtual machine listen to this port to service input requests over the endpoint.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">int</command:parameterValue>
+        <dev:type>
+          <maml:name>int</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="" variableLength="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the endpoint.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>Protocol</maml:name>
+        <maml:description>
+          <maml:para>Specifies the protocol of the endpoint. Acceptable values are &quot;tcp&quot; or &quot;udp&quot;.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="" variableLength="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>PublicPort</maml:name>
+        <maml:description>
+          <maml:para>Specifies the public port that the endpoint will use. If not specified, Windows Azure will assign an available free port.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">int</command:parameterValue>
+        <dev:type>
+          <maml:name>int</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="named">
+        <maml:name>VM</maml:name>
+        <maml:description>
+          <maml:para>Specifies the virtual machine object for which the endpoint will be created.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">IPersistentVM</command:parameterValue>
+        <dev:type>
+          <maml:name>IPersistentVM</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
     </command:parameters>
+    <!-- Input - Output section-->
     <command:inputTypes>
       <command:inputType>
         <dev:type>
           <maml:name></maml:name>
-          <maml:uri></maml:uri>
-          <maml:description>
-            <maml:para />
-          </maml:description>
+          <maml:uri/>
+          <maml:description />
         </dev:type>
         <maml:description>
-          <maml:para></maml:para>
+          <maml:para>
+            <!-- description  -->
+
+          </maml:para>
         </maml:description>
       </command:inputType>
     </command:inputTypes>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name></maml:name>
-          <maml:uri></maml:uri>
-          <maml:description>
-            <maml:para />
-          </maml:description>
+          <maml:name>System.Object</maml:name>
+          <maml:uri />
+          <maml:description />
         </dev:type>
         <maml:description>
-          <maml:para></maml:para>
+          <maml:para>
+            <!-- description  -->
+
+          </maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
+    <!-- Error section-->
     <command:terminatingErrors />
     <command:nonTerminatingErrors />
+    <!-- Notes section  -->
+    <maml:alertSet>
+      <maml:title></maml:title>
+      <maml:alert>
+        <maml:para>
+
+        </maml:para>
+      </maml:alert>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <!-- Example section  -->
     <command:examples>
+
       <command:example>
         <maml:title>
-          --------------  Example 1 --------------
+          -------------------------- EXAMPLE 1 --------------------------
         </maml:title>
         <maml:introduction>
-          <maml:para></maml:para>
+          <maml:para>C:\PS&gt;</maml:para>
         </maml:introduction>
         <dev:code>
-          PS C:\&gt; Get-AzureVM -ServiceName “MyService” -RoleName “MyVM” | Set-AzureEndpoint -Name "HttpIn" -LBSetName "lbweb" -PublicPort 80 -LocalPort 8080 -Protocol http -ProbePort 80 -ProbeProtocol http -ProbePath "/healthcheck.aspx" | Update-AzureVM
+          Get-AzureVM -ServiceName &quot;MyService&quot; -Name &quot;MyVM&quot; | Set-AzureEndpoint -Name &quot;Web&quot; -PublicPort 443 -LocalPort 443 -Protocol &quot;tcp&quot; | Update-AzureVM
         </dev:code>
         <dev:remarks>
-          <maml:para>This command updates the input endpoint named “HttpIn” assigned to the virtual machine “MyVM”.</maml:para>
+          <maml:para>Description</maml:para>
+          <maml:para>-----------</maml:para>
+          <maml:para>This command updates the input endpoint named &quot;Web&quot; assigned to the virtual machine &quot;MyVM&quot; to listen on Port 443.</maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
         <command:commandLines>
           <command:commandLine>
-            <command:commandText />
+            <command:commandText></command:commandText>
           </command:commandLine>
         </command:commandLines>
       </command:example>
     </command:examples>
+    <!-- Link section  -->
     <maml:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri></maml:uri>
+        <maml:linkText></maml:linkText>
+        <maml:uri/>
       </maml:navigationLink>
     </maml:relatedLinks>
   </command:command>
+
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
       <command:name>Set-AzureOSDisk</command:name>
@@ -16470,6 +16484,159 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
       </maml:navigationLink>
     </maml:relatedLinks>
   </command:command>
+
+  <!-- v 1.3.0.36 -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>
+        Get-AzureServiceRemoteDesktopExtension
+      </command:name>
+      <maml:description>
+        <maml:para>This cmdlet gets the cloud service remote desktop extension applied on all roles or named roles at a certain deployment slot.</maml:para>
+      </maml:description>
+      <maml:copyright>
+        <maml:para></maml:para>
+      </maml:copyright>
+      <command:verb>Get</command:verb>
+      <command:noun>AzureServiceRemoteDesktopExtension</command:noun>
+      <dev:version></dev:version>
+    </command:details>
+    <maml:description>
+      <maml:para>This cmdlet gets the cloud service remote desktop extension applied on all roles or named roles at a certain deployment slot.</maml:para>
+    </maml:description>
+    <!-- Cmdlet syntax section-->
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-AzureServiceRemoteDesktopExtension</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>ServiceName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the Windows Azure service name of the deployment.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>Slot</maml:name>
+          <maml:description>
+            <maml:para>Specifies the environment of the deployment to modify. Supported values are &quot;Production&quot; or &quot;Staging&quot;.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <!-- Cmdlet parameter section  -->
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>ServiceName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the Windows Azure service name of the deployment.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>Slot</maml:name>
+        <maml:description>
+          <maml:para>Specifies the environment of the deployment to modify. Supported values are &quot;Production&quot; or &quot;Staging&quot;.</maml:para>
+
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">string</command:parameterValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+          <maml:uri/>
+        </dev:type>
+        <dev:defaultValue></dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <!-- Input - Output section-->
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name></maml:name>
+          <maml:uri/>
+          <maml:description />
+        </dev:type>
+        <maml:description>
+          <maml:para>
+            <!-- description  -->
+
+          </maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name></maml:name>
+          <maml:uri />
+          <maml:description />
+        </dev:type>
+        <maml:description>
+          <maml:para>
+            <!-- description  -->
+
+          </maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <!-- Error section-->
+    <command:terminatingErrors />
+    <command:nonTerminatingErrors />
+    <!-- Notes section  -->
+    <maml:alertSet>
+      <maml:title></maml:title>
+      <maml:alert>
+        <maml:para>
+
+        </maml:para>
+      </maml:alert>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <!-- Example section  -->
+    <command:examples>
+
+      <command:example>
+        <maml:title>
+          -------------------------- EXAMPLE 1 --------------------------
+        </maml:title>
+        <maml:introduction>
+          <maml:para>C:\PS&gt;</maml:para>
+        </maml:introduction>
+        <dev:code>
+          Get-AzureServiceRemoteDesktopExtension -ServiceName $svc
+        </dev:code>
+        <dev:remarks>
+          <maml:para>Description</maml:para>
+          <maml:para>-----------</maml:para>
+          <maml:para>This command returns the information of the cloud service remote desktop extensions enabled on the roles of a certain deployment.</maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+        <command:commandLines>
+          <command:commandLine>
+            <command:commandText></command:commandText>
+          </command:commandLine>
+        </command:commandLines>
+      </command:example>
+    </command:examples>
+    <!-- Link section  -->
+    <maml:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText></maml:linkText>
+        <maml:uri/>
+      </maml:navigationLink>
+    </maml:relatedLinks>
+  </command:command>
+
   <!-- v 1.3.0.36 -->
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
     <command:details>
@@ -16595,12 +16762,12 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
           <maml:para>C:\PS&gt;</maml:para>
         </maml:introduction>
         <dev:code>
-          Get-AzureServiceRemoteDesktopExtension -ServiceName $svc
+          Get-AzureServiceDiagnosticsExtension -ServiceName $svc
         </dev:code>
         <dev:remarks>
           <maml:para>Description</maml:para>
           <maml:para>-----------</maml:para>
-          <maml:para>This command returns the information of the cloud service diagnostics extensions enabled on the roles of a certain deployment.</maml:para>
+          <maml:para>This command returns the information of the cloud service diagnostics extensions enabled on the roles of the Production deployment in the service $svc.</maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
@@ -17386,7 +17553,7 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
         <dev:remarks>
           <maml:para>Description</maml:para>
           <maml:para>-----------</maml:para>
-          <maml:para>Removing Default remote desktop configuration for all roles from Cloud Service</maml:para>
+          <maml:para>Removing the configured remote desktop extension from all roles of a cloud service.</maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
@@ -17412,7 +17579,7 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
         <dev:remarks>
           <maml:para>Description</maml:para>
           <maml:para>-----------</maml:para>
-          <maml:para>Removing remote desktop configuration for WebRole1.</maml:para>
+          <maml:para>Removing the configured remote desktop extension from the role 'WebRole1' of a cloud service.</maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
@@ -17620,7 +17787,7 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
         <dev:remarks>
           <maml:para>Description</maml:para>
           <maml:para>-----------</maml:para>
-          <maml:para>Removing Default diagnostics configuration for all roles from Cloud Service</maml:para>
+          <maml:para>Removing the configured diagnostics extension from all roles of a cloud service.</maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
@@ -17641,12 +17808,12 @@ Get-AzureVm -ServiceName MyDemoService01 -Name MyDemoVM01 | Remove-AzureDataDisk
           <maml:para>C:\PS&gt;</maml:para>
         </maml:introduction>
         <dev:code>
-          Remove-AzureServiceRemoteDesktopExtension -ServiceName $svc  -Role &quot;WebRole1&quot;
+          Remove-AzureServiceDiagnosticsExtension -ServiceName $svc  -Role &quot;WebRole1&quot;
         </dev:code>
         <dev:remarks>
           <maml:para>Description</maml:para>
           <maml:para>-----------</maml:para>
-          <maml:para>Removing diagnostics configuration for WebRole1.</maml:para>
+          <maml:para>Removing the configured diagnostics extension from the role 'WebRole1' of a cloud service.</maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
           <maml:para></maml:para>
