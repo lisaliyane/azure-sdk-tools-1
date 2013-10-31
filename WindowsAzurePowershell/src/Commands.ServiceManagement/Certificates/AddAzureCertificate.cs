@@ -78,12 +78,14 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Certificates
 
         private byte[] GetCertificateData()
         {
-            if (((CertToDeploy is PSObject) && ((PSObject)CertToDeploy).ImmediateBaseObject is X509Certificate2) ||
-                (CertToDeploy is X509Certificate2))
+            if ((CertToDeploy is PSObject) && ((PSObject)CertToDeploy).ImmediateBaseObject is X509Certificate2)
             {
                 var cert = ((PSObject)CertToDeploy).ImmediateBaseObject as X509Certificate2;
-
                 return CertUtilsNewSM.GetCertificateData(cert);
+            }
+            else if (CertToDeploy is X509Certificate2)
+            {
+                return CertUtilsNewSM.GetCertificateData(CertToDeploy as X509Certificate2);
             }
             else
             {
