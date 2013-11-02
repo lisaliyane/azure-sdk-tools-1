@@ -35,6 +35,7 @@
 	<ReleaseBuildConfig>Configuration=Release;Platform=Any CPU</ReleaseBuildConfig>
 	<ReleaseSignedBuildConfig>Configuration=ReleaseSigned;Platform=Any CPU</ReleaseSignedBuildConfig>
 	<TestName></TestName>
+	<TestParams></TestParams>
   </PropertyGroup>
   <ItemGroup>
     <CmdletSln Include=".\WindowsAzurePowershell\src\WindowsAzurePowershell.sln" />
@@ -285,6 +286,17 @@
     <Message Importance="high" Text="Running tests:" />
     <Exec
       Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) /test:$(TestName) /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
+      ContinueOnError="false" />
+  </Target>
+
+  <Target Name="AzureRTMultiTests" DependsOnTargets="Clean;BuildDebug">
+    <Message Importance="high" Text="Running a specific tests..." />
+    <Message Importance="high" Text="You are required to have installed a version of Visual Studio with support for MSTest (and MSTest on your path)." />
+    <MakeDir Directories="$(TestOutputDirectory)" ContinueOnError="false" />
+
+    <Message Importance="high" Text="Running tests:" />
+    <Exec
+      Command="MSTest.exe /testcontainer:$(AzureRTTestContainer) /testsettings:$(AzureRTTestSettings) $(TestParams) /resultsfile:$(TestOutputDirectory)\RTFunctionalDebug.trx"
       ContinueOnError="false" />
   </Target>
 

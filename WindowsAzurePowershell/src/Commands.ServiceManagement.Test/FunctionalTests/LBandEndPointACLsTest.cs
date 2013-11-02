@@ -297,8 +297,10 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         {
             StartTest(MethodBase.GetCurrentMethod().Name, testStartTime);
             string newAzureQuickVMName = Utilities.GetUniqueShortName(vmNamePrefix);
+            const string endpointName = "web";
             imageName = vmPowershellCmdlets.GetAzureVMImageName(new[] { "Windows" }, false);
-            vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName, serviceName, imageName, username, password, locationName);
+            vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName, serviceName, imageName, username,
+                password, locationName);
 
             PersistentVMRoleContext vmRoleCtxt = vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName);
             Assert.AreEqual(newAzureQuickVMName, vmRoleCtxt.Name, true);
@@ -306,16 +308,17 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             NetworkAclObject aclObj = vmPowershellCmdlets.NewAzureAclConfig();
             vmPowershellCmdlets.SetAzureAclConfig(SetACLConfig.AddRule, aclObj, 100, ACLAction.Deny, "172.0.0.0/8", "notes3");
 
-            AzureEndPointConfigInfo epConfigInfo = new AzureEndPointConfigInfo(AzureEndPointConfigInfo.ParameterSet.NoLB, ProtocolInfo.tcp, 80, 80, "web", aclObj); 
+            var epConfigInfo = new AzureEndPointConfigInfo(AzureEndPointConfigInfo.ParameterSet.NoLB, ProtocolInfo.tcp,
+                80, 80, endpointName, aclObj);
 
             vmPowershellCmdlets.AddEndPoint(newAzureQuickVMName, serviceName, new[] { epConfigInfo });
 
-            // Cleanup
-            vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName, serviceName);
-            Assert.AreEqual(null, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName));
+            var returnedVm = vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName);
+            var returnedAclContext = vmPowershellCmdlets.GetAzureAclConfig(returnedVm.VM, endpointName);
+
+            Assert.IsTrue(Verify.AzureAclConfig(aclObj, returnedAclContext));
 
             pass = true;
-
         }
 
         [TestCleanup]

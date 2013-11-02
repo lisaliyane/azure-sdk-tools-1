@@ -11,6 +11,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // ----------------------------------------------------------------------------------
+
+using Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Endpoints;
+
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
 {
     using Commands.Utilities.Common;
@@ -90,12 +93,24 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
 
             try
             {
-                var operation = (ManagementOperationContext)result[0].BaseObject;
-                Console.WriteLine("Operation ID: {0} \nOperation Status: {1}\n", operation.OperationId, operation.OperationStatus);
+                if (result.Count > 0)
+                {
+                    var operation = (ManagementOperationContext) result[0].BaseObject;
+                    Console.WriteLine("Operation ID: {0} \nOperation Status: {1}\n", operation.OperationId,
+                        operation.OperationStatus);
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                if (e is InvalidCastException)
+                {
+                    // continue
+                }
+                else
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
 
             return resultCollection;
@@ -1305,6 +1320,11 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             RunPSCmdletAndReturnAll<NetworkAclObject>(new SetAzureAclConfigCmdletInfo(aclConfig.ToString(), aclObj, order,
                                                                               aclAction.ToString(), remoteSubnet, desc,
                                                                               null));
+        }
+
+        internal NetworkAclObject GetAzureAclConfig(PersistentVM vm, string ep = null)
+        {
+            return RunPSCmdletAndReturnFirst<NetworkAclObject>(new GetAzureAclConfigCmdletInfo(vm, ep));
         }
     }
 }

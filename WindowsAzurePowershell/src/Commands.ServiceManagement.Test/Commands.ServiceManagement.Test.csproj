@@ -194,6 +194,7 @@
     <Compile Include="FunctionalTests\IaasCmdletInfo\AddAzureDiskCmdletInfo.cs" />
     <Compile Include="FunctionalTests\IaasCmdletInfo\AddAzureVMImageCmdletInfo.cs" />
     <Compile Include="FunctionalTests\IaasCmdletInfo\ExportAzureVMCmdletInfo.cs" />
+    <Compile Include="FunctionalTests\IaasCmdletInfo\GetAzureAclConfigCmdletInfo.cs" />
     <Compile Include="FunctionalTests\IaasCmdletInfo\GetAzureAffinityGroupCmdletInfo.cs" />
     <Compile Include="FunctionalTests\IaasCmdletInfo\GetAzureCertificateCmdletInfo.cs" />
     <Compile Include="FunctionalTests\IaasCmdletInfo\GetAzureDataDiskCmdletInfo.cs" />

@@ -57,23 +57,25 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         public void NewWindowsAzureQuickVM()
         {
             StartTest(MethodBase.GetCurrentMethod().Name, testStartTime);
-            string newAzureQuickVMName = Utilities.GetUniqueShortName(vmNamePrefix);
+            string newAzureQuickVMName1 = Utilities.GetUniqueShortName(vmNamePrefix);
+            string newAzureQuickVMName2 = Utilities.GetUniqueShortName(vmNamePrefix);
 
             try
             {
-
                 if (string.IsNullOrEmpty(imageName))
                     imageName = vmPowershellCmdlets.GetAzureVMImageName(new[] { "Windows" }, false);
 
-                vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName, serviceName, imageName, username, password, locationName);
-
+                vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName1, serviceName, imageName, username, password, locationName);
                 // Verify
-                PersistentVMRoleContext vmRoleCtxt = vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName);
-                Assert.AreEqual(newAzureQuickVMName, vmRoleCtxt.Name, true);                
+                Assert.AreEqual(newAzureQuickVMName1, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName1, serviceName).Name, true);
+
+                vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName2, serviceName, imageName, username, password);
+                // Verify
+                Assert.AreEqual(newAzureQuickVMName2, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName2, serviceName).Name, true);
                 
                 try
                 {
-                    vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName + "wrongVMName", serviceName);
+                    vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName1 + "wrongVMName", serviceName);
                     Assert.Fail("Should Fail!!");
                 }
                 catch (Exception e)
@@ -82,15 +84,17 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                 }
 
                 // Cleanup 
-                vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName, serviceName);
-                Assert.AreEqual(null, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName));
-                pass = true;
+                vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName1, serviceName);
+                Assert.AreEqual(null, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName1, serviceName));
+                Assert.AreEqual(newAzureQuickVMName2, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName2, serviceName).Name, true);
+                vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName2, serviceName);
+                Assert.AreEqual(null, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName2, serviceName));
 
                 // Negative Test Case--It should Fail
 
                 try
                 {
-                    vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName, serviceName, imageName, username, password, locationName);
+                    vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName1, serviceName, imageName, username, password, locationName);
                     Assert.Fail("Should have failed, but succeeded!!");
                 }
                 catch (Exception e)
@@ -101,14 +105,13 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                     }
                     Console.WriteLine("This exception is expected.");
                 }
-                 
-
                 // End of Negative Test Case -- It should Fail
+
+                pass = true;
             }
             catch (Exception e)
             {
-                pass = false;
-                Console.WriteLine(e.ToString());
+                Console.WriteLine(e);
                 throw;
             }
         }
