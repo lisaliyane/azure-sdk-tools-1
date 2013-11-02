@@ -42,7 +42,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         /// <param name="cmdlet"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private T RunPSCmdletAndReturnFirst<T>(PowershellCore.CmdletsInfo cmdlet, bool debug = true)
+        private T RunPSCmdletAndReturnFirst<T>(PowershellCore.CmdletsInfo cmdlet, bool debug = false)
         {
             var azurePowershellCmdlet = new WindowsAzurePowershellCmdlet(cmdlet);
             Collection<PSObject> result = azurePowershellCmdlet.Run(debug);
@@ -55,7 +55,15 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    if (e is InvalidCastException)
+                    {
+                        // continue
+                    }
+                    else
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                 }
 
                 return (T) result[0].BaseObject;
@@ -70,7 +78,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         /// <param name="cmdlet"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private Collection<T> RunPSCmdletAndReturnAll<T>(PowershellCore.CmdletsInfo cmdlet, bool debug = true)
+        private Collection<T> RunPSCmdletAndReturnAll<T>(PowershellCore.CmdletsInfo cmdlet, bool debug = false)
         {
             var azurePowershellCmdlet = new WindowsAzurePowershellCmdlet(cmdlet);
             Collection<PSObject> result = azurePowershellCmdlet.Run(debug);

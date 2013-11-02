@@ -77,6 +77,118 @@ namespace Microsoft.WindowsAzure.Subscriptions.Models
         
         public partial class Subscription
         {
+            private string _accountAdminLiveEmailId;
+            
+            public string AccountAdminLiveEmailId
+            {
+                get { return this._accountAdminLiveEmailId; }
+                set { this._accountAdminLiveEmailId = value; }
+            }
+            
+            private string _activeDirectoryTenantId;
+            
+            public string ActiveDirectoryTenantId
+            {
+                get { return this._activeDirectoryTenantId; }
+                set { this._activeDirectoryTenantId = value; }
+            }
+            
+            private DateTime _created;
+            
+            public DateTime Created
+            {
+                get { return this._created; }
+                set { this._created = value; }
+            }
+            
+            private int _currentCoreCount;
+            
+            public int CurrentCoreCount
+            {
+                get { return this._currentCoreCount; }
+                set { this._currentCoreCount = value; }
+            }
+            
+            private int _currentHostedServices;
+            
+            public int CurrentHostedServices
+            {
+                get { return this._currentHostedServices; }
+                set { this._currentHostedServices = value; }
+            }
+            
+            private int _currentStorageAccounts;
+            
+            public int CurrentStorageAccounts
+            {
+                get { return this._currentStorageAccounts; }
+                set { this._currentStorageAccounts = value; }
+            }
+            
+            private int _maximumCoreCount;
+            
+            public int MaximumCoreCount
+            {
+                get { return this._maximumCoreCount; }
+                set { this._maximumCoreCount = value; }
+            }
+            
+            private int _maximumDnsServers;
+            
+            public int MaximumDnsServers
+            {
+                get { return this._maximumDnsServers; }
+                set { this._maximumDnsServers = value; }
+            }
+            
+            private int _maximumExtraVirtualIPCount;
+            
+            public int MaximumExtraVirtualIPCount
+            {
+                get { return this._maximumExtraVirtualIPCount; }
+                set { this._maximumExtraVirtualIPCount = value; }
+            }
+            
+            private int _maximumHostedServices;
+            
+            public int MaximumHostedServices
+            {
+                get { return this._maximumHostedServices; }
+                set { this._maximumHostedServices = value; }
+            }
+            
+            private int _maximumLocalNetworkSites;
+            
+            public int MaximumLocalNetworkSites
+            {
+                get { return this._maximumLocalNetworkSites; }
+                set { this._maximumLocalNetworkSites = value; }
+            }
+            
+            private int _maximumStorageAccounts;
+            
+            public int MaximumStorageAccounts
+            {
+                get { return this._maximumStorageAccounts; }
+                set { this._maximumStorageAccounts = value; }
+            }
+            
+            private int _maximumVirtualNetworkSites;
+            
+            public int MaximumVirtualNetworkSites
+            {
+                get { return this._maximumVirtualNetworkSites; }
+                set { this._maximumVirtualNetworkSites = value; }
+            }
+            
+            private string _serviceAdminLiveEmailId;
+            
+            public string ServiceAdminLiveEmailId
+            {
+                get { return this._serviceAdminLiveEmailId; }
+                set { this._serviceAdminLiveEmailId = value; }
+            }
+            
             private string _subscriptionId;
             
             public string SubscriptionId
@@ -101,118 +213,6 @@ namespace Microsoft.WindowsAzure.Subscriptions.Models
                 set { this._subscriptionStatus = value; }
             }
             
-            private string _accountAdminLiveEmailId;
-            
-            public string AccountAdminLiveEmailId
-            {
-                get { return this._accountAdminLiveEmailId; }
-                set { this._accountAdminLiveEmailId = value; }
-            }
-            
-            private string _serviceAdminLiveEmailId;
-            
-            public string ServiceAdminLiveEmailId
-            {
-                get { return this._serviceAdminLiveEmailId; }
-                set { this._serviceAdminLiveEmailId = value; }
-            }
-            
-            private int _maximumCoreCount;
-            
-            public int MaximumCoreCount
-            {
-                get { return this._maximumCoreCount; }
-                set { this._maximumCoreCount = value; }
-            }
-            
-            private int _maximumStorageAccounts;
-            
-            public int MaximumStorageAccounts
-            {
-                get { return this._maximumStorageAccounts; }
-                set { this._maximumStorageAccounts = value; }
-            }
-            
-            private int _maximumHostedServices;
-            
-            public int MaximumHostedServices
-            {
-                get { return this._maximumHostedServices; }
-                set { this._maximumHostedServices = value; }
-            }
-            
-            private int _currentCoreCount;
-            
-            public int CurrentCoreCount
-            {
-                get { return this._currentCoreCount; }
-                set { this._currentCoreCount = value; }
-            }
-            
-            private int _currentStorageAccounts;
-            
-            public int CurrentStorageAccounts
-            {
-                get { return this._currentStorageAccounts; }
-                set { this._currentStorageAccounts = value; }
-            }
-            
-            private int _currentHostedServices;
-            
-            public int CurrentHostedServices
-            {
-                get { return this._currentHostedServices; }
-                set { this._currentHostedServices = value; }
-            }
-            
-            private int _maximumVirtualNetworkSites;
-            
-            public int MaximumVirtualNetworkSites
-            {
-                get { return this._maximumVirtualNetworkSites; }
-                set { this._maximumVirtualNetworkSites = value; }
-            }
-            
-            private int _maximumLocalNetworkSites;
-            
-            public int MaximumLocalNetworkSites
-            {
-                get { return this._maximumLocalNetworkSites; }
-                set { this._maximumLocalNetworkSites = value; }
-            }
-            
-            private int _maximumDnsServers;
-            
-            public int MaximumDnsServers
-            {
-                get { return this._maximumDnsServers; }
-                set { this._maximumDnsServers = value; }
-            }
-            
-            private int _maximumExtraVirtualIPCount;
-            
-            public int MaximumExtraVirtualIPCount
-            {
-                get { return this._maximumExtraVirtualIPCount; }
-                set { this._maximumExtraVirtualIPCount = value; }
-            }
-            
-            private string _activeDirectoryTenantId;
-            
-            public string ActiveDirectoryTenantId
-            {
-                get { return this._activeDirectoryTenantId; }
-                set { this._activeDirectoryTenantId = value; }
-            }
-            
-            private DateTime _created;
-            
-            public DateTime Created
-            {
-                get { return this._created; }
-                set { this._created = value; }
-            }
-            
             /// <summary>
             /// Initializes a new instance of the Subscription class.
             /// </summary>
@@ -235,17 +235,17 @@ namespace Microsoft.WindowsAzure.Subscriptions
     public partial interface ISubscriptionClient
     {
         /// <summary>
-        /// Credentials used to authenticate requests.
+        /// The URI used as the base for all Service Management requests.
         /// </summary>
-        CloudCredentials Credentials
+        Uri BaseUri
         {
             get; 
         }
         
         /// <summary>
-        /// The URI used as the base for all Service Management requests.
+        /// Credentials used to authenticate requests.
         /// </summary>
-        Uri BaseUri
+        CloudCredentials Credentials
         {
             get; 
         }
@@ -262,16 +262,6 @@ namespace Microsoft.WindowsAzure.Subscriptions
     
     public partial class SubscriptionClient : ServiceClient<SubscriptionClient>, ISubscriptionClient
     {
-        private CloudCredentials _credentials;
-        
-        /// <summary>
-        /// Credentials used to authenticate requests.
-        /// </summary>
-        public CloudCredentials Credentials
-        {
-            get { return this._credentials; }
-        }
-        
         private Uri _baseUri;
         
         /// <summary>
@@ -280,6 +270,16 @@ namespace Microsoft.WindowsAzure.Subscriptions
         public Uri BaseUri
         {
             get { return this._baseUri; }
+        }
+        
+        private CloudCredentials _credentials;
+        
+        /// <summary>
+        /// Credentials used to authenticate requests.
+        /// </summary>
+        public CloudCredentials Credentials
+        {
+            get { return this._credentials; }
         }
         
         private ISubscriptionOperations _subscriptions;

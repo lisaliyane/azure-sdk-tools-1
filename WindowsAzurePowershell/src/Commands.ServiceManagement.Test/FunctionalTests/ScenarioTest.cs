@@ -69,8 +69,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
 
                 // Verify
                 PersistentVMRoleContext vmRoleCtxt = vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName);
-                Assert.AreEqual(newAzureQuickVMName, vmRoleCtxt.Name, true);
-
+                Assert.AreEqual(newAzureQuickVMName, vmRoleCtxt.Name, true);                
+                
                 try
                 {
                     vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName + "wrongVMName", serviceName);
@@ -81,13 +81,33 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                     Console.WriteLine("Fail as expected: {0}", e.ToString());
                 }
 
-                // Cleanup
+                // Cleanup 
                 vmPowershellCmdlets.RemoveAzureVM(newAzureQuickVMName, serviceName);
                 Assert.AreEqual(null, vmPowershellCmdlets.GetAzureVM(newAzureQuickVMName, serviceName));
                 pass = true;
+
+                // Negative Test Case--It should Fail
+
+                try
+                {
+                    vmPowershellCmdlets.NewAzureQuickVM(OS.Windows, newAzureQuickVMName, serviceName, imageName, username, password, locationName);
+                    Assert.Fail("Should have failed, but succeeded!!");
+                }
+                catch (Exception e)
+                {
+                    if (e is AssertFailedException)
+                    {
+                        throw;
+                    }
+                    Console.WriteLine("This exception is expected.");
+                }
+                 
+
+                // End of Negative Test Case -- It should Fail
             }
             catch (Exception e)
             {
+                pass = false;
                 Console.WriteLine(e.ToString());
                 throw;
             }

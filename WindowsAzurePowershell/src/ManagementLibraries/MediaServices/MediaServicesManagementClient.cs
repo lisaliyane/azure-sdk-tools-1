@@ -163,17 +163,6 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
     /// </summary>
     public partial class MediaServicesAccountGetResponse : OperationResponse
     {
-        private string _accountName;
-        
-        /// <summary>
-        /// The Name of the Media Services account.
-        /// </summary>
-        public string AccountName
-        {
-            get { return this._accountName; }
-            set { this._accountName = value; }
-        }
-        
         private string _accountKey;
         
         /// <summary>
@@ -185,15 +174,15 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
             set { this._accountKey = value; }
         }
         
-        private MediaServicesAccountGetResponse.AccountKeys _storageAccountKeys;
+        private string _accountName;
         
         /// <summary>
-        /// The Storage Account keys of the Media Services account.
+        /// The Name of the Media Services account.
         /// </summary>
-        public MediaServicesAccountGetResponse.AccountKeys StorageAccountKeys
+        public string AccountName
         {
-            get { return this._storageAccountKeys; }
-            set { this._storageAccountKeys = value; }
+            get { return this._accountName; }
+            set { this._accountName = value; }
         }
         
         private string _accountRegion;
@@ -205,6 +194,17 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
         {
             get { return this._accountRegion; }
             set { this._accountRegion = value; }
+        }
+        
+        private MediaServicesAccountGetResponse.AccountKeys _storageAccountKeys;
+        
+        /// <summary>
+        /// The Storage Account keys of the Media Services account.
+        /// </summary>
+        public MediaServicesAccountGetResponse.AccountKeys StorageAccountKeys
+        {
+            get { return this._storageAccountKeys; }
+            set { this._storageAccountKeys = value; }
         }
         
         private string _storageAccountName;
@@ -307,6 +307,17 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
         /// </summary>
         public partial class MediaServiceAccount
         {
+            private string _accountId;
+            
+            /// <summary>
+            /// The Id of the Media Services Account.
+            /// </summary>
+            public string AccountId
+            {
+                get { return this._accountId; }
+                set { this._accountId = value; }
+            }
+            
             private string _name;
             
             /// <summary>
@@ -316,39 +327,6 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
             {
                 get { return this._name; }
                 set { this._name = value; }
-            }
-            
-            private string _type;
-            
-            /// <summary>
-            /// The type of the Media Services Account.
-            /// </summary>
-            public string Type
-            {
-                get { return this._type; }
-                set { this._type = value; }
-            }
-            
-            private string _state;
-            
-            /// <summary>
-            /// The current state of the Media Services Account.
-            /// </summary>
-            public string State
-            {
-                get { return this._state; }
-                set { this._state = value; }
-            }
-            
-            private Uri _uri;
-            
-            /// <summary>
-            /// The SelfLink of the Media Services Account.
-            /// </summary>
-            public Uri Uri
-            {
-                get { return this._uri; }
-                set { this._uri = value; }
             }
             
             private Uri _parentUri;
@@ -362,15 +340,37 @@ namespace Microsoft.WindowsAzure.Management.MediaServices.Models
                 set { this._parentUri = value; }
             }
             
-            private string _accountId;
+            private string _state;
             
             /// <summary>
-            /// The Id of the Media Services Account.
+            /// The current state of the Media Services Account.
             /// </summary>
-            public string AccountId
+            public string State
             {
-                get { return this._accountId; }
-                set { this._accountId = value; }
+                get { return this._state; }
+                set { this._state = value; }
+            }
+            
+            private string _type;
+            
+            /// <summary>
+            /// The type of the Media Services Account.
+            /// </summary>
+            public string Type
+            {
+                get { return this._type; }
+                set { this._type = value; }
+            }
+            
+            private Uri _uri;
+            
+            /// <summary>
+            /// The SelfLink of the Media Services Account.
+            /// </summary>
+            public Uri Uri
+            {
+                get { return this._uri; }
+                set { this._uri = value; }
             }
             
             /// <summary>
@@ -395,6 +395,14 @@ namespace Microsoft.WindowsAzure.Management.MediaServices
     public partial interface IMediaServicesManagementClient
     {
         /// <summary>
+        /// The URI used as the base for all Media Services requests.
+        /// </summary>
+        Uri BaseUri
+        {
+            get; 
+        }
+        
+        /// <summary>
         /// When you create a Windows Azure subscription, it is uniquely
         /// identified by a subscription ID. The subscription ID forms part of
         /// the URI for every call that you make to the Service Management
@@ -404,14 +412,6 @@ namespace Microsoft.WindowsAzure.Management.MediaServices
         /// are allowed.
         /// </summary>
         SubscriptionCloudCredentials Credentials
-        {
-            get; 
-        }
-        
-        /// <summary>
-        /// The URI used as the base for all Media Services requests.
-        /// </summary>
-        Uri BaseUri
         {
             get; 
         }
@@ -428,6 +428,16 @@ namespace Microsoft.WindowsAzure.Management.MediaServices
     
     public partial class MediaServicesManagementClient : ServiceClient<MediaServicesManagementClient>, IMediaServicesManagementClient
     {
+        private Uri _baseUri;
+        
+        /// <summary>
+        /// The URI used as the base for all Media Services requests.
+        /// </summary>
+        public Uri BaseUri
+        {
+            get { return this._baseUri; }
+        }
+        
         private SubscriptionCloudCredentials _credentials;
         
         /// <summary>
@@ -442,16 +452,6 @@ namespace Microsoft.WindowsAzure.Management.MediaServices
         public SubscriptionCloudCredentials Credentials
         {
             get { return this._credentials; }
-        }
-        
-        private Uri _baseUri;
-        
-        /// <summary>
-        /// The URI used as the base for all Media Services requests.
-        /// </summary>
-        public Uri BaseUri
-        {
-            get { return this._baseUri; }
         }
         
         private IAccountOperations _accounts;

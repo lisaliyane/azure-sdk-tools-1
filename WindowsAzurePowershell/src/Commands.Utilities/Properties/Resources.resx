@@ -640,7 +640,7 @@
     <value>uri</value>
   </data>
   <data name="ManifestUri" xml:space="preserve">
-    <value>http://az413943.vo.msecnd.net/node/runtimemanifest_sdk22.xml</value>
+    <value>http://az413943.vo.msecnd.net/node/runtimemanifest_0.7.1.xml</value>
   </data>
   <data name="MarketplaceEndpoint" xml:space="preserve">
     <value>http://api.datamarket.azure.com/CatalogService.svc</value>
@@ -1339,7 +1339,8 @@ Please follow these steps in the portal:
   </data>
   <data name="GatewayOperationStatus" xml:space="preserve">
     <value>Operation Status:</value>
-  </data>  <data name="DictionaryAddAlreadyContainsKey" xml:space="preserve">
+  </data>
+  <data name="DictionaryAddAlreadyContainsKey" xml:space="preserve">
     <value>The key to add already exists in the dictionary.</value>
   </data>
   <data name="DictionaryCopyToArrayIndexLessThanZero" xml:space="preserve">

@@ -43,17 +43,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
     /// </summary>
     public partial class AddOnCreateParameters
     {
-        private string _type;
-        
-        /// <summary>
-        /// The type of store item to be created.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
         private string _plan;
         
         /// <summary>
@@ -76,6 +65,17 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
             set { this._promotionCode = value; }
         }
         
+        private string _type;
+        
+        /// <summary>
+        /// The type of store item to be created.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the AddOnCreateParameters class.
         /// </summary>
@@ -96,6 +96,30 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
     /// </summary>
     public partial class AddOnOperationStatusResponse : OperationResponse
     {
+        private AddOnOperationStatusResponse.ErrorDetails _error;
+        
+        /// <summary>
+        /// If the asynchronous operation failed, the response body includes
+        /// the HTTP status code for the failed request, and also includes
+        /// error information regarding the failure.
+        /// </summary>
+        public AddOnOperationStatusResponse.ErrorDetails Error
+        {
+            get { return this._error; }
+            set { this._error = value; }
+        }
+        
+        private HttpStatusCode _httpStatusCode;
+        
+        /// <summary>
+        /// The HTTP status code for the asynchronous request.
+        /// </summary>
+        public HttpStatusCode HttpStatusCode
+        {
+            get { return this._httpStatusCode; }
+            set { this._httpStatusCode = value; }
+        }
+        
         private string _id;
         
         /// <summary>
@@ -117,30 +141,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
         {
             get { return this._status; }
             set { this._status = value; }
-        }
-        
-        private HttpStatusCode _httpStatusCode;
-        
-        /// <summary>
-        /// The HTTP status code for the asynchronous request.
-        /// </summary>
-        public HttpStatusCode HttpStatusCode
-        {
-            get { return this._httpStatusCode; }
-            set { this._httpStatusCode = value; }
-        }
-        
-        private AddOnOperationStatusResponse.ErrorDetails _error;
-        
-        /// <summary>
-        /// If the asynchronous operation failed, the response body includes
-        /// the HTTP status code for the failed request, and also includes
-        /// error information regarding the failure.
-        /// </summary>
-        public AddOnOperationStatusResponse.ErrorDetails Error
-        {
-            get { return this._error; }
-            set { this._error = value; }
         }
         
         /// <summary>
@@ -196,17 +196,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
     /// </summary>
     public partial class AddOnUpdateParameters
     {
-        private string _type;
-        
-        /// <summary>
-        /// The type of store item to be created.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
         private string _plan;
         
         /// <summary>
@@ -229,6 +218,17 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
             set { this._promotionCode = value; }
         }
         
+        private string _type;
+        
+        /// <summary>
+        /// The type of store item to be created.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the AddOnUpdateParameters class.
         /// </summary>
@@ -242,28 +242,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
     /// </summary>
     public partial class CloudServiceCreateParameters
     {
-        private string _name;
-        
-        /// <summary>
-        /// The name of the cloud service to be created.
-        /// </summary>
-        public string Name
-        {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        
-        private string _label;
-        
-        /// <summary>
-        /// The label of the cloud service to be created.
-        /// </summary>
-        public string Label
-        {
-            get { return this._label; }
-            set { this._label = value; }
-        }
-        
         private string _description;
         
         /// <summary>
@@ -284,6 +262,28 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
         {
             get { return this._geoRegion; }
             set { this._geoRegion = value; }
+        }
+        
+        private string _label;
+        
+        /// <summary>
+        /// The label of the cloud service to be created.
+        /// </summary>
+        public string Label
+        {
+            get { return this._label; }
+            set { this._label = value; }
+        }
+        
+        private string _name;
+        
+        /// <summary>
+        /// The name of the cloud service to be created.
+        /// </summary>
+        public string Name
+        {
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         /// <summary>
@@ -341,28 +341,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
         /// </summary>
         public partial class CloudService
         {
-            private string _name;
-            
-            /// <summary>
-            /// The name of the cloud service region.
-            /// </summary>
-            public string Name
-            {
-                get { return this._name; }
-                set { this._name = value; }
-            }
-            
-            private string _label;
-            
-            /// <summary>
-            /// The label of the cloud service region.
-            /// </summary>
-            public string Label
-            {
-                get { return this._label; }
-                set { this._label = value; }
-            }
-            
             private string _description;
             
             /// <summary>
@@ -383,6 +361,28 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
             {
                 get { return this._geoRegion; }
                 set { this._geoRegion = value; }
+            }
+            
+            private string _label;
+            
+            /// <summary>
+            /// The label of the cloud service region.
+            /// </summary>
+            public string Label
+            {
+                get { return this._label; }
+                set { this._label = value; }
+            }
+            
+            private string _name;
+            
+            /// <summary>
+            /// The name of the cloud service region.
+            /// </summary>
+            public string Name
+            {
+                get { return this._name; }
+                set { this._name = value; }
             }
             
             private IList<CloudServiceListResponse.CloudService.AddOnResource> _resources;
@@ -410,26 +410,15 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
             /// </summary>
             public partial class AddOnResource
             {
-                private string _namespace;
+                private string _eTag;
                 
                 /// <summary>
-                /// The namespace in which this store item resides.
+                /// The ETag for this store resource.
                 /// </summary>
-                public string Namespace
+                public string ETag
                 {
-                    get { return this._namespace; }
-                    set { this._namespace = value; }
-                }
-                
-                private string _type;
-                
-                /// <summary>
-                /// The type of store item.
-                /// </summary>
-                public string Type
-                {
-                    get { return this._type; }
-                    set { this._type = value; }
+                    get { return this._eTag; }
+                    set { this._eTag = value; }
                 }
                 
                 private string _name;
@@ -441,6 +430,28 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                 {
                     get { return this._name; }
                     set { this._name = value; }
+                }
+                
+                private string _namespace;
+                
+                /// <summary>
+                /// The namespace in which this store item resides.
+                /// </summary>
+                public string Namespace
+                {
+                    get { return this._namespace; }
+                    set { this._namespace = value; }
+                }
+                
+                private IDictionary<string, string> _outputItems;
+                
+                /// <summary>
+                /// Output items associated with an individual store resource.
+                /// </summary>
+                public IDictionary<string, string> OutputItems
+                {
+                    get { return this._outputItems; }
+                    set { this._outputItems = value; }
                 }
                 
                 private string _plan;
@@ -465,17 +476,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                     set { this._schemaVersion = value; }
                 }
                 
-                private string _eTag;
-                
-                /// <summary>
-                /// The ETag for this store resource.
-                /// </summary>
-                public string ETag
-                {
-                    get { return this._eTag; }
-                    set { this._eTag = value; }
-                }
-                
                 private string _state;
                 
                 /// <summary>
@@ -485,28 +485,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                 {
                     get { return this._state; }
                     set { this._state = value; }
-                }
-                
-                private IList<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit> _usageLimits;
-                
-                /// <summary>
-                /// Usage meters associated with an individual store resource.
-                /// </summary>
-                public IList<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit> UsageLimits
-                {
-                    get { return this._usageLimits; }
-                    set { this._usageLimits = value; }
-                }
-                
-                private IDictionary<string, string> _outputItems;
-                
-                /// <summary>
-                /// Output items associated with an individual store resource.
-                /// </summary>
-                public IDictionary<string, string> OutputItems
-                {
-                    get { return this._outputItems; }
-                    set { this._outputItems = value; }
                 }
                 
                 private CloudServiceListResponse.CloudService.AddOnResource.OperationStatus _status;
@@ -521,13 +499,70 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                     set { this._status = value; }
                 }
                 
+                private string _type;
+                
+                /// <summary>
+                /// The type of store item.
+                /// </summary>
+                public string Type
+                {
+                    get { return this._type; }
+                    set { this._type = value; }
+                }
+                
+                private IList<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit> _usageLimits;
+                
+                /// <summary>
+                /// Usage meters associated with an individual store resource.
+                /// </summary>
+                public IList<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit> UsageLimits
+                {
+                    get { return this._usageLimits; }
+                    set { this._usageLimits = value; }
+                }
+                
                 /// <summary>
                 /// Initializes a new instance of the AddOnResource class.
                 /// </summary>
                 public AddOnResource()
                 {
-                    this._usageLimits = new List<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit>();
                     this._outputItems = new Dictionary<string, string>();
+                    this._usageLimits = new List<CloudServiceListResponse.CloudService.AddOnResource.UsageLimit>();
+                }
+                
+                /// <summary>
+                /// The operation status of an individual store resource item.
+                /// </summary>
+                public partial class OperationStatus
+                {
+                    private string _result;
+                    
+                    /// <summary>
+                    /// The result of this operation status.
+                    /// </summary>
+                    public string Result
+                    {
+                        get { return this._result; }
+                        set { this._result = value; }
+                    }
+                    
+                    private string _type;
+                    
+                    /// <summary>
+                    /// The type of this operation status.
+                    /// </summary>
+                    public string Type
+                    {
+                        get { return this._type; }
+                        set { this._type = value; }
+                    }
+                    
+                    /// <summary>
+                    /// Initializes a new instance of the OperationStatus class.
+                    /// </summary>
+                    public OperationStatus()
+                    {
+                    }
                 }
                 
                 /// <summary>
@@ -536,28 +571,6 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                 /// </summary>
                 public partial class UsageLimit
                 {
-                    private string _name;
-                    
-                    /// <summary>
-                    /// The name of this usage limit.
-                    /// </summary>
-                    public string Name
-                    {
-                        get { return this._name; }
-                        set { this._name = value; }
-                    }
-                    
-                    private string _unit;
-                    
-                    /// <summary>
-                    /// The unit in which this usage limit is measured.
-                    /// </summary>
-                    public string Unit
-                    {
-                        get { return this._unit; }
-                        set { this._unit = value; }
-                    }
-                    
                     private long _amountIncluded;
                     
                     /// <summary>
@@ -582,45 +595,32 @@ namespace Microsoft.WindowsAzure.Management.Store.Models
                         set { this._amountUsed = value; }
                     }
                     
+                    private string _name;
+                    
+                    /// <summary>
+                    /// The name of this usage limit.
+                    /// </summary>
+                    public string Name
+                    {
+                        get { return this._name; }
+                        set { this._name = value; }
+                    }
+                    
+                    private string _unit;
+                    
+                    /// <summary>
+                    /// The unit in which this usage limit is measured.
+                    /// </summary>
+                    public string Unit
+                    {
+                        get { return this._unit; }
+                        set { this._unit = value; }
+                    }
+                    
                     /// <summary>
                     /// Initializes a new instance of the UsageLimit class.
                     /// </summary>
                     public UsageLimit()
-                    {
-                    }
-                }
-                
-                /// <summary>
-                /// The operation status of an individual store resource item.
-                /// </summary>
-                public partial class OperationStatus
-                {
-                    private string _type;
-                    
-                    /// <summary>
-                    /// The type of this operation status.
-                    /// </summary>
-                    public string Type
-                    {
-                        get { return this._type; }
-                        set { this._type = value; }
-                    }
-                    
-                    private string _result;
-                    
-                    /// <summary>
-                    /// The result of this operation status.
-                    /// </summary>
-                    public string Result
-                    {
-                        get { return this._result; }
-                        set { this._result = value; }
-                    }
-                    
-                    /// <summary>
-                    /// Initializes a new instance of the OperationStatus class.
-                    /// </summary>
-                    public OperationStatus()
                     {
                     }
                 }
@@ -659,6 +659,14 @@ namespace Microsoft.WindowsAzure.Management.Store
     public partial interface IStoreManagementClient
     {
         /// <summary>
+        /// The URI used as the base for all Store requests.
+        /// </summary>
+        Uri BaseUri
+        {
+            get; 
+        }
+        
+        /// <summary>
         /// When you create a Windows Azure subscription, it is uniquely
         /// identified by a subscription ID. The subscription ID forms part of
         /// the URI for every call that you make to the Service Management
@@ -668,14 +676,6 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// are allowed.
         /// </summary>
         SubscriptionCloudCredentials Credentials
-        {
-            get; 
-        }
-        
-        /// <summary>
-        /// The URI used as the base for all Store requests.
-        /// </summary>
-        Uri BaseUri
         {
             get; 
         }
@@ -818,6 +818,16 @@ namespace Microsoft.WindowsAzure.Management.Store
     /// </summary>
     public partial class StoreManagementClient : ServiceClient<StoreManagementClient>, IStoreManagementClient
     {
+        private Uri _baseUri;
+        
+        /// <summary>
+        /// The URI used as the base for all Store requests.
+        /// </summary>
+        public Uri BaseUri
+        {
+            get { return this._baseUri; }
+        }
+        
         private SubscriptionCloudCredentials _credentials;
         
         /// <summary>
@@ -832,16 +842,6 @@ namespace Microsoft.WindowsAzure.Management.Store
         public SubscriptionCloudCredentials Credentials
         {
             get { return this._credentials; }
-        }
-        
-        private Uri _baseUri;
-        
-        /// <summary>
-        /// The URI used as the base for all Store requests.
-        /// </summary>
-        public Uri BaseUri
-        {
-            get { return this._baseUri; }
         }
         
         private IAddOnOperations _addOns;
@@ -1113,7 +1113,7 @@ namespace Microsoft.WindowsAzure.Management.Store
     public partial interface IAddOnOperations
     {
         /// <summary>
-        /// The Update Store Item operation creates Windows Azure Store entries
+        /// The Create Store Item operation creates Windows Azure Store entries
         /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='cloudServiceName'>
@@ -1124,7 +1124,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// The name of this resource.
         /// </param>
         /// <param name='addOnName'>
-        /// The addon name.
+        /// The add on name.
         /// </param>
         /// <param name='parameters'>
         /// Parameters used to specify how the Create procedure will function.
@@ -1143,7 +1143,40 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        Task<AddOnOperationStatusResponse> UpdateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters, CancellationToken cancellationToken);
+        Task<AddOnOperationStatusResponse> BeginCreatingAsync(string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters, CancellationToken cancellationToken);
+        
+        /// <summary>
+        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// that re provisioned for a subscription.
+        /// </summary>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceProviderNamespace'>
+        /// The namespace in which this store item resides.
+        /// </param>
+        /// <param name='resourceProviderType'>
+        /// The type of store item to be deleted.
+        /// </param>
+        /// <param name='resourceProviderName'>
+        /// The name of this resource provider.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        Task<AddOnOperationStatusResponse> BeginDeletingAsync(string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName, CancellationToken cancellationToken);
         
         /// <summary>
         /// The Create Store Item operation creates Windows Azure Store entries
@@ -1179,40 +1212,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         Task<AddOnOperationStatusResponse> CreateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters, CancellationToken cancellationToken);
         
         /// <summary>
-        /// The Create Store Item operation creates Windows Azure Store entries
-        /// in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceName'>
-        /// The name of this resource.
-        /// </param>
-        /// <param name='addOnName'>
-        /// The add on name.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        Task<AddOnOperationStatusResponse> BeginCreatingAsync(string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters, CancellationToken cancellationToken);
-        
-        /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// The Delete Store Item operation deletes Windows Azure Storeentries
         /// that are provisioned for a subscription.
         /// </summary>
         /// <param name='cloudServiceName'>
@@ -1245,21 +1245,21 @@ namespace Microsoft.WindowsAzure.Management.Store
         Task<AddOnOperationStatusResponse> DeleteAsync(string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName, CancellationToken cancellationToken);
         
         /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
-        /// that are provisioned for a subscription.
+        /// The Update Store Item operation creates Windows Azure Store entries
+        /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='cloudServiceName'>
         /// The name of the cloud service to which this store item will be
         /// assigned.
         /// </param>
-        /// <param name='resourceProviderNamespace'>
-        /// The namespace in which this store item resides.
+        /// <param name='resourceName'>
+        /// The name of this resource.
         /// </param>
-        /// <param name='resourceProviderType'>
-        /// The type of store item to be deleted.
+        /// <param name='addOnName'>
+        /// The addon name.
         /// </param>
-        /// <param name='resourceProviderName'>
-        /// The name of this resource provider.
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
@@ -1275,7 +1275,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        Task<AddOnOperationStatusResponse> BeginDeletingAsync(string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName, CancellationToken cancellationToken);
+        Task<AddOnOperationStatusResponse> UpdateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters, CancellationToken cancellationToken);
     }
     
     /// <summary>
@@ -1285,7 +1285,7 @@ namespace Microsoft.WindowsAzure.Management.Store
     public static partial class AddOnOperationsExtensions
     {
         /// <summary>
-        /// The Update Store Item operation creates Windows Azure Store entries
+        /// The Create Store Item operation creates Windows Azure Store entries
         /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='operations'>
@@ -1300,7 +1300,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// The name of this resource.
         /// </param>
         /// <param name='addOnName'>
-        /// The addon name.
+        /// The add on name.
         /// </param>
         /// <param name='parameters'>
         /// Parameters used to specify how the Create procedure will function.
@@ -1316,11 +1316,11 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        public static AddOnOperationStatusResponse Update(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters)
+        public static AddOnOperationStatusResponse BeginCreating(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters)
         {
             try
             {
-                return operations.UpdateAsync(cloudServiceName, resourceName, addOnName, parameters).Result;
+                return operations.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters).Result;
             }
             catch (AggregateException ex)
             {
@@ -1336,7 +1336,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         }
         
         /// <summary>
-        /// The Update Store Item operation creates Windows Azure Store entries
+        /// The Create Store Item operation creates Windows Azure Store entries
         /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='operations'>
@@ -1351,7 +1351,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// The name of this resource.
         /// </param>
         /// <param name='addOnName'>
-        /// The addon name.
+        /// The add on name.
         /// </param>
         /// <param name='parameters'>
         /// Parameters used to specify how the Create procedure will function.
@@ -1367,9 +1367,97 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        public static Task<AddOnOperationStatusResponse> UpdateAsync(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters)
+        public static Task<AddOnOperationStatusResponse> BeginCreatingAsync(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters)
         {
-            return operations.UpdateAsync(cloudServiceName, resourceName, addOnName, parameters, CancellationToken.None);
+            return operations.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters, CancellationToken.None);
+        }
+        
+        /// <summary>
+        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// that re provisioned for a subscription.
+        /// </summary>
+        /// <param name='operations'>
+        /// Reference to the
+        /// Microsoft.WindowsAzure.Management.Store.IAddOnOperations.
+        /// </param>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceProviderNamespace'>
+        /// The namespace in which this store item resides.
+        /// </param>
+        /// <param name='resourceProviderType'>
+        /// The type of store item to be deleted.
+        /// </param>
+        /// <param name='resourceProviderName'>
+        /// The name of this resource provider.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public static AddOnOperationStatusResponse BeginDeleting(this IAddOnOperations operations, string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName)
+        {
+            try
+            {
+                return operations.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName).Result;
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerExceptions.Count > 1)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw ex.InnerException;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// that re provisioned for a subscription.
+        /// </summary>
+        /// <param name='operations'>
+        /// Reference to the
+        /// Microsoft.WindowsAzure.Management.Store.IAddOnOperations.
+        /// </param>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceProviderNamespace'>
+        /// The namespace in which this store item resides.
+        /// </param>
+        /// <param name='resourceProviderType'>
+        /// The type of store item to be deleted.
+        /// </param>
+        /// <param name='resourceProviderName'>
+        /// The name of this resource provider.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public static Task<AddOnOperationStatusResponse> BeginDeletingAsync(this IAddOnOperations operations, string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName)
+        {
+            return operations.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName, CancellationToken.None);
         }
         
         /// <summary>
@@ -1461,95 +1549,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         }
         
         /// <summary>
-        /// The Create Store Item operation creates Windows Azure Store entries
-        /// in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='operations'>
-        /// Reference to the
-        /// Microsoft.WindowsAzure.Management.Store.IAddOnOperations.
-        /// </param>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceName'>
-        /// The name of this resource.
-        /// </param>
-        /// <param name='addOnName'>
-        /// The add on name.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public static AddOnOperationStatusResponse BeginCreating(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters)
-        {
-            try
-            {
-                return operations.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters).Result;
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerExceptions.Count > 1)
-                {
-                    throw;
-                }
-                else
-                {
-                    throw ex.InnerException;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// The Create Store Item operation creates Windows Azure Store entries
-        /// in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='operations'>
-        /// Reference to the
-        /// Microsoft.WindowsAzure.Management.Store.IAddOnOperations.
-        /// </param>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceName'>
-        /// The name of this resource.
-        /// </param>
-        /// <param name='addOnName'>
-        /// The add on name.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public static Task<AddOnOperationStatusResponse> BeginCreatingAsync(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters)
-        {
-            return operations.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters, CancellationToken.None);
-        }
-        
-        /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// The Delete Store Item operation deletes Windows Azure Storeentries
         /// that are provisioned for a subscription.
         /// </summary>
         /// <param name='operations'>
@@ -1600,7 +1600,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         }
         
         /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
+        /// The Delete Store Item operation deletes Windows Azure Storeentries
         /// that are provisioned for a subscription.
         /// </summary>
         /// <param name='operations'>
@@ -1637,8 +1637,8 @@ namespace Microsoft.WindowsAzure.Management.Store
         }
         
         /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
-        /// that are provisioned for a subscription.
+        /// The Update Store Item operation creates Windows Azure Store entries
+        /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='operations'>
         /// Reference to the
@@ -1648,14 +1648,14 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// The name of the cloud service to which this store item will be
         /// assigned.
         /// </param>
-        /// <param name='resourceProviderNamespace'>
-        /// The namespace in which this store item resides.
+        /// <param name='resourceName'>
+        /// The name of this resource.
         /// </param>
-        /// <param name='resourceProviderType'>
-        /// The type of store item to be deleted.
+        /// <param name='addOnName'>
+        /// The addon name.
         /// </param>
-        /// <param name='resourceProviderName'>
-        /// The name of this resource provider.
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
         /// </param>
         /// <returns>
         /// The response body contains the status of the specified asynchronous
@@ -1668,11 +1668,11 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        public static AddOnOperationStatusResponse BeginDeleting(this IAddOnOperations operations, string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName)
+        public static AddOnOperationStatusResponse Update(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters)
         {
             try
             {
-                return operations.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName).Result;
+                return operations.UpdateAsync(cloudServiceName, resourceName, addOnName, parameters).Result;
             }
             catch (AggregateException ex)
             {
@@ -1688,8 +1688,8 @@ namespace Microsoft.WindowsAzure.Management.Store
         }
         
         /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
-        /// that are provisioned for a subscription.
+        /// The Update Store Item operation creates Windows Azure Store entries
+        /// in a Windows Azure subscription.
         /// </summary>
         /// <param name='operations'>
         /// Reference to the
@@ -1699,14 +1699,14 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// The name of the cloud service to which this store item will be
         /// assigned.
         /// </param>
-        /// <param name='resourceProviderNamespace'>
-        /// The namespace in which this store item resides.
+        /// <param name='resourceName'>
+        /// The name of this resource.
         /// </param>
-        /// <param name='resourceProviderType'>
-        /// The type of store item to be deleted.
+        /// <param name='addOnName'>
+        /// The addon name.
         /// </param>
-        /// <param name='resourceProviderName'>
-        /// The name of this resource provider.
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
         /// </param>
         /// <returns>
         /// The response body contains the status of the specified asynchronous
@@ -1719,9 +1719,9 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        public static Task<AddOnOperationStatusResponse> BeginDeletingAsync(this IAddOnOperations operations, string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName)
+        public static Task<AddOnOperationStatusResponse> UpdateAsync(this IAddOnOperations operations, string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters)
         {
-            return operations.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName, CancellationToken.None);
+            return operations.UpdateAsync(cloudServiceName, resourceName, addOnName, parameters, CancellationToken.None);
         }
     }
     
@@ -1751,264 +1751,6 @@ namespace Microsoft.WindowsAzure.Management.Store
         public StoreManagementClient Client
         {
             get { return this._client; }
-        }
-        
-        /// <summary>
-        /// The Update Store Item operation creates Windows Azure Store entries
-        /// in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceName'>
-        /// The name of this resource.
-        /// </param>
-        /// <param name='addOnName'>
-        /// The addon name.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public async Task<AddOnOperationStatusResponse> UpdateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters, CancellationToken cancellationToken)
-        {
-            // Validate
-            if (cloudServiceName == null)
-            {
-                throw new ArgumentNullException("cloudServiceName");
-            }
-            if (resourceName == null)
-            {
-                throw new ArgumentNullException("resourceName");
-            }
-            if (addOnName == null)
-            {
-                throw new ArgumentNullException("addOnName");
-            }
-            if (parameters == null)
-            {
-                throw new ArgumentNullException("parameters");
-            }
-            if (parameters.Type == null)
-            {
-                throw new ArgumentNullException("parameters.Type");
-            }
-            if (parameters.Plan == null)
-            {
-                throw new ArgumentNullException("parameters.Plan");
-            }
-            
-            // Tracing
-            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
-            string invocationId = null;
-            if (shouldTrace)
-            {
-                invocationId = Tracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("cloudServiceName", cloudServiceName);
-                tracingParameters.Add("resourceName", resourceName);
-                tracingParameters.Add("addOnName", addOnName);
-                tracingParameters.Add("parameters", parameters);
-                Tracing.Enter(invocationId, this, "UpdateAsync", tracingParameters);
-            }
-            
-            // Construct URL
-            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/CloudServices/" + cloudServiceName + "/resources/" + parameters.Type + "/" + resourceName + "/" + addOnName;
-            
-            // Create HTTP transport objects
-            HttpRequestMessage httpRequest = null;
-            try
-            {
-                httpRequest = new HttpRequestMessage();
-                httpRequest.Method = HttpMethod.Put;
-                httpRequest.RequestUri = new Uri(url);
-                
-                // Set Headers
-                httpRequest.Headers.Add("x-ms-version", "2013-06-01");
-                httpRequest.Headers.TryAddWithoutValidation("If-Match", "*");
-                
-                // Set Credentials
-                cancellationToken.ThrowIfCancellationRequested();
-                await this.Client.Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
-                
-                // Serialize Request
-                string requestContent = null;
-                XDocument requestDoc = new XDocument();
-                
-                XElement resourceElement = new XElement(XName.Get("Resource", "http://schemas.microsoft.com/windowsazure"));
-                requestDoc.Add(resourceElement);
-                
-                XElement typeElement = new XElement(XName.Get("Type", "http://schemas.microsoft.com/windowsazure"));
-                typeElement.Value = parameters.Type;
-                resourceElement.Add(typeElement);
-                
-                XElement planElement = new XElement(XName.Get("Plan", "http://schemas.microsoft.com/windowsazure"));
-                planElement.Value = parameters.Plan;
-                resourceElement.Add(planElement);
-                
-                if (parameters.PromotionCode != null)
-                {
-                    XElement promotionCodeElement = new XElement(XName.Get("PromotionCode", "http://schemas.microsoft.com/windowsazure"));
-                    promotionCodeElement.Value = parameters.PromotionCode;
-                    resourceElement.Add(promotionCodeElement);
-                }
-                
-                requestContent = requestDoc.ToString();
-                httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
-                httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
-                
-                // Send Request
-                HttpResponseMessage httpResponse = null;
-                try
-                {
-                    if (shouldTrace)
-                    {
-                        Tracing.SendRequest(invocationId, httpRequest);
-                    }
-                    cancellationToken.ThrowIfCancellationRequested();
-                    httpResponse = await this.Client.HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
-                    if (shouldTrace)
-                    {
-                        Tracing.ReceiveResponse(invocationId, httpResponse);
-                    }
-                    HttpStatusCode statusCode = httpResponse.StatusCode;
-                    if (statusCode != HttpStatusCode.Accepted)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                        CloudException ex = CloudException.CreateFromXml(httpRequest, requestContent, httpResponse, await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false));
-                        if (shouldTrace)
-                        {
-                            Tracing.Error(invocationId, ex);
-                        }
-                        throw ex;
-                    }
-                    
-                    // Create Result
-                    AddOnOperationStatusResponse result = new AddOnOperationStatusResponse();
-                    result.StatusCode = statusCode;
-                    if (httpResponse.Headers.Contains("x-ms-request-id"))
-                    {
-                        result.RequestId = httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                    }
-                    
-                    if (shouldTrace)
-                    {
-                        Tracing.Exit(invocationId, result);
-                    }
-                    return result;
-                }
-                finally
-                {
-                    if (httpResponse != null)
-                    {
-                        httpResponse.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (httpRequest != null)
-                {
-                    httpRequest.Dispose();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// The Create Store Item operation creates Windows Azure Store entries
-        /// in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceName'>
-        /// The name of this resource.
-        /// </param>
-        /// <param name='addOnName'>
-        /// The add on name.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public async Task<AddOnOperationStatusResponse> CreateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters, CancellationToken cancellationToken)
-        {
-            StoreManagementClient client = this.Client;
-            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
-            string invocationId = null;
-            if (shouldTrace)
-            {
-                invocationId = Tracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("cloudServiceName", cloudServiceName);
-                tracingParameters.Add("resourceName", resourceName);
-                tracingParameters.Add("addOnName", addOnName);
-                tracingParameters.Add("parameters", parameters);
-                Tracing.Enter(invocationId, this, "CreateAsync", tracingParameters);
-            }
-            try
-            {
-                if (shouldTrace)
-                {
-                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
-                }
-                
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse originalResponse = await client.AddOns.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters, cancellationToken).ConfigureAwait(false);
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
-                while (result.Status == OperationStatus.InProgress)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
-                    cancellationToken.ThrowIfCancellationRequested();
-                    result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                    delayInSeconds = 30;
-                }
-                
-                if (shouldTrace)
-                {
-                    Tracing.Exit(invocationId, result);
-                }
-                
-                return result;
-            }
-            finally
-            {
-                if (client != null && shouldTrace)
-                {
-                    client.Dispose();
-                }
-            }
         }
         
         /// <summary>
@@ -2061,13 +1803,13 @@ namespace Microsoft.WindowsAzure.Management.Store
             {
                 throw new ArgumentNullException("parameters");
             }
-            if (parameters.Type == null)
-            {
-                throw new ArgumentNullException("parameters.Type");
-            }
             if (parameters.Plan == null)
             {
                 throw new ArgumentNullException("parameters.Plan");
+            }
+            if (parameters.Type == null)
+            {
+                throw new ArgumentNullException("parameters.Type");
             }
             
             // Tracing
@@ -2187,90 +1929,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         
         /// <summary>
         /// The Delete Store Item operation deletes Windows Azure Store entries
-        /// that are provisioned for a subscription.
-        /// </summary>
-        /// <param name='cloudServiceName'>
-        /// The name of the cloud service to which this store item will be
-        /// assigned.
-        /// </param>
-        /// <param name='resourceProviderNamespace'>
-        /// The namespace in which this store item resides.
-        /// </param>
-        /// <param name='resourceProviderType'>
-        /// The type of store item to be deleted.
-        /// </param>
-        /// <param name='resourceProviderName'>
-        /// The name of this resource provider.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public async Task<AddOnOperationStatusResponse> DeleteAsync(string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName, CancellationToken cancellationToken)
-        {
-            StoreManagementClient client = this.Client;
-            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
-            string invocationId = null;
-            if (shouldTrace)
-            {
-                invocationId = Tracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("cloudServiceName", cloudServiceName);
-                tracingParameters.Add("resourceProviderNamespace", resourceProviderNamespace);
-                tracingParameters.Add("resourceProviderType", resourceProviderType);
-                tracingParameters.Add("resourceProviderName", resourceProviderName);
-                Tracing.Enter(invocationId, this, "DeleteAsync", tracingParameters);
-            }
-            try
-            {
-                if (shouldTrace)
-                {
-                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
-                }
-                
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse originalResponse = await client.AddOns.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName, cancellationToken).ConfigureAwait(false);
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
-                while (result.Status == OperationStatus.InProgress)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
-                    cancellationToken.ThrowIfCancellationRequested();
-                    result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                    delayInSeconds = 30;
-                }
-                
-                if (shouldTrace)
-                {
-                    Tracing.Exit(invocationId, result);
-                }
-                
-                return result;
-            }
-            finally
-            {
-                if (client != null && shouldTrace)
-                {
-                    client.Dispose();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// The Delete Store Item operation deletes Windows Azure Store entries
-        /// that are provisioned for a subscription.
+        /// that re provisioned for a subscription.
         /// </summary>
         /// <param name='cloudServiceName'>
         /// The name of the cloud service to which this store item will be
@@ -2407,6 +2066,371 @@ namespace Microsoft.WindowsAzure.Management.Store
                 }
             }
         }
+        
+        /// <summary>
+        /// The Create Store Item operation creates Windows Azure Store entries
+        /// in a Windows Azure subscription.
+        /// </summary>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceName'>
+        /// The name of this resource.
+        /// </param>
+        /// <param name='addOnName'>
+        /// The add on name.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public async Task<AddOnOperationStatusResponse> CreateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnCreateParameters parameters, CancellationToken cancellationToken)
+        {
+            StoreManagementClient client = this.Client;
+            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = Tracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("cloudServiceName", cloudServiceName);
+                tracingParameters.Add("resourceName", resourceName);
+                tracingParameters.Add("addOnName", addOnName);
+                tracingParameters.Add("parameters", parameters);
+                Tracing.Enter(invocationId, this, "CreateAsync", tracingParameters);
+            }
+            try
+            {
+                if (shouldTrace)
+                {
+                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
+                }
+                
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse response = await client.AddOns.BeginCreatingAsync(cloudServiceName, resourceName, addOnName, parameters, cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                int delayInSeconds = 30;
+                while ((result.Status != OperationStatus.InProgress) == false)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
+                    cancellationToken.ThrowIfCancellationRequested();
+                    result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                    delayInSeconds = 30;
+                }
+                
+                if (shouldTrace)
+                {
+                    Tracing.Exit(invocationId, result);
+                }
+                
+                if (result.Status != OperationStatus.Succeeded)
+                {
+                    CloudException ex = new CloudException(result.Error.Code + " : " + result.Error.Message);
+                    ex.ErrorCode = result.Error.Code;
+                    ex.ErrorMessage = result.Error.Message;
+                    if (shouldTrace)
+                    {
+                        Tracing.Error(invocationId, ex);
+                    }
+                    throw ex;
+                }
+                
+                return result;
+            }
+            finally
+            {
+                if (client != null && shouldTrace)
+                {
+                    client.Dispose();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The Delete Store Item operation deletes Windows Azure Storeentries
+        /// that are provisioned for a subscription.
+        /// </summary>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceProviderNamespace'>
+        /// The namespace in which this store item resides.
+        /// </param>
+        /// <param name='resourceProviderType'>
+        /// The type of store item to be deleted.
+        /// </param>
+        /// <param name='resourceProviderName'>
+        /// The name of this resource provider.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public async Task<AddOnOperationStatusResponse> DeleteAsync(string cloudServiceName, string resourceProviderNamespace, string resourceProviderType, string resourceProviderName, CancellationToken cancellationToken)
+        {
+            StoreManagementClient client = this.Client;
+            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = Tracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("cloudServiceName", cloudServiceName);
+                tracingParameters.Add("resourceProviderNamespace", resourceProviderNamespace);
+                tracingParameters.Add("resourceProviderType", resourceProviderType);
+                tracingParameters.Add("resourceProviderName", resourceProviderName);
+                Tracing.Enter(invocationId, this, "DeleteAsync", tracingParameters);
+            }
+            try
+            {
+                if (shouldTrace)
+                {
+                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
+                }
+                
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse response = await client.AddOns.BeginDeletingAsync(cloudServiceName, resourceProviderNamespace, resourceProviderType, resourceProviderName, cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                int delayInSeconds = 30;
+                while ((result.Status != OperationStatus.InProgress) == false)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
+                    cancellationToken.ThrowIfCancellationRequested();
+                    result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                    delayInSeconds = 30;
+                }
+                
+                if (shouldTrace)
+                {
+                    Tracing.Exit(invocationId, result);
+                }
+                
+                if (result.Status != OperationStatus.Succeeded)
+                {
+                    CloudException ex = new CloudException(result.Error.Code + " : " + result.Error.Message);
+                    ex.ErrorCode = result.Error.Code;
+                    ex.ErrorMessage = result.Error.Message;
+                    if (shouldTrace)
+                    {
+                        Tracing.Error(invocationId, ex);
+                    }
+                    throw ex;
+                }
+                
+                return result;
+            }
+            finally
+            {
+                if (client != null && shouldTrace)
+                {
+                    client.Dispose();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The Update Store Item operation creates Windows Azure Store entries
+        /// in a Windows Azure subscription.
+        /// </summary>
+        /// <param name='cloudServiceName'>
+        /// The name of the cloud service to which this store item will be
+        /// assigned.
+        /// </param>
+        /// <param name='resourceName'>
+        /// The name of this resource.
+        /// </param>
+        /// <param name='addOnName'>
+        /// The addon name.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public async Task<AddOnOperationStatusResponse> UpdateAsync(string cloudServiceName, string resourceName, string addOnName, AddOnUpdateParameters parameters, CancellationToken cancellationToken)
+        {
+            // Validate
+            if (cloudServiceName == null)
+            {
+                throw new ArgumentNullException("cloudServiceName");
+            }
+            if (resourceName == null)
+            {
+                throw new ArgumentNullException("resourceName");
+            }
+            if (addOnName == null)
+            {
+                throw new ArgumentNullException("addOnName");
+            }
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("parameters");
+            }
+            if (parameters.Plan == null)
+            {
+                throw new ArgumentNullException("parameters.Plan");
+            }
+            if (parameters.Type == null)
+            {
+                throw new ArgumentNullException("parameters.Type");
+            }
+            
+            // Tracing
+            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = Tracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("cloudServiceName", cloudServiceName);
+                tracingParameters.Add("resourceName", resourceName);
+                tracingParameters.Add("addOnName", addOnName);
+                tracingParameters.Add("parameters", parameters);
+                Tracing.Enter(invocationId, this, "UpdateAsync", tracingParameters);
+            }
+            
+            // Construct URL
+            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/CloudServices/" + cloudServiceName + "/resources/" + parameters.Type + "/" + resourceName + "/" + addOnName;
+            
+            // Create HTTP transport objects
+            HttpRequestMessage httpRequest = null;
+            try
+            {
+                httpRequest = new HttpRequestMessage();
+                httpRequest.Method = HttpMethod.Put;
+                httpRequest.RequestUri = new Uri(url);
+                
+                // Set Headers
+                httpRequest.Headers.TryAddWithoutValidation("If-Match", "*");
+                httpRequest.Headers.Add("x-ms-version", "2013-06-01");
+                
+                // Set Credentials
+                cancellationToken.ThrowIfCancellationRequested();
+                await this.Client.Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+                
+                // Serialize Request
+                string requestContent = null;
+                XDocument requestDoc = new XDocument();
+                
+                XElement resourceElement = new XElement(XName.Get("Resource", "http://schemas.microsoft.com/windowsazure"));
+                requestDoc.Add(resourceElement);
+                
+                XElement typeElement = new XElement(XName.Get("Type", "http://schemas.microsoft.com/windowsazure"));
+                typeElement.Value = parameters.Type;
+                resourceElement.Add(typeElement);
+                
+                XElement planElement = new XElement(XName.Get("Plan", "http://schemas.microsoft.com/windowsazure"));
+                planElement.Value = parameters.Plan;
+                resourceElement.Add(planElement);
+                
+                if (parameters.PromotionCode != null)
+                {
+                    XElement promotionCodeElement = new XElement(XName.Get("PromotionCode", "http://schemas.microsoft.com/windowsazure"));
+                    promotionCodeElement.Value = parameters.PromotionCode;
+                    resourceElement.Add(promotionCodeElement);
+                }
+                
+                requestContent = requestDoc.ToString();
+                httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
+                httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
+                
+                // Send Request
+                HttpResponseMessage httpResponse = null;
+                try
+                {
+                    if (shouldTrace)
+                    {
+                        Tracing.SendRequest(invocationId, httpRequest);
+                    }
+                    cancellationToken.ThrowIfCancellationRequested();
+                    httpResponse = await this.Client.HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+                    if (shouldTrace)
+                    {
+                        Tracing.ReceiveResponse(invocationId, httpResponse);
+                    }
+                    HttpStatusCode statusCode = httpResponse.StatusCode;
+                    if (statusCode != HttpStatusCode.Accepted)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        CloudException ex = CloudException.CreateFromXml(httpRequest, requestContent, httpResponse, await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false));
+                        if (shouldTrace)
+                        {
+                            Tracing.Error(invocationId, ex);
+                        }
+                        throw ex;
+                    }
+                    
+                    // Create Result
+                    AddOnOperationStatusResponse result = new AddOnOperationStatusResponse();
+                    result.StatusCode = statusCode;
+                    if (httpResponse.Headers.Contains("x-ms-request-id"))
+                    {
+                        result.RequestId = httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+                    }
+                    
+                    if (shouldTrace)
+                    {
+                        Tracing.Exit(invocationId, result);
+                    }
+                    return result;
+                }
+                finally
+                {
+                    if (httpResponse != null)
+                    {
+                        httpResponse.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (httpRequest != null)
+                {
+                    httpRequest.Dispose();
+                }
+            }
+        }
     }
     
     /// <summary>
@@ -2436,7 +2460,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        Task<AddOnOperationStatusResponse> CreateAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken);
+        Task<AddOnOperationStatusResponse> BeginCreatingAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken);
         
         /// <summary>
         /// The Create Cloud Service operation creates a Windows Azure cloud
@@ -2459,7 +2483,7 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        Task<AddOnOperationStatusResponse> BeginCreatingAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken);
+        Task<AddOnOperationStatusResponse> CreateAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken);
         
         /// <summary>
         /// The Get Cloud Services operation enumerates Windows Azure Store
@@ -2480,74 +2504,6 @@ namespace Microsoft.WindowsAzure.Management.Store
     /// </summary>
     public static partial class CloudServiceOperationsExtensions
     {
-        /// <summary>
-        /// The Create Cloud Service operation creates a Windows Azure cloud
-        /// service in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='operations'>
-        /// Reference to the
-        /// Microsoft.WindowsAzure.Management.Store.ICloudServiceOperations.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public static AddOnOperationStatusResponse Create(this ICloudServiceOperations operations, CloudServiceCreateParameters parameters)
-        {
-            try
-            {
-                return operations.CreateAsync(parameters).Result;
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerExceptions.Count > 1)
-                {
-                    throw;
-                }
-                else
-                {
-                    throw ex.InnerException;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// The Create Cloud Service operation creates a Windows Azure cloud
-        /// service in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='operations'>
-        /// Reference to the
-        /// Microsoft.WindowsAzure.Management.Store.ICloudServiceOperations.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
-        public static Task<AddOnOperationStatusResponse> CreateAsync(this ICloudServiceOperations operations, CloudServiceCreateParameters parameters)
-        {
-            return operations.CreateAsync(parameters, CancellationToken.None);
-        }
-        
         /// <summary>
         /// The Create Cloud Service operation creates a Windows Azure cloud
         /// service in a Windows Azure subscription.
@@ -2614,6 +2570,74 @@ namespace Microsoft.WindowsAzure.Management.Store
         public static Task<AddOnOperationStatusResponse> BeginCreatingAsync(this ICloudServiceOperations operations, CloudServiceCreateParameters parameters)
         {
             return operations.BeginCreatingAsync(parameters, CancellationToken.None);
+        }
+        
+        /// <summary>
+        /// The Create Cloud Service operation creates a Windows Azure cloud
+        /// service in a Windows Azure subscription.
+        /// </summary>
+        /// <param name='operations'>
+        /// Reference to the
+        /// Microsoft.WindowsAzure.Management.Store.ICloudServiceOperations.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public static AddOnOperationStatusResponse Create(this ICloudServiceOperations operations, CloudServiceCreateParameters parameters)
+        {
+            try
+            {
+                return operations.CreateAsync(parameters).Result;
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerExceptions.Count > 1)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw ex.InnerException;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The Create Cloud Service operation creates a Windows Azure cloud
+        /// service in a Windows Azure subscription.
+        /// </summary>
+        /// <param name='operations'>
+        /// Reference to the
+        /// Microsoft.WindowsAzure.Management.Store.ICloudServiceOperations.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public static Task<AddOnOperationStatusResponse> CreateAsync(this ICloudServiceOperations operations, CloudServiceCreateParameters parameters)
+        {
+            return operations.CreateAsync(parameters, CancellationToken.None);
         }
         
         /// <summary>
@@ -2712,90 +2736,12 @@ namespace Microsoft.WindowsAzure.Management.Store
         /// status code for the failed request, and also includes error
         /// information regarding the failure.
         /// </returns>
-        public async Task<AddOnOperationStatusResponse> CreateAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken)
-        {
-            StoreManagementClient client = this.Client;
-            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
-            string invocationId = null;
-            if (shouldTrace)
-            {
-                invocationId = Tracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("parameters", parameters);
-                Tracing.Enter(invocationId, this, "CreateAsync", tracingParameters);
-            }
-            try
-            {
-                if (shouldTrace)
-                {
-                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
-                }
-                
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse originalResponse = await client.CloudServices.BeginCreatingAsync(parameters, cancellationToken).ConfigureAwait(false);
-                cancellationToken.ThrowIfCancellationRequested();
-                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                int delayInSeconds = 100;
-                while (result.Status == OperationStatus.InProgress)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
-                    cancellationToken.ThrowIfCancellationRequested();
-                    result = await client.GetOperationStatusAsync(originalResponse.RequestId, cancellationToken).ConfigureAwait(false);
-                    delayInSeconds = 30;
-                }
-                
-                if (shouldTrace)
-                {
-                    Tracing.Exit(invocationId, result);
-                }
-                
-                return result;
-            }
-            finally
-            {
-                if (client != null && shouldTrace)
-                {
-                    client.Dispose();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// The Create Cloud Service operation creates a Windows Azure cloud
-        /// service in a Windows Azure subscription.
-        /// </summary>
-        /// <param name='parameters'>
-        /// Parameters used to specify how the Create procedure will function.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        /// <returns>
-        /// The response body contains the status of the specified asynchronous
-        /// operation, indicating whether it has succeeded, is inprogress, or
-        /// has failed. Note that this status is distinct from the HTTP status
-        /// code returned for the Get Operation Status operation itself.  If
-        /// the asynchronous operation succeeded, the response body includes
-        /// the HTTP status code for the successful request.  If the
-        /// asynchronous operation failed, the response body includes the HTTP
-        /// status code for the failed request, and also includes error
-        /// information regarding the failure.
-        /// </returns>
         public async Task<AddOnOperationStatusResponse> BeginCreatingAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken)
         {
             // Validate
             if (parameters == null)
             {
                 throw new ArgumentNullException("parameters");
-            }
-            if (parameters.Name == null)
-            {
-                throw new ArgumentNullException("parameters.Name");
-            }
-            if (parameters.Label == null)
-            {
-                throw new ArgumentNullException("parameters.Label");
             }
             if (parameters.Description == null)
             {
@@ -2804,6 +2750,14 @@ namespace Microsoft.WindowsAzure.Management.Store
             if (parameters.GeoRegion == null)
             {
                 throw new ArgumentNullException("parameters.GeoRegion");
+            }
+            if (parameters.Label == null)
+            {
+                throw new ArgumentNullException("parameters.Label");
+            }
+            if (parameters.Name == null)
+            {
+                throw new ArgumentNullException("parameters.Name");
             }
             
             // Tracing
@@ -2915,6 +2869,88 @@ namespace Microsoft.WindowsAzure.Management.Store
                 if (httpRequest != null)
                 {
                     httpRequest.Dispose();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The Create Cloud Service operation creates a Windows Azure cloud
+        /// service in a Windows Azure subscription.
+        /// </summary>
+        /// <param name='parameters'>
+        /// Parameters used to specify how the Create procedure will function.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// The response body contains the status of the specified asynchronous
+        /// operation, indicating whether it has succeeded, is inprogress, or
+        /// has failed. Note that this status is distinct from the HTTP status
+        /// code returned for the Get Operation Status operation itself.  If
+        /// the asynchronous operation succeeded, the response body includes
+        /// the HTTP status code for the successful request.  If the
+        /// asynchronous operation failed, the response body includes the HTTP
+        /// status code for the failed request, and also includes error
+        /// information regarding the failure.
+        /// </returns>
+        public async Task<AddOnOperationStatusResponse> CreateAsync(CloudServiceCreateParameters parameters, CancellationToken cancellationToken)
+        {
+            StoreManagementClient client = this.Client;
+            bool shouldTrace = CloudContext.Configuration.Tracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = Tracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("parameters", parameters);
+                Tracing.Enter(invocationId, this, "CreateAsync", tracingParameters);
+            }
+            try
+            {
+                if (shouldTrace)
+                {
+                    client = this.Client.WithHandler(new ClientRequestTrackingHandler(invocationId));
+                }
+                
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse response = await client.CloudServices.BeginCreatingAsync(parameters, cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+                AddOnOperationStatusResponse result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                int delayInSeconds = 30;
+                while ((result.Status != OperationStatus.InProgress) == false)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await TaskEx.Delay(delayInSeconds * 1000, cancellationToken).ConfigureAwait(false);
+                    cancellationToken.ThrowIfCancellationRequested();
+                    result = await client.GetOperationStatusAsync(response.RequestId, cancellationToken).ConfigureAwait(false);
+                    delayInSeconds = 30;
+                }
+                
+                if (shouldTrace)
+                {
+                    Tracing.Exit(invocationId, result);
+                }
+                
+                if (result.Status != OperationStatus.Succeeded)
+                {
+                    CloudException ex = new CloudException(result.Error.Code + " : " + result.Error.Message);
+                    ex.ErrorCode = result.Error.Code;
+                    ex.ErrorMessage = result.Error.Message;
+                    if (shouldTrace)
+                    {
+                        Tracing.Error(invocationId, ex);
+                    }
+                    throw ex;
+                }
+                
+                return result;
+            }
+            finally
+            {
+                if (client != null && shouldTrace)
+                {
+                    client.Dispose();
                 }
             }
         }

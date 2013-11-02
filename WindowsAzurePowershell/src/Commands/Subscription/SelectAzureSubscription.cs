@@ -101,9 +101,12 @@ namespace Microsoft.WindowsAzure.Commands.Subscription
 
         public void ClearDefault()
         {
-            var defaultSubscription = Profile.DefaultSubscription;
-            defaultSubscription.IsDefault = false;
-            Profile.UpdateSubscription(defaultSubscription);
+            if (Profile.DefaultSubscription != null)
+            {
+                var defaultSubscription = Profile.DefaultSubscription;
+                defaultSubscription.IsDefault = false;
+                Profile.UpdateSubscription(defaultSubscription);
+            }
         }
 
         private WindowsAzureSubscription FindNamedSubscription()

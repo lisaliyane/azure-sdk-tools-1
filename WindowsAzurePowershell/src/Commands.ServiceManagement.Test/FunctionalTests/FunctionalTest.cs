@@ -195,36 +195,51 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             try
             {
                 vmPowershellCmdlets.NewAzureService(serviceName, locationName);
-                vmPowershellCmdlets.AddAzureCertificate(serviceName, certToUpload);
-
-                CertificateSettingList certList = new CertificateSettingList();
+                var certList = new CertificateSettingList();
                 certList.Add(vmPowershellCmdlets.NewAzureCertificateSetting(certStoreName.ToString(), installedCert.Thumbprint));
 
-                AzureVMConfigInfo azureVMConfigInfo = new AzureVMConfigInfo(vmName, InstanceSize.Small, imageName);
-                AzureProvisioningConfigInfo azureProvisioningConfig = new AzureProvisioningConfigInfo(OS.Windows, certList, username, password);
-
-                PersistentVMConfigInfo persistentVMConfigInfo = new PersistentVMConfigInfo(azureVMConfigInfo, azureProvisioningConfig, null, null);
-
+                var azureVMConfigInfo = new AzureVMConfigInfo(vmName, InstanceSize.Small, imageName);
+                var azureProvisioningConfig = new AzureProvisioningConfigInfo(OS.Windows, certList, username, password);
+                var persistentVMConfigInfo = new PersistentVMConfigInfo(azureVMConfigInfo, azureProvisioningConfig, null, null);
                 PersistentVM vm = vmPowershellCmdlets.GetPersistentVM(persistentVMConfigInfo);
 
+                // Negative Test:
+                //   Try to deploy a VM with a certificate that does not exist in the hosted service.
+                //   This should fail.
+                try
+                {
+                    vmPowershellCmdlets.NewAzureVM(serviceName, new[] { vm });
+                    Assert.Fail(
+                        "Should have failed, but it succeeded !!  New-AzureVM should fail if it contains a thumbprint that does not exist in the hosted service.");
+                }
+                catch (Exception e)
+                {
+                    if (e is AssertFailedException)
+                    {
+                        throw;
+                    }
+                    Console.WriteLine("This exception is expected: {0}", e);
+                }
+
+                // Now we add the certificate to the hosted service.
+                vmPowershellCmdlets.AddAzureCertificate(serviceName, certToUpload);
                 vmPowershellCmdlets.NewAzureVM(serviceName, new[] { vm });
 
                 PersistentVMRoleContext result = vmPowershellCmdlets.GetAzureVM(vmName, serviceName);
-
                 Console.WriteLine("{0} is created", result.Name);
 
                 pass = true;
             }
             catch (Exception e)
             {
-                pass = false;                
-                Assert.Fail(e.ToString());
+                Console.WriteLine(e);
+                Console.WriteLine(e.InnerException);
+                throw;
             }
             finally
             {
                 Utilities.UninstallCert(installedCert, certStoreLocation, certStoreName);
             }
-
         }
 
         /// <summary>
@@ -929,6 +944,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             {
                 pass = false;
 
+                Assert.Fail("Exception occurred: {0}", e);
+
                 // Clean-up storage if it is not removed.
                 foreach (string storage in storageName)
                 {
@@ -944,8 +961,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
                 {
                     vmPowershellCmdlets.RemoveAzureAffinityGroup(affinityGroupName);
                 }
-
-                Assert.Fail("Exception occurred: {0}", e.ToString());
             }            
         }
 

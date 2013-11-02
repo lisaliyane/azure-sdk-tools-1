@@ -89,9 +89,16 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
 
         protected override void ProcessRecord()
         {
-            HttpRestCallLogger.CurrentCmdlet = this;
-            base.ProcessRecord();
-            ExecuteCmdlet();
+            try
+            {
+                HttpRestCallLogger.CurrentCmdlet = this;
+                base.ProcessRecord();
+                ExecuteCmdlet();
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionError(ex);
+            }
         }
 
         /// <summary>

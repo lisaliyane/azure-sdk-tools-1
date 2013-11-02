@@ -77,17 +77,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         /// </summary>
         public partial class BlobCredentialsParameter
         {
-            private Uri _uri;
-            
-            /// <summary>
-            /// The URI of the DAC file in stored in Windows Azure Blob Storage.
-            /// </summary>
-            public Uri Uri
-            {
-                get { return this._uri; }
-                set { this._uri = value; }
-            }
-            
             private string _storageAccessKey;
             
             /// <summary>
@@ -97,6 +86,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             {
                 get { return this._storageAccessKey; }
                 set { this._storageAccessKey = value; }
+            }
+            
+            private Uri _uri;
+            
+            /// <summary>
+            /// The URI of the DAC file in stored in Windows Azure Blob Storage.
+            /// </summary>
+            public Uri Uri
+            {
+                get { return this._uri; }
+                set { this._uri = value; }
             }
             
             /// <summary>
@@ -398,14 +398,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         /// </summary>
         public partial class BlobCredentialsParameter
         {
-            private Uri _uri;
-            
-            public Uri Uri
-            {
-                get { return this._uri; }
-                set { this._uri = value; }
-            }
-            
             private string _storageAccessKey;
             
             /// <summary>
@@ -415,6 +407,14 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             {
                 get { return this._storageAccessKey; }
                 set { this._storageAccessKey = value; }
+            }
+            
+            private Uri _uri;
+            
+            public Uri Uri
+            {
+                get { return this._uri; }
+                set { this._uri = value; }
             }
             
             /// <summary>
@@ -489,15 +489,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     /// </summary>
     public partial class DatabaseCreateParameters
     {
-        private string _name;
+        private string _collationName;
         
         /// <summary>
-        /// The name for the new database.
+        /// The collation name for the new database.
         /// </summary>
-        public string Name
+        public string CollationName
         {
-            get { return this._name; }
-            set { this._name = value; }
+            get { return this._collationName; }
+            set { this._collationName = value; }
         }
         
         private string _edition;
@@ -522,15 +522,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._maximumDatabaseSizeInGB = value; }
         }
         
-        private string _collationName;
+        private string _name;
         
         /// <summary>
-        /// The collation name for the new database.
+        /// The name for the new database.
         /// </summary>
-        public string CollationName
+        public string Name
         {
-            get { return this._collationName; }
-            set { this._collationName = value; }
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         private string _serviceObjectiveId;
@@ -553,77 +553,11 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class DatabaseCreateResponse : OperationResponse
     {
-        private string _name;
-        
-        /// <summary>
-        /// The name of the database.
-        /// </summary>
-        public string Name
-        {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        
-        private int _id;
-        
-        /// <summary>
-        /// The id of the database.
-        /// </summary>
-        public int Id
-        {
-            get { return this._id; }
-            set { this._id = value; }
-        }
-        
-        private string _type;
-        
-        /// <summary>
-        /// The type of resource.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
-        private string _state;
-        
-        /// <summary>
-        /// The state of the database.
-        /// </summary>
-        public string State
-        {
-            get { return this._state; }
-            set { this._state = value; }
-        }
-        
-        private string _edition;
-        
-        /// <summary>
-        /// This database resource's edition.
-        /// </summary>
-        public string Edition
-        {
-            get { return this._edition; }
-            set { this._edition = value; }
-        }
-        
-        private long _maximumDatabaseSizeInGB;
-        
-        /// <summary>
-        /// Maximum size of this database, in Gigabytes.
-        /// </summary>
-        public long MaximumDatabaseSizeInGB
-        {
-            get { return this._maximumDatabaseSizeInGB; }
-            set { this._maximumDatabaseSizeInGB = value; }
-        }
-        
         private string _collationName;
         
         /// <summary>
@@ -644,6 +578,28 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._creationDate; }
             set { this._creationDate = value; }
+        }
+        
+        private string _edition;
+        
+        /// <summary>
+        /// This database resource's edition.
+        /// </summary>
+        public string Edition
+        {
+            get { return this._edition; }
+            set { this._edition = value; }
+        }
+        
+        private int _id;
+        
+        /// <summary>
+        /// The id of the database.
+        /// </summary>
+        public int Id
+        {
+            get { return this._id; }
+            set { this._id = value; }
         }
         
         private bool _isFederationRoot;
@@ -668,15 +624,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._isSystemObject = value; }
         }
         
-        private string _sizeMB;
+        private long _maximumDatabaseSizeInGB;
         
         /// <summary>
-        /// The size of this database in megabytes (MB).
+        /// Maximum size of this database, in Gigabytes.
         /// </summary>
-        public string SizeMB
+        public long MaximumDatabaseSizeInGB
         {
-            get { return this._sizeMB; }
-            set { this._sizeMB = value; }
+            get { return this._maximumDatabaseSizeInGB; }
+            set { this._maximumDatabaseSizeInGB = value; }
+        }
+        
+        private string _name;
+        
+        /// <summary>
+        /// The name of the database.
+        /// </summary>
+        public string Name
+        {
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         private string _serviceObjectiveAssignmentErrorCode;
@@ -743,6 +710,39 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._serviceObjectiveId; }
             set { this._serviceObjectiveId = value; }
+        }
+        
+        private string _sizeMB;
+        
+        /// <summary>
+        /// The size of this database in megabytes (MB).
+        /// </summary>
+        public string SizeMB
+        {
+            get { return this._sizeMB; }
+            set { this._sizeMB = value; }
+        }
+        
+        private string _state;
+        
+        /// <summary>
+        /// The state of the database.
+        /// </summary>
+        public string State
+        {
+            get { return this._state; }
+            set { this._state = value; }
+        }
+        
+        private string _type;
+        
+        /// <summary>
+        /// The type of resource.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
         }
         
         /// <summary>
@@ -776,77 +776,11 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class DatabaseGetResponse : OperationResponse
     {
-        private string _name;
-        
-        /// <summary>
-        /// The name of the database.
-        /// </summary>
-        public string Name
-        {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        
-        private int _id;
-        
-        /// <summary>
-        /// The id of the database.
-        /// </summary>
-        public int Id
-        {
-            get { return this._id; }
-            set { this._id = value; }
-        }
-        
-        private string _type;
-        
-        /// <summary>
-        /// The type of resource.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
-        private string _state;
-        
-        /// <summary>
-        /// The state of the database.
-        /// </summary>
-        public string State
-        {
-            get { return this._state; }
-            set { this._state = value; }
-        }
-        
-        private string _edition;
-        
-        /// <summary>
-        /// This database resource's edition.
-        /// </summary>
-        public string Edition
-        {
-            get { return this._edition; }
-            set { this._edition = value; }
-        }
-        
-        private long _maximumDatabaseSizeInGB;
-        
-        /// <summary>
-        /// Maximum size of this database, in Gigabytes.
-        /// </summary>
-        public long MaximumDatabaseSizeInGB
-        {
-            get { return this._maximumDatabaseSizeInGB; }
-            set { this._maximumDatabaseSizeInGB = value; }
-        }
-        
         private string _collationName;
         
         /// <summary>
@@ -867,6 +801,28 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._creationDate; }
             set { this._creationDate = value; }
+        }
+        
+        private string _edition;
+        
+        /// <summary>
+        /// This database resource's edition.
+        /// </summary>
+        public string Edition
+        {
+            get { return this._edition; }
+            set { this._edition = value; }
+        }
+        
+        private int _id;
+        
+        /// <summary>
+        /// The id of the database.
+        /// </summary>
+        public int Id
+        {
+            get { return this._id; }
+            set { this._id = value; }
         }
         
         private bool _isFederationRoot;
@@ -891,15 +847,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._isSystemObject = value; }
         }
         
-        private string _sizeMB;
+        private long _maximumDatabaseSizeInGB;
         
         /// <summary>
-        /// The size of this database in megabytes (MB).
+        /// Maximum size of this database, in Gigabytes.
         /// </summary>
-        public string SizeMB
+        public long MaximumDatabaseSizeInGB
         {
-            get { return this._sizeMB; }
-            set { this._sizeMB = value; }
+            get { return this._maximumDatabaseSizeInGB; }
+            set { this._maximumDatabaseSizeInGB = value; }
+        }
+        
+        private string _name;
+        
+        /// <summary>
+        /// The name of the database.
+        /// </summary>
+        public string Name
+        {
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         private string _serviceObjectiveAssignmentErrorCode;
@@ -966,6 +933,39 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._serviceObjectiveId; }
             set { this._serviceObjectiveId = value; }
+        }
+        
+        private string _sizeMB;
+        
+        /// <summary>
+        /// The size of this database in megabytes (MB).
+        /// </summary>
+        public string SizeMB
+        {
+            get { return this._sizeMB; }
+            set { this._sizeMB = value; }
+        }
+        
+        private string _state;
+        
+        /// <summary>
+        /// The state of the database.
+        /// </summary>
+        public string State
+        {
+            get { return this._state; }
+            set { this._state = value; }
+        }
+        
+        private string _type;
+        
+        /// <summary>
+        /// The type of resource.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
         }
         
         /// <summary>
@@ -1018,72 +1018,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         
         public partial class Database
         {
-            private string _name;
-            
-            /// <summary>
-            /// The name of the database.
-            /// </summary>
-            public string Name
-            {
-                get { return this._name; }
-                set { this._name = value; }
-            }
-            
-            private int _id;
-            
-            /// <summary>
-            /// The id of the database.
-            /// </summary>
-            public int Id
-            {
-                get { return this._id; }
-                set { this._id = value; }
-            }
-            
-            private string _type;
-            
-            /// <summary>
-            /// The type of resource.
-            /// </summary>
-            public string Type
-            {
-                get { return this._type; }
-                set { this._type = value; }
-            }
-            
-            private string _state;
-            
-            /// <summary>
-            /// The state of the database.
-            /// </summary>
-            public string State
-            {
-                get { return this._state; }
-                set { this._state = value; }
-            }
-            
-            private string _edition;
-            
-            /// <summary>
-            /// This database resource's edition.
-            /// </summary>
-            public string Edition
-            {
-                get { return this._edition; }
-                set { this._edition = value; }
-            }
-            
-            private long _maximumDatabaseSizeInGB;
-            
-            /// <summary>
-            /// Maximum size of this database, in Gigabytes.
-            /// </summary>
-            public long MaximumDatabaseSizeInGB
-            {
-                get { return this._maximumDatabaseSizeInGB; }
-                set { this._maximumDatabaseSizeInGB = value; }
-            }
-            
             private string _collationName;
             
             /// <summary>
@@ -1104,6 +1038,28 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             {
                 get { return this._creationDate; }
                 set { this._creationDate = value; }
+            }
+            
+            private string _edition;
+            
+            /// <summary>
+            /// This database resource's edition.
+            /// </summary>
+            public string Edition
+            {
+                get { return this._edition; }
+                set { this._edition = value; }
+            }
+            
+            private int _id;
+            
+            /// <summary>
+            /// The id of the database.
+            /// </summary>
+            public int Id
+            {
+                get { return this._id; }
+                set { this._id = value; }
             }
             
             private bool _isFederationRoot;
@@ -1128,15 +1084,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
                 set { this._isSystemObject = value; }
             }
             
-            private string _sizeMB;
+            private long _maximumDatabaseSizeInGB;
             
             /// <summary>
-            /// The size of this database in megabytes (MB).
+            /// Maximum size of this database, in Gigabytes.
             /// </summary>
-            public string SizeMB
+            public long MaximumDatabaseSizeInGB
             {
-                get { return this._sizeMB; }
-                set { this._sizeMB = value; }
+                get { return this._maximumDatabaseSizeInGB; }
+                set { this._maximumDatabaseSizeInGB = value; }
+            }
+            
+            private string _name;
+            
+            /// <summary>
+            /// The name of the database.
+            /// </summary>
+            public string Name
+            {
+                get { return this._name; }
+                set { this._name = value; }
             }
             
             private string _serviceObjectiveAssignmentErrorCode;
@@ -1205,6 +1172,39 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
                 set { this._serviceObjectiveId = value; }
             }
             
+            private string _sizeMB;
+            
+            /// <summary>
+            /// The size of this database in megabytes (MB).
+            /// </summary>
+            public string SizeMB
+            {
+                get { return this._sizeMB; }
+                set { this._sizeMB = value; }
+            }
+            
+            private string _state;
+            
+            /// <summary>
+            /// The state of the database.
+            /// </summary>
+            public string State
+            {
+                get { return this._state; }
+                set { this._state = value; }
+            }
+            
+            private string _type;
+            
+            /// <summary>
+            /// The type of resource.
+            /// </summary>
+            public string Type
+            {
+                get { return this._type; }
+                set { this._type = value; }
+            }
+            
             /// <summary>
             /// Initializes a new instance of the Database class.
             /// </summary>
@@ -1219,26 +1219,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     /// </summary>
     public partial class DatabaseUpdateParameters
     {
-        private string _name;
+        private string _collationName;
         
         /// <summary>
-        /// The name of the database.
+        /// The collation name for the new database.
         /// </summary>
-        public string Name
+        public string CollationName
         {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        
-        private int _id;
-        
-        /// <summary>
-        /// The id of the database.
-        /// </summary>
-        public int Id
-        {
-            get { return this._id; }
-            set { this._id = value; }
+            get { return this._collationName; }
+            set { this._collationName = value; }
         }
         
         private string _edition;
@@ -1252,6 +1241,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._edition = value; }
         }
         
+        private int _id;
+        
+        /// <summary>
+        /// The id of the database.
+        /// </summary>
+        public int Id
+        {
+            get { return this._id; }
+            set { this._id = value; }
+        }
+        
         private long _maximumDatabaseSizeInGB;
         
         /// <summary>
@@ -1263,15 +1263,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._maximumDatabaseSizeInGB = value; }
         }
         
-        private string _collationName;
+        private string _name;
         
         /// <summary>
-        /// The collation name for the new database.
+        /// The name of the database.
         /// </summary>
-        public string CollationName
+        public string Name
         {
-            get { return this._collationName; }
-            set { this._collationName = value; }
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         private string _serviceObjectiveId;
@@ -1294,77 +1294,11 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class DatabaseUpdateResponse : OperationResponse
     {
-        private string _name;
-        
-        /// <summary>
-        /// The name of the database.
-        /// </summary>
-        public string Name
-        {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        
-        private int _id;
-        
-        /// <summary>
-        /// The id of the database.
-        /// </summary>
-        public int Id
-        {
-            get { return this._id; }
-            set { this._id = value; }
-        }
-        
-        private string _type;
-        
-        /// <summary>
-        /// The type of resource.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
-        private string _state;
-        
-        /// <summary>
-        /// The state of the database.
-        /// </summary>
-        public string State
-        {
-            get { return this._state; }
-            set { this._state = value; }
-        }
-        
-        private string _edition;
-        
-        /// <summary>
-        /// This database resource's edition.
-        /// </summary>
-        public string Edition
-        {
-            get { return this._edition; }
-            set { this._edition = value; }
-        }
-        
-        private long _maximumDatabaseSizeInGB;
-        
-        /// <summary>
-        /// Maximum size of this database, in Gigabytes.
-        /// </summary>
-        public long MaximumDatabaseSizeInGB
-        {
-            get { return this._maximumDatabaseSizeInGB; }
-            set { this._maximumDatabaseSizeInGB = value; }
-        }
-        
         private string _collationName;
         
         /// <summary>
@@ -1385,6 +1319,28 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._creationDate; }
             set { this._creationDate = value; }
+        }
+        
+        private string _edition;
+        
+        /// <summary>
+        /// This database resource's edition.
+        /// </summary>
+        public string Edition
+        {
+            get { return this._edition; }
+            set { this._edition = value; }
+        }
+        
+        private int _id;
+        
+        /// <summary>
+        /// The id of the database.
+        /// </summary>
+        public int Id
+        {
+            get { return this._id; }
+            set { this._id = value; }
         }
         
         private bool _isFederationRoot;
@@ -1409,15 +1365,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._isSystemObject = value; }
         }
         
-        private string _sizeMB;
+        private long _maximumDatabaseSizeInGB;
         
         /// <summary>
-        /// The size of this database in megabytes (MB).
+        /// Maximum size of this database, in Gigabytes.
         /// </summary>
-        public string SizeMB
+        public long MaximumDatabaseSizeInGB
         {
-            get { return this._sizeMB; }
-            set { this._sizeMB = value; }
+            get { return this._maximumDatabaseSizeInGB; }
+            set { this._maximumDatabaseSizeInGB = value; }
+        }
+        
+        private string _name;
+        
+        /// <summary>
+        /// The name of the database.
+        /// </summary>
+        public string Name
+        {
+            get { return this._name; }
+            set { this._name = value; }
         }
         
         private string _serviceObjectiveAssignmentErrorCode;
@@ -1486,6 +1453,39 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._serviceObjectiveId = value; }
         }
         
+        private string _sizeMB;
+        
+        /// <summary>
+        /// The size of this database in megabytes (MB).
+        /// </summary>
+        public string SizeMB
+        {
+            get { return this._sizeMB; }
+            set { this._sizeMB = value; }
+        }
+        
+        private string _state;
+        
+        /// <summary>
+        /// The state of the database.
+        /// </summary>
+        public string State
+        {
+            get { return this._state; }
+            set { this._state = value; }
+        }
+        
+        private string _type;
+        
+        /// <summary>
+        /// The type of resource.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the DatabaseUpdateResponse class.
         /// </summary>
@@ -1499,6 +1499,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     /// </summary>
     public partial class FirewallRuleCreateParameters
     {
+        private string _endIPAddress;
+        
+        /// <summary>
+        /// The ending IP address applied to this firewall rule.
+        /// </summary>
+        public string EndIPAddress
+        {
+            get { return this._endIPAddress; }
+            set { this._endIPAddress = value; }
+        }
+        
         private string _name;
         
         /// <summary>
@@ -1521,17 +1532,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._startIPAddress = value; }
         }
         
-        private string _endIPAddress;
-        
-        /// <summary>
-        /// The ending IP address applied to this firewall rule.
-        /// </summary>
-        public string EndIPAddress
-        {
-            get { return this._endIPAddress; }
-            set { this._endIPAddress = value; }
-        }
-        
         /// <summary>
         /// Initializes a new instance of the FirewallRuleCreateParameters
         /// class.
@@ -1542,11 +1542,22 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class FirewallRuleCreateResponse : OperationResponse
     {
+        private string _endIPAddress;
+        
+        /// <summary>
+        /// The ending IP address applied to this rule.
+        /// </summary>
+        public string EndIPAddress
+        {
+            get { return this._endIPAddress; }
+            set { this._endIPAddress = value; }
+        }
+        
         private string _name;
         
         /// <summary>
@@ -1556,28 +1567,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._name; }
             set { this._name = value; }
-        }
-        
-        private string _type;
-        
-        /// <summary>
-        /// The type of resource.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
-        private string _state;
-        
-        /// <summary>
-        /// The state of the rule.
-        /// </summary>
-        public string State
-        {
-            get { return this._state; }
-            set { this._state = value; }
         }
         
         private string _startIPAddress;
@@ -1591,15 +1580,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._startIPAddress = value; }
         }
         
-        private string _endIPAddress;
+        private string _state;
         
         /// <summary>
-        /// The ending IP address applied to this rule.
+        /// The state of the rule.
         /// </summary>
-        public string EndIPAddress
+        public string State
         {
-            get { return this._endIPAddress; }
-            set { this._endIPAddress = value; }
+            get { return this._state; }
+            set { this._state = value; }
+        }
+        
+        private string _type;
+        
+        /// <summary>
+        /// The type of resource.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
         }
         
         /// <summary>
@@ -1611,7 +1611,7 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class FirewallRuleListResponse : OperationResponse, IEnumerable<FirewallRuleListResponse.FirewallRule>
@@ -1653,6 +1653,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         
         public partial class FirewallRule
         {
+            private string _endIPAddress;
+            
+            /// <summary>
+            /// The ending IP address applied to this rule.
+            /// </summary>
+            public string EndIPAddress
+            {
+                get { return this._endIPAddress; }
+                set { this._endIPAddress = value; }
+            }
+            
             private string _name;
             
             /// <summary>
@@ -1662,17 +1673,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             {
                 get { return this._name; }
                 set { this._name = value; }
-            }
-            
-            private string _type;
-            
-            /// <summary>
-            /// The type of resource.
-            /// </summary>
-            public string Type
-            {
-                get { return this._type; }
-                set { this._type = value; }
             }
             
             private string _startIPAddress;
@@ -1686,15 +1686,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
                 set { this._startIPAddress = value; }
             }
             
-            private string _endIPAddress;
+            private string _type;
             
             /// <summary>
-            /// The ending IP address applied to this rule.
+            /// The type of resource.
             /// </summary>
-            public string EndIPAddress
+            public string Type
             {
-                get { return this._endIPAddress; }
-                set { this._endIPAddress = value; }
+                get { return this._type; }
+                set { this._type = value; }
             }
             
             /// <summary>
@@ -1711,6 +1711,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     /// </summary>
     public partial class FirewallRuleUpdateParameters
     {
+        private string _endIPAddress;
+        
+        /// <summary>
+        /// The ending IP address applied to this firewall rule.
+        /// </summary>
+        public string EndIPAddress
+        {
+            get { return this._endIPAddress; }
+            set { this._endIPAddress = value; }
+        }
+        
         private string _name;
         
         /// <summary>
@@ -1733,17 +1744,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._startIPAddress = value; }
         }
         
-        private string _endIPAddress;
-        
-        /// <summary>
-        /// The ending IP address applied to this firewall rule.
-        /// </summary>
-        public string EndIPAddress
-        {
-            get { return this._endIPAddress; }
-            set { this._endIPAddress = value; }
-        }
-        
         /// <summary>
         /// Initializes a new instance of the FirewallRuleUpdateParameters
         /// class.
@@ -1754,11 +1754,22 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     }
     
     /// <summary>
-    /// A standard storage response including an HTTP status code and request
+    /// A standard service response including an HTTP status code and request
     /// ID.
     /// </summary>
     public partial class FirewallRuleUpdateResponse : OperationResponse
     {
+        private string _endIPAddress;
+        
+        /// <summary>
+        /// The ending IP address applied to this rule.
+        /// </summary>
+        public string EndIPAddress
+        {
+            get { return this._endIPAddress; }
+            set { this._endIPAddress = value; }
+        }
+        
         private string _name;
         
         /// <summary>
@@ -1768,28 +1779,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._name; }
             set { this._name = value; }
-        }
-        
-        private string _type;
-        
-        /// <summary>
-        /// The type of resource.
-        /// </summary>
-        public string Type
-        {
-            get { return this._type; }
-            set { this._type = value; }
-        }
-        
-        private string _state;
-        
-        /// <summary>
-        /// The state of the rule.
-        /// </summary>
-        public string State
-        {
-            get { return this._state; }
-            set { this._state = value; }
         }
         
         private string _startIPAddress;
@@ -1803,15 +1792,26 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             set { this._startIPAddress = value; }
         }
         
-        private string _endIPAddress;
+        private string _state;
         
         /// <summary>
-        /// The ending IP address applied to this rule.
+        /// The state of the rule.
         /// </summary>
-        public string EndIPAddress
+        public string State
         {
-            get { return this._endIPAddress; }
-            set { this._endIPAddress = value; }
+            get { return this._state; }
+            set { this._state = value; }
+        }
+        
+        private string _type;
+        
+        /// <summary>
+        /// The type of resource.
+        /// </summary>
+        public string Type
+        {
+            get { return this._type; }
+            set { this._type = value; }
         }
         
         /// <summary>
@@ -1852,17 +1852,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
     /// </summary>
     public partial class ServerCreateParameters
     {
-        private string _administratorUserName;
-        
-        /// <summary>
-        /// The administrator username
-        /// </summary>
-        public string AdministratorUserName
-        {
-            get { return this._administratorUserName; }
-            set { this._administratorUserName = value; }
-        }
-        
         private string _administratorPassword;
         
         /// <summary>
@@ -1872,6 +1861,17 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         {
             get { return this._administratorPassword; }
             set { this._administratorPassword = value; }
+        }
+        
+        private string _administratorUserName;
+        
+        /// <summary>
+        /// The administrator username
+        /// </summary>
+        public string AdministratorUserName
+        {
+            get { return this._administratorUserName; }
+            set { this._administratorUserName = value; }
         }
         
         private string _location;
@@ -1962,17 +1962,6 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
         /// </summary>
         public partial class Server
         {
-            private string _name;
-            
-            /// <summary>
-            /// The name of a SQL Server running in your subscription.
-            /// </summary>
-            public string Name
-            {
-                get { return this._name; }
-                set { this._name = value; }
-            }
-            
             private string _administratorUserName;
             
             /// <summary>
@@ -1982,6 +1971,18 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
             {
                 get { return this._administratorUserName; }
                 set { this._administratorUserName = value; }
+            }
+            
+            private IDictionary<string, string> _features;
+            
+            /// <summary>
+            /// The list of features and the type of database server for an
+            /// individual server.
+            /// </summary>
+            public IDictionary<string, string> Features
+            {
+                get { return this._features; }
+                set { this._features = value; }
             }
             
             private string _location;
@@ -1996,16 +1997,15 @@ namespace Microsoft.WindowsAzure.Management.Sql.Models
                 set { this._location = value; }
             }
             
-            private IDictionary<string, string> _features;
+            private string _name;
             
             /// <summary>
-            /// The list of features and the type of database server for an
-            /// individual server.
+            /// The name of a SQL Server running in your subscription.
             /// </summary>
-            public IDictionary<string, string> Features
+            public string Name
             {
-                get { return this._features; }
-                set { this._features = value; }
+                get { return this._name; }
+                set { this._name = value; }
             }
             
             /// <summary>
@@ -2031,6 +2031,14 @@ namespace Microsoft.WindowsAzure.Management.Sql
     public partial interface ISqlManagementClient
     {
         /// <summary>
+        /// The URI used as the base for all SQL requests.
+        /// </summary>
+        Uri BaseUri
+        {
+            get; 
+        }
+        
+        /// <summary>
         /// When you create a Windows Azure subscription, it is uniquely
         /// identified by a subscription ID. The subscription ID forms part of
         /// the URI for every call that you make to the Service Management
@@ -2040,14 +2048,6 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// are allowed.
         /// </summary>
         SubscriptionCloudCredentials Credentials
-        {
-            get; 
-        }
-        
-        /// <summary>
-        /// The URI used as the base for all SQL requests.
-        /// </summary>
-        Uri BaseUri
         {
             get; 
         }
@@ -2117,6 +2117,16 @@ namespace Microsoft.WindowsAzure.Management.Sql
     /// </summary>
     public partial class SqlManagementClient : ServiceClient<SqlManagementClient>, ISqlManagementClient
     {
+        private Uri _baseUri;
+        
+        /// <summary>
+        /// The URI used as the base for all SQL requests.
+        /// </summary>
+        public Uri BaseUri
+        {
+            get { return this._baseUri; }
+        }
+        
         private SubscriptionCloudCredentials _credentials;
         
         /// <summary>
@@ -2131,16 +2141,6 @@ namespace Microsoft.WindowsAzure.Management.Sql
         public SubscriptionCloudCredentials Credentials
         {
             get { return this._credentials; }
-        }
-        
-        private Uri _baseUri;
-        
-        /// <summary>
-        /// The URI used as the base for all SQL requests.
-        /// </summary>
-        public Uri BaseUri
-        {
-            get { return this._baseUri; }
         }
         
         private IDacOperations _dacs;
@@ -2281,7 +2281,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        Task<DacImportExportResponse> ImportAsync(string serverName, DacImportParameters parameters, CancellationToken cancellationToken);
+        Task<DacImportExportResponse> ExportAsync(string serverName, DacExportParameters parameters, CancellationToken cancellationToken);
         
         /// <param name='serverName'>
         /// The name of the server being imported to or exported from
@@ -2316,7 +2316,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        Task<DacImportExportResponse> ExportAsync(string serverName, DacExportParameters parameters, CancellationToken cancellationToken);
+        Task<DacImportExportResponse> ImportAsync(string serverName, DacImportParameters parameters, CancellationToken cancellationToken);
     }
     
     /// <summary>
@@ -2335,11 +2335,11 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public static DacImportExportResponse Import(this IDacOperations operations, string serverName, DacImportParameters parameters)
+        public static DacImportExportResponse Export(this IDacOperations operations, string serverName, DacExportParameters parameters)
         {
             try
             {
-                return operations.ImportAsync(serverName, parameters).Result;
+                return operations.ExportAsync(serverName, parameters).Result;
             }
             catch (AggregateException ex)
             {
@@ -2364,9 +2364,9 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public static Task<DacImportExportResponse> ImportAsync(this IDacOperations operations, string serverName, DacImportParameters parameters)
+        public static Task<DacImportExportResponse> ExportAsync(this IDacOperations operations, string serverName, DacExportParameters parameters)
         {
-            return operations.ImportAsync(serverName, parameters, CancellationToken.None);
+            return operations.ExportAsync(serverName, parameters, CancellationToken.None);
         }
         
         /// <param name='operations'>
@@ -2449,11 +2449,11 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public static DacImportExportResponse Export(this IDacOperations operations, string serverName, DacExportParameters parameters)
+        public static DacImportExportResponse Import(this IDacOperations operations, string serverName, DacImportParameters parameters)
         {
             try
             {
-                return operations.ExportAsync(serverName, parameters).Result;
+                return operations.ImportAsync(serverName, parameters).Result;
             }
             catch (AggregateException ex)
             {
@@ -2478,9 +2478,9 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public static Task<DacImportExportResponse> ExportAsync(this IDacOperations operations, string serverName, DacExportParameters parameters)
+        public static Task<DacImportExportResponse> ImportAsync(this IDacOperations operations, string serverName, DacImportParameters parameters)
         {
-            return operations.ExportAsync(serverName, parameters, CancellationToken.None);
+            return operations.ImportAsync(serverName, parameters, CancellationToken.None);
         }
     }
     
@@ -2521,7 +2521,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public async Task<DacImportExportResponse> ImportAsync(string serverName, DacImportParameters parameters, CancellationToken cancellationToken)
+        public async Task<DacImportExportResponse> ExportAsync(string serverName, DacExportParameters parameters, CancellationToken cancellationToken)
         {
             // Validate
             if (serverName == null)
@@ -2532,13 +2532,13 @@ namespace Microsoft.WindowsAzure.Management.Sql
             {
                 if (parameters.BlobCredentials != null)
                 {
-                    if (parameters.BlobCredentials.Uri == null)
-                    {
-                        throw new ArgumentNullException("parameters.BlobCredentials.Uri");
-                    }
                     if (parameters.BlobCredentials.StorageAccessKey == null)
                     {
                         throw new ArgumentNullException("parameters.BlobCredentials.StorageAccessKey");
+                    }
+                    if (parameters.BlobCredentials.Uri == null)
+                    {
+                        throw new ArgumentNullException("parameters.BlobCredentials.Uri");
                     }
                 }
                 if (parameters.ConnectionInfo != null)
@@ -2571,11 +2571,11 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("serverName", serverName);
                 tracingParameters.Add("parameters", parameters);
-                Tracing.Enter(invocationId, this, "ImportAsync", tracingParameters);
+                Tracing.Enter(invocationId, this, "ExportAsync", tracingParameters);
             }
             
             // Construct URL
-            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/services/sqlservers/servers/" + serverName + "/DacOperations/Import";
+            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/services/sqlservers/servers/" + serverName + "/DacOperations/Export";
             
             // Create HTTP transport objects
             HttpRequestMessage httpRequest = null;
@@ -2598,13 +2598,13 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 
                 if (parameters != null)
                 {
-                    XElement importInputElement = new XElement(XName.Get("ImportInput", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                    requestDoc.Add(importInputElement);
+                    XElement exportInputElement = new XElement(XName.Get("ExportInput", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
+                    requestDoc.Add(exportInputElement);
                     
                     if (parameters.BlobCredentials != null)
                     {
                         XElement blobCredentialsElement = new XElement(XName.Get("BlobCredentials", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                        importInputElement.Add(blobCredentialsElement);
+                        exportInputElement.Add(blobCredentialsElement);
                         
                         XAttribute typeAttribute = new XAttribute(XName.Get("type", "http://www.w3.org/2001/XMLSchema-instance"), "");
                         typeAttribute.Value = "BlobStorageAccessKeyCredentials";
@@ -2622,7 +2622,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
                     if (parameters.ConnectionInfo != null)
                     {
                         XElement connectionInfoElement = new XElement(XName.Get("ConnectionInfo", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                        importInputElement.Add(connectionInfoElement);
+                        exportInputElement.Add(connectionInfoElement);
                         
                         XElement databaseNameElement = new XElement(XName.Get("DatabaseName", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
                         databaseNameElement.Value = parameters.ConnectionInfo.DatabaseName;
@@ -2640,10 +2640,6 @@ namespace Microsoft.WindowsAzure.Management.Sql
                         userNameElement.Value = parameters.ConnectionInfo.UserName;
                         connectionInfoElement.Add(userNameElement);
                     }
-                    
-                    XElement databaseSizeInGBElement = new XElement(XName.Get("DatabaseSizeInGB", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                    databaseSizeInGBElement.Value = parameters.DatabaseSizeInGB.ToString();
-                    importInputElement.Add(databaseSizeInGBElement);
                 }
                 
                 requestContent = requestDoc.ToString();
@@ -2953,7 +2949,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// <returns>
         /// Response for an DAC Import/Export request.
         /// </returns>
-        public async Task<DacImportExportResponse> ExportAsync(string serverName, DacExportParameters parameters, CancellationToken cancellationToken)
+        public async Task<DacImportExportResponse> ImportAsync(string serverName, DacImportParameters parameters, CancellationToken cancellationToken)
         {
             // Validate
             if (serverName == null)
@@ -2964,13 +2960,13 @@ namespace Microsoft.WindowsAzure.Management.Sql
             {
                 if (parameters.BlobCredentials != null)
                 {
-                    if (parameters.BlobCredentials.Uri == null)
-                    {
-                        throw new ArgumentNullException("parameters.BlobCredentials.Uri");
-                    }
                     if (parameters.BlobCredentials.StorageAccessKey == null)
                     {
                         throw new ArgumentNullException("parameters.BlobCredentials.StorageAccessKey");
+                    }
+                    if (parameters.BlobCredentials.Uri == null)
+                    {
+                        throw new ArgumentNullException("parameters.BlobCredentials.Uri");
                     }
                 }
                 if (parameters.ConnectionInfo != null)
@@ -3003,11 +2999,11 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("serverName", serverName);
                 tracingParameters.Add("parameters", parameters);
-                Tracing.Enter(invocationId, this, "ExportAsync", tracingParameters);
+                Tracing.Enter(invocationId, this, "ImportAsync", tracingParameters);
             }
             
             // Construct URL
-            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/services/sqlservers/servers/" + serverName + "/DacOperations/Export";
+            string url = this.Client.BaseUri + "/" + this.Client.Credentials.SubscriptionId + "/services/sqlservers/servers/" + serverName + "/DacOperations/Import";
             
             // Create HTTP transport objects
             HttpRequestMessage httpRequest = null;
@@ -3030,13 +3026,13 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 
                 if (parameters != null)
                 {
-                    XElement exportInputElement = new XElement(XName.Get("ExportInput", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                    requestDoc.Add(exportInputElement);
+                    XElement importInputElement = new XElement(XName.Get("ImportInput", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
+                    requestDoc.Add(importInputElement);
                     
                     if (parameters.BlobCredentials != null)
                     {
                         XElement blobCredentialsElement = new XElement(XName.Get("BlobCredentials", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                        exportInputElement.Add(blobCredentialsElement);
+                        importInputElement.Add(blobCredentialsElement);
                         
                         XAttribute typeAttribute = new XAttribute(XName.Get("type", "http://www.w3.org/2001/XMLSchema-instance"), "");
                         typeAttribute.Value = "BlobStorageAccessKeyCredentials";
@@ -3054,7 +3050,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
                     if (parameters.ConnectionInfo != null)
                     {
                         XElement connectionInfoElement = new XElement(XName.Get("ConnectionInfo", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
-                        exportInputElement.Add(connectionInfoElement);
+                        importInputElement.Add(connectionInfoElement);
                         
                         XElement databaseNameElement = new XElement(XName.Get("DatabaseName", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
                         databaseNameElement.Value = parameters.ConnectionInfo.DatabaseName;
@@ -3072,6 +3068,10 @@ namespace Microsoft.WindowsAzure.Management.Sql
                         userNameElement.Value = parameters.ConnectionInfo.UserName;
                         connectionInfoElement.Add(userNameElement);
                     }
+                    
+                    XElement databaseSizeInGBElement = new XElement(XName.Get("DatabaseSizeInGB", "http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Management.Dac.ServiceTypes"));
+                    databaseSizeInGBElement.Value = parameters.DatabaseSizeInGB.ToString();
+                    importInputElement.Add(databaseSizeInGBElement);
                 }
                 
                 requestContent = requestDoc.ToString();
@@ -3167,7 +3167,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<DatabaseCreateResponse> CreateAsync(string serverName, DatabaseCreateParameters parameters, CancellationToken cancellationToken);
@@ -3188,7 +3188,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<OperationResponse> DeleteAsync(string serverName, string databaseName, CancellationToken cancellationToken);
@@ -3207,7 +3207,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<DatabaseGetResponse> GetAsync(string serverName, string databaseName, CancellationToken cancellationToken);
@@ -3240,7 +3240,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<DatabaseUpdateResponse> UpdateAsync(string serverName, string databaseName, DatabaseUpdateParameters parameters, CancellationToken cancellationToken);
@@ -3267,7 +3267,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The parameters for the create database operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static DatabaseCreateResponse Create(this IDatabaseOperations operations, string serverName, DatabaseCreateParameters parameters)
@@ -3304,7 +3304,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The parameters for the create database operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<DatabaseCreateResponse> CreateAsync(this IDatabaseOperations operations, string serverName, DatabaseCreateParameters parameters)
@@ -3329,7 +3329,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the database to be deleted.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static OperationResponse Delete(this IDatabaseOperations operations, string serverName, string databaseName)
@@ -3368,7 +3368,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the database to be deleted.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<OperationResponse> DeleteAsync(this IDatabaseOperations operations, string serverName, string databaseName)
@@ -3391,7 +3391,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the SQL Server database to be obtained.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static DatabaseGetResponse Get(this IDatabaseOperations operations, string serverName, string databaseName)
@@ -3428,7 +3428,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the SQL Server database to be obtained.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<DatabaseGetResponse> GetAsync(this IDatabaseOperations operations, string serverName, string databaseName)
@@ -3498,7 +3498,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The parameters for the update database operation.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static DatabaseUpdateResponse Update(this IDatabaseOperations operations, string serverName, string databaseName, DatabaseUpdateParameters parameters)
@@ -3538,7 +3538,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The parameters for the update database operation.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<DatabaseUpdateResponse> UpdateAsync(this IDatabaseOperations operations, string serverName, string databaseName, DatabaseUpdateParameters parameters)
@@ -3589,7 +3589,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<DatabaseCreateResponse> CreateAsync(string serverName, DatabaseCreateParameters parameters, CancellationToken cancellationToken)
@@ -3602,6 +3602,14 @@ namespace Microsoft.WindowsAzure.Management.Sql
             if (parameters == null)
             {
                 throw new ArgumentNullException("parameters");
+            }
+            if (parameters.CollationName == null)
+            {
+                throw new ArgumentNullException("parameters.CollationName");
+            }
+            if (parameters.Edition == null)
+            {
+                throw new ArgumentNullException("parameters.Edition");
             }
             if (parameters.Name == null)
             {
@@ -3649,23 +3657,17 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 nameElement.Value = parameters.Name;
                 serviceResourceElement.Add(nameElement);
                 
-                if (parameters.Edition != null)
-                {
-                    XElement editionElement = new XElement(XName.Get("Edition", "http://schemas.microsoft.com/windowsazure"));
-                    editionElement.Value = parameters.Edition;
-                    serviceResourceElement.Add(editionElement);
-                }
+                XElement editionElement = new XElement(XName.Get("Edition", "http://schemas.microsoft.com/windowsazure"));
+                editionElement.Value = parameters.Edition;
+                serviceResourceElement.Add(editionElement);
                 
                 XElement maxSizeGBElement = new XElement(XName.Get("MaxSizeGB", "http://schemas.microsoft.com/windowsazure"));
                 maxSizeGBElement.Value = parameters.MaximumDatabaseSizeInGB.ToString();
                 serviceResourceElement.Add(maxSizeGBElement);
                 
-                if (parameters.CollationName != null)
-                {
-                    XElement collationNameElement = new XElement(XName.Get("CollationName", "http://schemas.microsoft.com/windowsazure"));
-                    collationNameElement.Value = parameters.CollationName;
-                    serviceResourceElement.Add(collationNameElement);
-                }
+                XElement collationNameElement = new XElement(XName.Get("CollationName", "http://schemas.microsoft.com/windowsazure"));
+                collationNameElement.Value = parameters.CollationName;
+                serviceResourceElement.Add(collationNameElement);
                 
                 if (parameters.ServiceObjectiveId != null)
                 {
@@ -3879,7 +3881,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<OperationResponse> DeleteAsync(string serverName, string databaseName, CancellationToken cancellationToken)
@@ -3995,7 +3997,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<DatabaseGetResponse> GetAsync(string serverName, string databaseName, CancellationToken cancellationToken)
@@ -4479,7 +4481,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<DatabaseUpdateResponse> UpdateAsync(string serverName, string databaseName, DatabaseUpdateParameters parameters, CancellationToken cancellationToken)
@@ -4500,6 +4502,10 @@ namespace Microsoft.WindowsAzure.Management.Sql
             if (parameters.CollationName == null)
             {
                 throw new ArgumentNullException("parameters.CollationName");
+            }
+            if (parameters.Edition == null)
+            {
+                throw new ArgumentNullException("parameters.Edition");
             }
             
             // Tracing
@@ -4551,12 +4557,9 @@ namespace Microsoft.WindowsAzure.Management.Sql
                 idElement.Value = parameters.Id.ToString();
                 serviceResourceElement.Add(idElement);
                 
-                if (parameters.Edition != null)
-                {
-                    XElement editionElement = new XElement(XName.Get("Edition", "http://schemas.microsoft.com/windowsazure"));
-                    editionElement.Value = parameters.Edition;
-                    serviceResourceElement.Add(editionElement);
-                }
+                XElement editionElement = new XElement(XName.Get("Edition", "http://schemas.microsoft.com/windowsazure"));
+                editionElement.Value = parameters.Edition;
+                serviceResourceElement.Add(editionElement);
                 
                 XElement maxSizeGBElement = new XElement(XName.Get("MaxSizeGB", "http://schemas.microsoft.com/windowsazure"));
                 maxSizeGBElement.Value = parameters.MaximumDatabaseSizeInGB.ToString();
@@ -4794,7 +4797,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<FirewallRuleCreateResponse> CreateAsync(string serverName, FirewallRuleCreateParameters parameters, CancellationToken cancellationToken);
@@ -4817,7 +4820,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<OperationResponse> DeleteAsync(string serverName, string ruleName, CancellationToken cancellationToken);
@@ -4836,7 +4839,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<FirewallRuleListResponse> ListAsync(string serverName, CancellationToken cancellationToken);
@@ -4863,7 +4866,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<FirewallRuleUpdateResponse> UpdateAsync(string serverName, string ruleName, FirewallRuleUpdateParameters parameters, CancellationToken cancellationToken);
@@ -4901,7 +4904,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Create Firewall Rule operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static FirewallRuleCreateResponse Create(this IFirewallRuleOperations operations, string serverName, FirewallRuleCreateParameters parameters)
@@ -4943,7 +4946,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Create Firewall Rule operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<FirewallRuleCreateResponse> CreateAsync(this IFirewallRuleOperations operations, string serverName, FirewallRuleCreateParameters parameters)
@@ -4970,7 +4973,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the new firewall rule
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static OperationResponse Delete(this IFirewallRuleOperations operations, string serverName, string ruleName)
@@ -5011,7 +5014,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the new firewall rule
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<OperationResponse> DeleteAsync(this IFirewallRuleOperations operations, string serverName, string ruleName)
@@ -5034,7 +5037,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the server for which the call is being made
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static FirewallRuleListResponse List(this IFirewallRuleOperations operations, string serverName)
@@ -5071,7 +5074,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the server for which the call is being made
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<FirewallRuleListResponse> ListAsync(this IFirewallRuleOperations operations, string serverName)
@@ -5102,7 +5105,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Update Firewall Rule operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static FirewallRuleUpdateResponse Update(this IFirewallRuleOperations operations, string serverName, string ruleName, FirewallRuleUpdateParameters parameters)
@@ -5147,7 +5150,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Update Firewall Rule operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<FirewallRuleUpdateResponse> UpdateAsync(this IFirewallRuleOperations operations, string serverName, string ruleName, FirewallRuleUpdateParameters parameters)
@@ -5209,7 +5212,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<FirewallRuleCreateResponse> CreateAsync(string serverName, FirewallRuleCreateParameters parameters, CancellationToken cancellationToken)
@@ -5223,6 +5226,10 @@ namespace Microsoft.WindowsAzure.Management.Sql
             {
                 throw new ArgumentNullException("parameters");
             }
+            if (parameters.EndIPAddress == null)
+            {
+                throw new ArgumentNullException("parameters.EndIPAddress");
+            }
             if (parameters.Name == null)
             {
                 throw new ArgumentNullException("parameters.Name");
@@ -5230,10 +5237,6 @@ namespace Microsoft.WindowsAzure.Management.Sql
             if (parameters.StartIPAddress == null)
             {
                 throw new ArgumentNullException("parameters.StartIPAddress");
-            }
-            if (parameters.EndIPAddress == null)
-            {
-                throw new ArgumentNullException("parameters.EndIPAddress");
             }
             
             // Tracing
@@ -5408,7 +5411,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<OperationResponse> DeleteAsync(string serverName, string ruleName, CancellationToken cancellationToken)
@@ -5524,7 +5527,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<FirewallRuleListResponse> ListAsync(string serverName, CancellationToken cancellationToken)
@@ -5686,7 +5689,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<FirewallRuleUpdateResponse> UpdateAsync(string serverName, string ruleName, FirewallRuleUpdateParameters parameters, CancellationToken cancellationToken)
@@ -5704,6 +5707,10 @@ namespace Microsoft.WindowsAzure.Management.Sql
             {
                 throw new ArgumentNullException("parameters");
             }
+            if (parameters.EndIPAddress == null)
+            {
+                throw new ArgumentNullException("parameters.EndIPAddress");
+            }
             if (parameters.Name == null)
             {
                 throw new ArgumentNullException("parameters.Name");
@@ -5711,10 +5718,6 @@ namespace Microsoft.WindowsAzure.Management.Sql
             if (parameters.StartIPAddress == null)
             {
                 throw new ArgumentNullException("parameters.StartIPAddress");
-            }
-            if (parameters.EndIPAddress == null)
-            {
-                throw new ArgumentNullException("parameters.EndIPAddress");
             }
             
             // Tracing
@@ -5898,7 +5901,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<OperationResponse> ChangeAdministratorPasswordAsync(string serverName, ServerChangeAdministratorPasswordParameters parameters, CancellationToken cancellationToken);
@@ -5933,7 +5936,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         Task<OperationResponse> DeleteAsync(string serverName, CancellationToken cancellationToken);
@@ -5979,7 +5982,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Manage Administrator Password operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static OperationResponse ChangeAdministratorPassword(this IServerOperations operations, string serverName, ServerChangeAdministratorPasswordParameters parameters)
@@ -6019,7 +6022,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Parameters for the Manage Administrator Password operation
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<OperationResponse> ChangeAdministratorPasswordAsync(this IServerOperations operations, string serverName, ServerChangeAdministratorPasswordParameters parameters)
@@ -6097,7 +6100,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the server to be deleted
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static OperationResponse Delete(this IServerOperations operations, string serverName)
@@ -6133,7 +6136,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// The name of the server to be deleted
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public static Task<OperationResponse> DeleteAsync(this IServerOperations operations, string serverName)
@@ -6239,7 +6242,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<OperationResponse> ChangeAdministratorPasswordAsync(string serverName, ServerChangeAdministratorPasswordParameters parameters, CancellationToken cancellationToken)
@@ -6380,13 +6383,13 @@ namespace Microsoft.WindowsAzure.Management.Sql
             {
                 throw new ArgumentNullException("parameters");
             }
-            if (parameters.AdministratorUserName == null)
-            {
-                throw new ArgumentNullException("parameters.AdministratorUserName");
-            }
             if (parameters.AdministratorPassword == null)
             {
                 throw new ArgumentNullException("parameters.AdministratorPassword");
+            }
+            if (parameters.AdministratorUserName == null)
+            {
+                throw new ArgumentNullException("parameters.AdministratorUserName");
             }
             if (parameters.Location == null)
             {
@@ -6526,7 +6529,7 @@ namespace Microsoft.WindowsAzure.Management.Sql
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// A standard storage response including an HTTP status code and
+        /// A standard service response including an HTTP status code and
         /// request ID.
         /// </returns>
         public async Task<OperationResponse> DeleteAsync(string serverName, CancellationToken cancellationToken)
