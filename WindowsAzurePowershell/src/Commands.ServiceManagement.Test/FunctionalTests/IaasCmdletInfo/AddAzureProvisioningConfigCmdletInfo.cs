@@ -23,6 +23,8 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
         {
             this.cmdletName = Utilities.AddAzureProvisioningConfigCmdletName;
 
+            this.cmdletParams.Add(new CmdletParam("EnableGuestAgent", false));
+
             this.cmdletParams.Add(new CmdletParam("VM", provConfig.Vm));
 
             var parameterSet = string.IsNullOrEmpty(provConfig.Option) ? provConfig.OS.ToString() : provConfig.Option;

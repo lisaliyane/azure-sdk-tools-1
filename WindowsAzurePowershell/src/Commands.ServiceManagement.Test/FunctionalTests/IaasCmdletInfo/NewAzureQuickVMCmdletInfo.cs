@@ -28,6 +28,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             {
                 cmdletParams.Add(new CmdletParam("Windows", null));
                 cmdletParams.Add(new CmdletParam("AdminUsername", userName));
+                cmdletParams.Add(new CmdletParam("EnableGuestAgent", false));
             }
             else
             {
